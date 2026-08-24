@@ -1,26 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="glassy">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Esports | Elite Gaming Platform</title>
-    <!-- Google Fonts & FontAwesome Icons -->
+    <title>Nexus Esports Hub - Ultimate Elite Edition</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- DUAL THEME ENGINE (Glassy & Classic) --- */
         :root {
-            --bg-deep: #090a0f;
-            --surface: #131622;
-            --surface-hover: #1b1f31;
+            --bg-gradient: linear-gradient(135deg, #090d16, #121829, #05070a);
+            --surface: rgba(18, 24, 41, 0.7);
+            --surface-solid: #121829;
             --border: rgba(255, 255, 255, 0.08);
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.4);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
             --danger: #ef4444;
             --success: #10b981;
-            --radius: 16px;
+            --blur: blur(20px);
+            --radius: 18px;
+        }
+
+        [data-theme="classic"] {
+            --bg-gradient: #0b0f19;
+            --surface: #131b2e;
+            --surface-solid: #131b2e;
+            --border: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #64748b;
+            --accent: #38bdf8;
+            --accent-glow: none;
+            --blur: none;
+            --radius: 12px;
         }
 
         * {
@@ -28,163 +43,83 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: all 0.25s ease;
+            transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: bgShift 18s ease infinite;
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Ambient Glow Background Effect */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 100%);
-            filter: blur(80px);
-            z-index: -1;
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Top Header Navigation */
+        /* --- SMOOTH SCROLL & ANIMATIONS --- */
+        html { scroll-behavior: smooth; }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-enter {
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- NAVIGATION BAR --- */
         header {
-            background: rgba(19, 22, 34, 0.75);
-            backdrop-filter: blur(20px);
+            background: var(--surface);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 100;
-            padding: 14px 24px;
+            z-index: 1000;
+            padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand {
+        .brand-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .nav-controls {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 800;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
         }
 
-        .brand i {
-            color: var(--accent);
-            font-size: 24px;
-        }
-
-        .user-quick-badge {
-            background: var(--surface-hover);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .user-quick-badge span {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--success);
-        }
-
-        /* Main Wrapper */
-        .wrapper {
-            max-width: 1200px;
-            width: 100%;
-            margin: 24px auto;
-            padding: 0 16px;
-            flex: 1;
-        }
-
-        /* Card Elements */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        /* Forms & Inputs */
-        .input-group {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        .form-input {
-            width: 100%;
-            background: var(--bg-deep);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px 16px 14px 46px;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-        }
-
-        .form-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-
-        .form-input::placeholder { color: var(--text-muted); }
-
-        select.form-input {
-            padding-left: 16px;
-            cursor: pointer;
-        }
-
-        /* Buttons */
+        /* --- BUTTONS & CONTROLS --- */
         .btn {
             background: var(--accent);
-            color: #fff;
+            color: #0b0f19;
             border: none;
             border-radius: 12px;
-            padding: 14px 20px;
-            font-weight: 600;
-            font-size: 14px;
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 13px;
             cursor: pointer;
-            width: 100%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 15px var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-        }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         .btn-outline {
             background: transparent;
@@ -192,159 +127,186 @@
             color: var(--text-main);
             box-shadow: none;
         }
-        .btn-outline:hover { background: var(--surface-hover); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
 
-        /* Grid System */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 360px 1fr;
-            gap: 24px;
+        .btn-danger { background: var(--danger); color: #fff; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+
+        /* --- MAIN WRAPPER & GRIDS --- */
+        .app-wrapper {
+            max-width: 1250px;
+            margin: 24px auto;
+            padding: 0 16px;
         }
 
-        @media(max-width: 860px) {
-            .grid-2 { grid-template-columns: 1fr; }
+        .card {
+            background: var(--surface);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
+
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 20px;
+        }
+
+        @media(max-width: 1024px) {
+            .grid-3-col { grid-template-columns: 1fr; }
         }
 
         .hidden { display: none !important; }
 
-        /* Auth Container */
-        .auth-container {
-            max-width: 440px;
-            margin: 60px auto;
+        /* --- FORMS & INPUTS --- */
+        .input-box {
+            position: relative;
+            margin-bottom: 14px;
         }
+        .input-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .form-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px 12px 42px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+        }
+        .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .form-input::placeholder { color: var(--text-muted); }
+        select.form-input { padding-left: 14px; cursor: pointer; }
 
-        .auth-header {
+        /* --- AUTH SCREEN --- */
+        .auth-card {
+            max-width: 420px;
+            margin: 50px auto;
             text-align: center;
-            margin-bottom: 24px;
         }
 
-        .auth-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-        .auth-header p { color: var(--text-muted); font-size: 14px; }
-
-        /* Feed & Posts */
+        /* --- POSTS & INTERACTION STREAM --- */
         .post-card {
             background: var(--surface);
+            backdrop-filter: var(--blur);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 20px;
             margin-bottom: 16px;
         }
-
-        .post-author {
+        .post-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
         }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .author-avatar {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+        .avatar-circle {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent), #6366f1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 800;
+            font-size: 15px;
+            color: #000;
         }
-
-        .author-details h4 { font-size: 15px; font-weight: 600; }
-        .author-details span { font-size: 12px; color: var(--text-muted); display: flex; gap: 6px; align-items: center; }
-
-        .role-pill {
-            background: rgba(99, 102, 241, 0.15);
+        .role-badge {
+            background: rgba(56, 189, 248, 0.15);
             color: var(--accent);
             padding: 2px 8px;
             border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .post-actions-bar {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 0;
+            margin: 12px 0;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 13px;
             font-weight: 600;
-        }
-
-        .post-content {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin-bottom: 14px;
-        }
-
-        .post-image {
-            width: 100%;
-            max-height: 380px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        /* Upload Dropzone */
-        .dropzone {
-            border: 2px dashed var(--border);
-            background: var(--bg-deep);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
             cursor: pointer;
-            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
         }
-        .dropzone:hover { border-color: var(--accent); }
-        .dropzone i { font-size: 28px; color: var(--accent); margin-bottom: 8px; }
-        .dropzone p { font-size: 13px; color: var(--text-muted); }
+        .action-btn:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
+        .action-btn.active { color: #ef4444; }
 
-        /* Tables for Admin */
-        .table-wrap { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-        th, td { padding: 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
-        th { color: var(--text-muted); font-weight: 600; background: var(--bg-deep); }
+        /* --- TABLES --- */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        th { color: var(--text-muted); font-weight: 600; background: rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
 
-    <!-- TOP HEADER -->
+    <!-- TOP NAVIGATION -->
     <header>
-        <div class="brand">
-            <i class="fa-solid fa-cube"></i> NEXUS ESPORTS
+        <div class="brand-logo">
+            <i class="fa-solid fa-bolt-lightning"></i> NEXUS ESPORTS
         </div>
-        <div id="headerRightArea"></div>
+        <div class="nav-controls">
+            <button class="btn btn-outline" onclick="toggleSystemTheme()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="themeBtnText">Toggle Theme</span>
+            </button>
+            <div id="headerUserIndicator"></div>
+        </div>
     </header>
 
-    <div class="wrapper">
+    <div class="app-wrapper">
 
         <!-- 1. AUTHENTICATION SECTION -->
-        <div id="authSection" class="auth-container card">
-            <div class="auth-header">
-                <h2 id="authTitle">Welcome Back</h2>
-                <p id="authSub">Sign in to access your elite gamer dashboard</p>
-            </div>
+        <div id="authSection" class="card auth-card animate-enter">
+            <h2 id="authHeading" style="color: var(--accent); margin-bottom: 6px; font-size: 22px;">Portal Authentication</h2>
+            <p id="authSubHeading" style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Secure login to your gaming credentials</p>
 
             <form id="loginForm">
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-envelope"></i>
                     <input type="email" id="loginEmail" class="form-input" placeholder="Email Address" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" id="loginPassword" class="form-input" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn">Sign In <i class="fa-solid fa-arrow-right"></i></button>
+                <button type="submit" class="btn" style="width: 100%;">Authenticate <i class="fa-solid fa-arrow-right"></i></button>
             </form>
 
             <form id="signupForm" class="hidden">
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-user"></i>
                     <input type="text" id="signupName" class="form-input" placeholder="Full Name / In-Game IGN" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-id-badge"></i>
-                    <input type="text" id="signupUid" class="form-input" placeholder="Free Fire / Gaming UID" required>
+                    <input type="text" id="signupUid" class="form-input" placeholder="Gaming UID" required>
                 </div>
-                <div class="input-group">
-                    <select id="signupRole" class="form-input" required>
-                        <option value="" disabled selected>Select Primary Role</option>
+                <div class="input-box">
+                    <select id="signupRole" class="form-input" style="padding-left: 14px;" required>
+                        <option value="" disabled selected>Select Competitive Role</option>
                         <option value="Rusher">Rusher</option>
                         <option value="Assaulter">Assaulter</option>
                         <option value="Supporter">Supporter</option>
@@ -352,101 +314,98 @@
                         <option value="IGL">IGL</option>
                     </select>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-envelope"></i>
                     <input type="email" id="signupEmail" class="form-input" placeholder="Email Address" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" id="signupPassword" class="form-input" placeholder="Password (min 6 chars)" required>
                 </div>
-                <button type="submit" class="btn" style="background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">Create Account</button>
+                <button type="submit" class="btn" style="width: 100%; background: var(--success); box-shadow: 0 0 15px rgba(16,185,129,0.4);">Register Elite Profile</button>
             </form>
 
-            <p id="authToggleText" style="text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-muted); cursor: pointer;" onclick="switchMode()">Don't have an account? <b>Sign Up</b></p>
+            <p id="authSwitchToggle" style="margin-top: 18px; font-size: 13px; color: var(--text-muted); cursor: pointer;" onclick="switchAuthLayout()">Need an account? <b>Sign Up</b></p>
         </div>
 
-        <!-- 2. USER DASHBOARD SECTION -->
-        <div id="userDashboard" class="hidden">
-            <div class="grid-2">
-                <!-- Left Sidebar: Profile & Post Creator -->
+        <!-- 2. USER DASHBOARD (3-Column Layout) -->
+        <div id="userDashboard" class="hidden animate-enter">
+            <div class="grid-3-col">
+                
+                <!-- Left Column: User Profile Widget -->
                 <div>
-                    <!-- Profile Card -->
-                    <div class="card" style="margin-bottom: 20px;">
-                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-                            <div class="author-avatar" id="dashAvatar" style="width: 52px; height: 52px; font-size: 20px;">GE</div>
-                            <div>
-                                <h3 id="dashProfileName" style="font-size: 16px; font-weight: 700;">Gamer</h3>
-                                <span id="dashProfileMeta" style="font-size: 12px; color: var(--text-muted);">UID: N/A</span>
-                            </div>
-                        </div>
-                        <p id="dashProfileBio" style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-style: italic;">"No bio added yet."</p>
+                    <div class="card" style="text-align: center;">
+                        <div class="avatar-circle" id="profileWidgetAvatar" style="margin: 0 auto 12px auto; width: 64px; height: 64px; font-size: 22px;">NX</div>
+                        <h3 id="profileWidgetName" style="font-size: 16px; font-weight: 700;">Gamer Name</h3>
+                        <p id="profileWidgetMeta" style="font-size: 12px; color: var(--accent); margin: 4px 0;">Role | UID</p>
+                        <p id="profileWidgetBio" style="font-size: 12px; color: var(--text-muted); font-style: italic; margin-bottom: 16px;">"Ready for battle"</p>
                         
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-outline" style="flex: 1;" onclick="openSettings()"><i class="fa-solid fa-gear"></i> Settings</button>
-                            <button class="btn btn-danger" style="flex: 1;" onclick="logoutApp()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="btn btn-outline" onclick="openSettingsModal()"><i class="fa-solid fa-gear"></i> Edit Profile & Settings</button>
+                            <button class="btn btn-danger" onclick="executeLogout()"><i class="fa-solid fa-right-from-bracket"></i> Disconnect</button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Post Form Card -->
+                <!-- Center Column: Post Creator & Live Feed -->
+                <div>
+                    <!-- Post Publication Card -->
                     <div class="card">
-                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
                             <i class="fa-solid fa-pen-nib" style="color: var(--accent);"></i> Create Publication
                         </h4>
-                        <form id="createPostForm">
-                            <textarea id="postTextContent" class="form-input" rows="3" placeholder="Share tournament updates, custom room rules, or highlights..." style="padding-left: 16px; resize: none;" required></textarea>
+                        <form id="publicationForm">
+                            <textarea id="publicationText" class="form-input" rows="3" placeholder="Broadcast custom match rules, strategy or highlights..." style="padding-left: 14px; resize: none;" required></textarea>
                             
-                            <!-- Image Gallery Uploader -->
-                            <div class="dropzone" onclick="document.getElementById('galleryInput').click()">
-                                <i class="fa-regular fa-image"></i>
-                                <p>Click to open Gallery & Upload Media</p>
-                                <input type="file" id="galleryInput" accept="image/*" class="hidden" onchange="previewMedia(event)">
-                                <img id="mediaPreviewBox" class="hidden" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px; margin-top: 10px;" alt="Preview">
+                            <!-- Media Upload Box -->
+                            <div style="border: 2px dashed var(--border); background: rgba(0,0,0,0.15); padding: 16px; border-radius: 12px; text-align: center; margin: 12px 0; cursor: pointer;" onclick="document.getElementById('fileBrowserInput').click()">
+                                <i class="fa-regular fa-image" style="font-size: 24px; color: var(--accent); margin-bottom: 6px;"></i>
+                                <p style="font-size: 12px; color: var(--text-muted);">Browse Gallery / Attach Lossless Media</p>
+                                <input type="file" id="fileBrowserInput" accept="image/*" class="hidden" onhandle="" onchange="processMediaPreview(event)">
+                                <img id="mediaPreviewDisplay" class="hidden" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; margin-top: 10px;" alt="Media Preview">
                             </div>
 
-                            <button type="submit" class="btn">Publish to Stream</button>
+                            <button type="submit" class="btn" style="width: 100%;">Publish to Network</button>
                         </form>
                     </div>
+
+                    <!-- Live Community Stream -->
+                    <div id="communityFeedContainer"></div>
                 </div>
 
-                <!-- Right Column: Search & Live News Feed -->
+                <!-- Right Column: Search & Quick Widgets -->
                 <div>
-                    <!-- Search Bar Header -->
-                    <div class="card" style="padding: 16px; margin-bottom: 20px;">
-                        <div class="input-group" style="margin-bottom: 0;">
+                    <div class="card">
+                        <div class="input-box" style="margin-bottom: 0;">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" id="liveSearchInput" class="form-input" placeholder="Search posts, gamers or match details..." oninput="filterStream()">
+                            <input type="text" id="liveSearchQuery" class="form-input" placeholder="Search stream records..." oninput="filterCommunityStream()">
                         </div>
                     </div>
-
-                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-                        <i class="fa-solid fa-fire" style="color: #f59e0b;"></i> Community Live Stream
-                    </h3>
-                    <div id="feedStreamContainer"></div>
                 </div>
+
             </div>
         </div>
 
-        <!-- 3. SETTINGS & PROFILE EDIT SECTION -->
-        <div id="settingsSection" class="card hidden" style="max-width: 600px; margin: 0 auto;">
+        <!-- 3. ADVANCED SETTINGS & PROFILE EDIT MODAL -->
+        <div id="settingsSection" class="card hidden animate-enter" style="max-width: 550px; margin: 0 auto;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-sliders" style="color: var(--accent);"></i> Account Settings
+                <h3 style="font-size: 17px; font-weight: 700; color: var(--accent);">
+                    <i class="fa-solid fa-sliders"></i> Account Settings & Profile Configuration
                 </h3>
-                <button class="btn btn-outline" style="width: auto; padding: 8px 14px;" onclick="closeSettings()"><i class="fa-solid fa-xmark"></i> Close</button>
+                <button class="btn btn-outline" style="padding: 6px 12px;" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
             <form id="updateProfileForm">
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" id="setFullName" class="form-input" placeholder="Full Name / IGN" required>
+                    <input type="text" id="settingsFullName" class="form-input" placeholder="Full Name / IGN" required>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-id-badge"></i>
-                    <input type="text" id="setUid" class="form-input" placeholder="Gaming UID" required>
+                    <input type="text" id="settingsUid" class="form-input" placeholder="Gaming UID" required>
                 </div>
-                <div class="input-group">
-                    <select id="setRole" class="form-input" required>
+                <div class="input-box">
+                    <select id="settingsRole" class="form-input" style="padding-left: 14px;" required>
                         <option value="Rusher">Rusher</option>
                         <option value="Assaulter">Assaulter</option>
                         <option value="Supporter">Supporter</option>
@@ -454,25 +413,25 @@
                         <option value="IGL">IGL</option>
                     </select>
                 </div>
-                <div class="input-group">
+                <div class="input-box">
                     <i class="fa-solid fa-quote-left"></i>
-                    <input type="text" id="setBio" class="form-input" placeholder="Bio / Status message">
+                    <input type="text" id="settingsBio" class="form-input" placeholder="Bio / Status message">
                 </div>
-                <button type="submit" class="btn" style="background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">Save Changes</button>
+                <button type="submit" class="btn" style="width: 100%; background: var(--success); box-shadow: 0 0 15px rgba(16,185,129,0.4);">Save Configuration</button>
             </form>
         </div>
 
-        <!-- 4. MASTER ADMIN DASHBOARD -->
-        <div id="adminDashboard" class="card hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <h3 style="font-size: 18px; font-weight: 700; color: #f59e0b; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-shield-halved"></i> Master Control Panel
+        <!-- 4. MASTER ADMIN PANEL -->
+        <div id="adminDashboard" class="card hidden animate-enter">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #f59e0b;">
+                    <i class="fa-solid fa-shield-halved"></i> Master Administration Core
                 </h3>
-                <button class="btn btn-danger" style="width: auto; padding: 10px 18px;" onclick="logoutApp()">Logout</button>
+                <button class="btn btn-danger" onclick="executeLogout()">Disconnect</button>
             </div>
 
-            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">Registered Gamers Database</h4>
-            <div class="table-wrap" style="margin-bottom: 30px;">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 10px;">Registered Users Database</h4>
+            <div class="table-container" style="margin-bottom: 25px;">
                 <table>
                     <thead>
                         <tr>
@@ -486,13 +445,13 @@
                 </table>
             </div>
 
-            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">Content Moderation</h4>
-            <div id="adminPostListContainer"></div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 10px;">Content Moderation Panel</h4>
+            <div id="adminPostModerationContainer"></div>
         </div>
 
     </div>
 
-    <!-- FIREBASE & CORE SYSTEM SCRIPT -->
+    <!-- FIREBASE & LOGIC CONTROLLER SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -514,27 +473,36 @@
 
         const ADMIN_SUPER_EMAIL = "admin@ffhub.com";
         let base64ImageString = "";
-        let postsCache = [];
+        let globalPostsCache = [];
 
-        // Auth Form Switcher
-        let isSignupMode = false;
-        window.switchMode = function() {
-            isSignupMode = !isSignupMode;
-            document.getElementById('loginForm').classList.toggle('hidden');
-            document.getElementById('signupForm').classList.toggle('hidden');
-            document.getElementById('authTitle').innerText = isSignupMode ? "Create Elite Account" : "Welcome Back";
-            document.getElementById('authSub').innerText = isSignupMode ? "Join the ultimate competitive community" : "Sign in to access your elite gamer dashboard";
-            document.getElementById('authToggleText').innerHTML = isSignupMode ? "Already registered? <b>Sign In</b>" : "Don't have an account? <b>Sign Up</b>";
+        // --- THEME SWITCHER ENGINE ---
+        window.toggleSystemTheme = function() {
+            const htmlTag = document.documentElement;
+            const currentTheme = htmlTag.getAttribute("data-theme");
+            const newTheme = currentTheme === "glassy" ? "classic" : "glassy";
+            htmlTag.setAttribute("data-theme", newTheme);
+            document.getElementById('themeBtnText').innerText = newTheme === "glassy" ? "Classic Theme" : "Glassy Theme";
         }
 
-        // Image Gallery Selector (Lossless Base64)
-        window.previewMedia = function(e) {
-            const file = e.target.files[0];
+        // --- AUTH TOGGLE ---
+        let isSignupActive = false;
+        window.switchAuthLayout = function() {
+            isSignupActive = !isSignupActive;
+            document.getElementById('loginForm').classList.toggle('hidden');
+            document.getElementById('signupForm').classList.toggle('hidden');
+            document.getElementById('authHeading').innerText = isSignupActive ? "Create Elite Profile" : "Portal Authentication";
+            document.getElementById('authSubHeading').innerText = isSignupActive ? "Join the competitive network" : "Secure login to your gaming credentials";
+            document.getElementById('authSwitchToggle').innerHTML = isSignupActive ? "Already registered? <b>Log In</b>" : "Need an account? <b>Sign Up</b>";
+        }
+
+        // --- MEDIA GALLERY HANDLER ---
+        window.processMediaPreview = function(event) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(evt) {
-                    base64ImageString = evt.target.result;
-                    const preview = document.getElementById('mediaPreviewBox');
+                reader.onload = function(e) {
+                    base64ImageString = e.target.result;
+                    const preview = document.getElementById('mediaPreviewDisplay');
                     preview.src = base64ImageString;
                     preview.classList.remove('hidden');
                 }
@@ -542,7 +510,7 @@
             }
         }
 
-        // Signup Process
+        // --- SIGNUP PROCESS ---
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -552,14 +520,14 @@
                     freeFireUid: document.getElementById('signupUid').value,
                     esportsRole: document.getElementById('signupRole').value,
                     email: document.getElementById('signupEmail').value,
-                    bio: "Competitive esports athlete.",
+                    bio: "Competitive athlete.",
                     createdAt: serverTimestamp()
                 });
-                alert("Account Created Successfully!");
-            } catch (err) { alert("Error: " + err.message); }
+                alert("Profile Registered Successfully!");
+            } catch (err) { alert("Registration Error: " + err.message); }
         });
 
-        // Login Process
+        // --- LOGIN PROCESS ---
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -567,52 +535,78 @@
             } catch (err) { alert("Authentication Failed: " + err.message); }
         });
 
-        window.logoutApp = function() { signOut(auth); }
+        window.executeLogout = function() { signOut(auth); }
 
-        // Publish Post
-        document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+        // --- PUBLISH PUBLICATION ---
+        document.getElementById('publicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const user = auth.currentUser;
             if(!user) return;
 
             try {
-                const uSnap = await getDoc(doc(db, "users", user.uid));
-                const uData = uSnap.exists() ? uSnap.data() : {};
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                const userData = userDoc.exists() ? userDoc.data() : {};
 
                 await setDoc(doc(collection(db, "posts")), {
-                    authorName: uData.fullName || "Gamer",
-                    authorUid: uData.freeFireUid || "N/A",
-                    authorRole: uData.esportsRole || "Member",
-                    content: document.getElementById('postTextContent').value,
+                    authorName: userData.fullName || "Gamer",
+                    authorUid: userData.freeFireUid || "N/A",
+                    authorRole: userData.esportsRole || "Member",
+                    content: document.getElementById('publicationText').value,
                     mediaImage: base64ImageString || "",
+                    likesCount: 0,
                     createdAt: new Date().toISOString()
                 });
 
-                document.getElementById('postTextContent').value = "";
-                document.getElementById('galleryInput').value = "";
-                document.getElementById('mediaPreviewBox').classList.add('hidden');
+                document.getElementById('publicationText').value = "";
+                document.getElementById('fileBrowserInput').value = "";
+                document.getElementById('mediaPreviewDisplay').classList.add('hidden');
                 base64ImageString = "";
-                loadCommunityFeed();
-            } catch (err) { alert("Publish Error: " + err.message); }
+                loadLiveCommunityStream();
+            } catch (err) { alert("Publication Error: " + err.message); }
         });
 
-        // Settings Modal Handlers
-        window.openSettings = async function() {
+        // --- INTERACTION BUTTON FUNCTIONS (Like, Comment, Share) ---
+        window.handleLikeAction = function(btn) {
+            let countSpan = btn.querySelector('.like-count');
+            let currentLikes = parseInt(countSpan.innerText);
+            if(btn.classList.contains('active')) {
+                btn.classList.remove('active');
+                countSpan.innerText = currentLikes - 1;
+            } else {
+                btn.classList.add('active');
+                countSpan.innerText = currentLikes + 1;
+            }
+        }
+
+        window.handleCommentAction = function() {
+            let commentPrompt = prompt("Write your comment:");
+            if(commentPrompt) {
+                alert("Comment posted successfully!");
+            }
+        }
+
+        window.handleShareAction = function() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Post link copied to clipboard!");
+        }
+
+        // --- SETTINGS MODAL CONTROLS ---
+        window.openSettingsModal = async function() {
             const user = auth.currentUser;
             if(!user) return;
-            const uSnap = await getDoc(doc(db, "users", user.uid));
-            if(uSnap.exists()) {
-                const data = uSnap.data();
-                document.getElementById('setFullName').value = data.fullName || "";
-                document.getElementById('setUid').value = data.freeFireUid || "";
-                document.getElementById('setRole').value = data.esportsRole || "Rusher";
-                document.getElementById('setBio').value = data.bio || "";
+            const uDoc = await getDoc(doc(db, "users", user.uid));
+            if(uDoc.exists()) {
+                const data = uDoc.data();
+                document.getElementById('settingsFullName').value = data.fullName || "";
+                document.getElementById('settingsUid').value = data.freeFireUid || "";
+                document.getElementById('settingsRole').value = data.esportsRole || "Rusher";
+                document.getElementById('settingsBio').value = data.bio || "";
             }
             document.getElementById('settingsSection').classList.remove('hidden');
             document.getElementById('userDashboard').classList.add('hidden');
         }
 
-        window.closeSettings = function() {
+        window.closeSettingsModal = function() {
             document.getElementById('settingsSection').classList.add('hidden');
             document.getElementById('userDashboard').classList.remove('hidden');
         }
@@ -623,134 +617,139 @@
             if(!user) return;
             try {
                 await updateDoc(doc(db, "users", user.uid), {
-                    fullName: document.getElementById('setFullName').value,
-                    freeFireUid: document.getElementById('setUid').value,
-                    esportsRole: document.getElementById('setRole').value,
-                    bio: document.getElementById('setBio').value
+                    fullName: document.getElementById('settingsFullName').value,
+                    freeFireUid: document.getElementById('settingsUid').value,
+                    esportsRole: document.getElementById('settingsRole').value,
+                    bio: document.getElementById('settingsBio').value
                 });
-                alert("Profile Updated Successfully!");
-                closeSettings();
-                loadUserProfile(user.uid);
-            } catch (err) { alert("Update Error: " + err.message); }
+                alert("Configuration Saved!");
+                closeSettingsModal();
+                loadUserProfileData(user.uid);
+            } catch (err) { alert("Update Failed: " + err.message); }
         });
 
-        // Auth State Observer & Router
+        // --- ROUTER & OBSERVER ---
         onAuthStateChanged(auth, async (user) => {
             const authSec = document.getElementById('authSection');
             const userDash = document.getElementById('userDashboard');
             const adminDash = document.getElementById('adminDashboard');
             const settingsSec = document.getElementById('settingsSection');
-            const rightHeader = document.getElementById('headerRightArea');
+            const headerIndicator = document.getElementById('headerUserIndicator');
 
-            if (user) {
+            if(user) {
                 authSec.classList.add('hidden');
                 settingsSec.classList.add('hidden');
-                rightHeader.innerHTML = `<div class="user-quick-badge"><span></span> ${user.email}</div>`;
+                headerIndicator.innerHTML = `<span style="font-size: 12px; color: var(--accent); background: rgba(56,189,248,0.1); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);">${user.email}</span>`;
 
-                if (user.email === ADMIN_SUPER_EMAIL) {
+                if(user.email === ADMIN_SUPER_EMAIL) {
                     adminDash.classList.remove('hidden');
                     userDash.classList.add('hidden');
-                    loadAdminPanel();
+                    loadAdminCorePanel();
                 } else {
                     adminDash.classList.add('hidden');
                     userDash.classList.remove('hidden');
-                    loadUserProfile(user.uid);
-                    loadCommunityFeed();
+                    loadUserProfileData(user.uid);
+                    loadLiveCommunityStream();
                 }
             } else {
                 authSec.classList.remove('hidden');
                 userDash.classList.add('hidden');
                 adminDash.classList.add('hidden');
                 settingsSec.classList.add('hidden');
-                rightHeader.innerHTML = "";
+                headerIndicator.innerHTML = "";
             }
         });
 
-        async function loadUserProfile(uid) {
-            const uSnap = await getDoc(doc(db, "users", uid));
-            if(uSnap.exists()) {
-                const d = uSnap.data();
-                document.getElementById('dashProfileName').innerText = d.fullName;
-                document.getElementById('dashProfileMeta').innerText = `UID: ${d.freeFireUid} • ${d.esportsRole}`;
-                document.getElementById('dashProfileBio').innerText = `"${d.bio || 'No bio added.'}"`;
-                document.getElementById('dashAvatar').innerText = d.fullName ? d.fullName.substring(0, 2).toUpperCase() : "GE";
+        async function loadUserProfileData(uid) {
+            const uDoc = await getDoc(doc(db, "users", uid));
+            if(uDoc.exists()) {
+                const d = uDoc.data();
+                document.getElementById('profileWidgetName').innerText = d.fullName;
+                document.getElementById('profileWidgetMeta').innerText = `${d.esportsRole} • UID: ${d.freeFireUid}`;
+                document.getElementById('profileWidgetBio').innerText = `"${d.bio || 'Ready for battle'}"`;
+                document.getElementById('profileWidgetAvatar').innerText = d.fullName ? d.fullName.substring(0, 2).toUpperCase() : "NX";
             }
         }
 
-        async function loadCommunityFeed() {
+        async function loadLiveCommunityStream() {
             const snap = await getDocs(collection(db, "posts"));
-            postsCache = [];
-            snap.forEach(d => { postsCache.push({ id: d.id, ...d.data() }); });
-            renderFeed(postsCache);
+            globalPostsCache = [];
+            snap.forEach(d => { globalPostsCache.push({ id: d.id, ...d.data() }); });
+            renderStreamFeed(globalPostsCache);
         }
 
-        function renderFeed(posts) {
+        function renderStreamFeed(posts) {
             let html = "";
             posts.forEach(p => {
-                const initials = p.authorName ? p.authorName.substring(0, 2).toUpperCase() : "GM";
+                const initials = p.authorName ? p.authorName.substring(0, 2).toUpperCase() : "NX";
                 html += `
-                    <div class="post-card">
-                        <div class="post-author">
-                            <div class="author-info">
-                                <div class="author-avatar">${initials}</div>
-                                <div class="author-details">
-                                    <h4>${p.authorName} <span class="role-pill">${p.authorRole}</span></h4>
-                                    <span><i class="fa-solid fa-id-card"></i> UID: ${p.authorUid}</span>
+                    <div class="post-card animate-enter">
+                        <div class="post-header">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="avatar-circle" style="width: 38px; height: 38px; font-size: 13px;">${initials}</div>
+                                <div>
+                                    <h4 style="font-size: 14px; font-weight: 700;">${p.authorName} <span class="role-badge">${p.authorRole}</span></h4>
+                                    <span style="font-size: 11px; color: var(--text-muted);">UID: ${p.authorUid}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="post-content">${p.content}</div>
-                        ${p.mediaImage ? `<img src="${p.mediaImage}" class="post-image" alt="Post Attachment">` : ''}
+                        <p style="font-size: 14px; line-height: 1.5; color: #cbd5e1; margin-bottom: 12px;">${p.content}</p>
+                        ${p.mediaImage ? `<img src="${p.mediaImage}" style="width: 100%; border-radius: 12px; max-height: 320px; object-fit: cover; margin-bottom: 10px;" alt="Post Media">` : ''}
+                        
+                        <div class="post-actions-bar">
+                            <button class="action-btn" onclick="handleLikeAction(this)"><i class="fa-regular fa-heart"></i> Like (<span class="like-count">${p.likesCount || 0}</span>)</button>
+                            <button class="action-btn" onclick="handleCommentAction()"><i class="fa-regular fa-comment"></i> Comment</button>
+                            <button class="action-btn" onclick="handleShareAction()"><i class="fa-solid fa-share"></i> Share</button>
+                        </div>
                     </div>
                 `;
             });
-            document.getElementById('feedStreamContainer').innerHTML = html || "<p style='color: var(--text-muted); text-align: center; padding: 20px;'>No community updates found.</p>";
+            document.getElementById('communityFeedContainer').innerHTML = html || "<p style='color: var(--text-muted); text-align: center; padding: 20px;'>No active network updates.</p>";
         }
 
-        // Search Filter
-        window.filterStream = function() {
-            const q = document.getElementById('liveSearchInput').value.toLowerCase();
-            const filtered = postsCache.filter(p => 
-                p.content.toLowerCase().includes(q) || 
-                p.authorName.toLowerCase().includes(q) || 
-                p.authorUid.toLowerCase().includes(q)
+        window.filterCommunityStream = function() {
+            const query = document.getElementById('liveSearchQuery').value.toLowerCase();
+            const filtered = globalPostsCache.filter(p => 
+                p.content.toLowerCase().includes(query) || 
+                p.authorName.toLowerCase().includes(query) || 
+                p.authorUid.toLowerCase().includes(query)
             );
-            renderFeed(filtered);
+            renderStreamFeed(filtered);
         }
 
-        async function loadAdminPanel() {
+        async function loadAdminCorePanel() {
             const uSnap = await getDocs(collection(db, "users"));
-            let rows = "";
+            let userRows = "";
             uSnap.forEach(d => {
                 const u = d.data();
-                rows += `<tr><td>${u.fullName || 'N/A'}</td><td>${u.freeFireUid || 'N/A'}</td><td>${u.esportsRole || 'N/A'}</td><td>${u.email || 'N/A'}</td></tr>`;
+                userRows += `<tr><td>${u.fullName || 'N/A'}</td><td>${u.freeFireUid || 'N/A'}</td><td>${u.esportsRole || 'N/A'}</td><td>${u.email || 'N/A'}</td></tr>`;
             });
-            document.getElementById('adminUserTableRows').innerHTML = rows;
+            document.getElementById('adminUserTableRows').innerHTML = userRows;
 
             const pSnap = await getDocs(collection(db, "posts"));
-            let pRows = "";
+            let postRows = "";
             pSnap.forEach(d => {
                 const p = d.data();
                 const id = d.id;
-                pRows += `
+                postRows += `
                     <div class="post-card" style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <h4 style="font-size: 14px; margin-bottom: 4px;">${p.authorName} (${p.authorRole})</h4>
-                            <p style="font-size: 13px; color: var(--text-muted);">${p.content}</p>
+                            <h4 style="font-size: 13px; margin-bottom: 4px;">${p.authorName} (${p.authorRole})</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">${p.content}</p>
                         </div>
-                        <button class="btn btn-danger" style="width: auto; padding: 8px 14px;" onclick="adminDelete('${id}')">Delete</button>
+                        <button class="btn btn-danger" style="padding: 6px 12px;" onclick="adminDeletePostRecord('${id}')">Delete</button>
                     </div>
                 `;
             });
-            document.getElementById('adminPostListContainer').innerHTML = pRows || "<p style='color: var(--text-muted);'>No posts available.</p>";
+            document.getElementById('adminPostModerationContainer').innerHTML = postRows || "<p style='color: var(--text-muted);'>No records found.</p>";
         }
 
-        window.adminDelete = async function(id) {
-            if(confirm("Confirm deletion of this post?")) {
+        window.adminDeletePostRecord = async function(id) {
+            if(confirm("Confirm record termination?")) {
                 try {
                     await deleteDoc(doc(db, "posts", id));
-                    loadAdminPanel();
-                } catch(err) { alert("Failed: " + err.message); }
+                    loadAdminCorePanel();
+                } catch (err) { alert("Failed: " + err.message); }
             }
         }
     </script>
