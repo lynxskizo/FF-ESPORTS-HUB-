@@ -1,321 +1,478 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="glassy">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FF Esports Hub - Ultimate Facebook Edition</title>
+    <title>Nexus Esports | Elite Gaming Platform</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b, #09090b);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --text-color: #ffffff;
-            --accent-color: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.6);
-            --blur-val: blur(16px);
-        }
-
-        [data-theme="classic"] {
-            --bg-gradient: #0f172a;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --text-color: #f8fafc;
-            --accent-color: #38bdf8;
-            --accent-glow: none;
-            --blur-val: none;
+            --bg-deep: #090a0f;
+            --surface: #131622;
+            --surface-hover: #1b1f31;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+            --success: #10b981;
+            --radius: 16px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.25s ease;
         }
 
         body {
-            background: var(--bg-gradient);
-            background-size: 400% 400%;
-            animation: waterAnimation 15s ease infinite;
-            color: var(--text-color);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
             min-height: 100vh;
-            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
-        @keyframes waterAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Ambient Glow Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 100%);
+            filter: blur(80px);
+            z-index: -1;
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        /* Top Bar */
-        .top-nav {
+        /* Top Header Navigation */
+        header {
+            background: rgba(19, 22, 34, 0.75);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
-            backdrop-filter: var(--blur-val);
-            -webkit-backdrop-filter: var(--blur-val);
-            border: 1px solid var(--border-color);
-            padding: 15px 25px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .logo-area h1 {
-            font-size: 20px;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .nav-actions {
+        .brand {
             display: flex;
-            gap: 10px;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
-        .btn-action {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
+        .brand i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .user-quick-badge {
+            background: var(--surface-hover);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 30px;
             font-size: 13px;
-        }
-        .btn-action:hover { background: var(--accent-color); color: #000; }
-
-        /* Glass Panels */
-        .glass-panel {
-            background: var(--card-bg);
-            backdrop-filter: var(--blur-val);
-            -webkit-backdrop-filter: var(--blur-val);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
+        .user-quick-badge span {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
         }
 
-        @media (max-width: 768px) {
-            .grid-layout { grid-template-columns: 1fr; }
-            .top-nav { flex-direction: column; gap: 15px; text-align: center; }
-        }
-
-        .form-control {
+        /* Main Wrapper */
+        .wrapper {
+            max-width: 1200px;
             width: 100%;
-            padding: 12px 15px;
-            margin: 10px 0;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-color);
-            outline: none;
-            font-size: 14px;
+            margin: 24px auto;
+            padding: 0 16px;
+            flex: 1;
         }
-        .form-control::placeholder { color: #94a3b8; }
 
-        .btn-main {
-            background: var(--accent-color);
-            color: #0f172a;
-            padding: 12px 20px;
+        /* Card Elements */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Forms & Inputs */
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px 14px 46px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .form-input::placeholder { color: var(--text-muted); }
+
+        select.form-input {
+            padding-left: 16px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--accent);
+            color: #fff;
             border: none;
-            border-radius: 10px;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
-            box-shadow: 0 0 15px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px var(--accent-glow);
         }
-        .btn-main:hover { opacity: 0.9; }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            box-shadow: none;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+
+        /* Grid System */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+        }
+
+        @media(max-width: 860px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
 
         .hidden { display: none !important; }
 
-        /* Gallery / Image Upload Box */
-        .upload-box {
-            border: 2px dashed var(--border-color);
-            padding: 15px;
+        /* Auth Container */
+        .auth-container {
+            max-width: 440px;
+            margin: 60px auto;
+        }
+
+        .auth-header {
             text-align: center;
-            border-radius: 10px;
-            margin: 10px 0;
-            cursor: pointer;
-            background: rgba(0,0,0,0.15);
-        }
-        .upload-box img {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 8px;
-            margin-top: 10px;
-            object-fit: cover;
+            margin-bottom: 24px;
         }
 
-        /* Post Cards */
+        .auth-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .auth-header p { color: var(--text-muted); font-size: 14px; }
+
+        /* Feed & Posts */
         .post-card {
-            background: rgba(0,0,0,0.25);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             padding: 20px;
-            margin-top: 15px;
+            margin-bottom: 16px;
         }
 
-        /* Search & Filters */
-        .search-bar {
+        .post-author {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; border: 1px solid var(--border-color); text-align: left; font-size: 14px; }
-        th { background: rgba(56, 189, 248, 0.15); color: var(--accent-color); }
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .author-details h4 { font-size: 15px; font-weight: 600; }
+        .author-details span { font-size: 12px; color: var(--text-muted); display: flex; gap: 6px; align-items: center; }
+
+        .role-pill {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .post-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        /* Upload Dropzone */
+        .dropzone {
+            border: 2px dashed var(--border);
+            background: var(--bg-deep);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        .dropzone:hover { border-color: var(--accent); }
+        .dropzone i { font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+        .dropzone p { font-size: 13px; color: var(--text-muted); }
+
+        /* Tables for Admin */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+        th { color: var(--text-muted); font-weight: 600; background: var(--bg-deep); }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <!-- TOP NAVIGATION -->
-        <div class="top-nav">
-            <div class="logo-area">
-                <h1>🔥 FF ESPORTS FACEBOOK HUB</h1>
-            </div>
-            <div class="nav-actions">
-                <button class="btn-action" onclick="toggleThemeSystem()">✨ Theme (Glassy/Classic)</button>
-                <div id="navDynamicButtons"></div>
-            </div>
+    <!-- TOP HEADER -->
+    <header>
+        <div class="brand">
+            <i class="fa-solid fa-cube"></i> NEXUS ESPORTS
         </div>
+        <div id="headerRightArea"></div>
+    </header>
 
-        <!-- 1. AUTHENTICATION SECTION (Login & Signup) -->
-        <div id="authSection" class="glass-panel" style="max-width: 450px; margin: 0 auto; text-align: center;">
-            <h2 id="authHeading" style="color: var(--accent-color); margin-bottom: 15px;">Gamer Portal Login</h2>
-            
+    <div class="wrapper">
+
+        <!-- 1. AUTHENTICATION SECTION -->
+        <div id="authSection" class="auth-container card">
+            <div class="auth-header">
+                <h2 id="authTitle">Welcome Back</h2>
+                <p id="authSub">Sign in to access your elite gamer dashboard</p>
+            </div>
+
             <form id="loginForm">
-                <input type="email" id="loginEmail" placeholder="Email Address" class="form-control" required>
-                <input type="password" id="loginPassword" placeholder="Password" class="form-control" required>
-                <button type="submit" class="btn-main">Log In</button>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Sign In <i class="fa-solid fa-arrow-right"></i></button>
             </form>
 
             <form id="signupForm" class="hidden">
-                <input type="text" id="signupName" placeholder="Full Name / IGN" class="form-control" required>
-                <input type="text" id="signupUid" placeholder="Free Fire UID" class="form-control" required>
-                <select id="signupRole" class="form-control" required>
-                    <option value="" disabled selected>Select Role</option>
-                    <option value="Rusher">Rusher</option>
-                    <option value="Assaulter">Assaulter</option>
-                    <option value="Supporter">Supporter</option>
-                    <option value="Sniper">Sniper</option>
-                    <option value="IGL">IGL</option>
-                </select>
-                <input type="email" id="signupEmail" placeholder="Email Address" class="form-control" required>
-                <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" class="form-control" required>
-                <button type="submit" class="btn-main" style="background: #10b981;">Create Account</button>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="signupName" class="form-input" placeholder="Full Name / In-Game IGN" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <input type="text" id="signupUid" class="form-input" placeholder="Free Fire / Gaming UID" required>
+                </div>
+                <div class="input-group">
+                    <select id="signupRole" class="form-input" required>
+                        <option value="" disabled selected>Select Primary Role</option>
+                        <option value="Rusher">Rusher</option>
+                        <option value="Assaulter">Assaulter</option>
+                        <option value="Supporter">Supporter</option>
+                        <option value="Sniper">Sniper</option>
+                        <option value="IGL">IGL</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="signupEmail" class="form-input" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="signupPassword" class="form-input" placeholder="Password (min 6 chars)" required>
+                </div>
+                <button type="submit" class="btn" style="background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">Create Account</button>
             </form>
 
-            <p id="authToggleText" style="margin-top: 15px; font-size: 13px; cursor: pointer; color: #94a3b8;" onclick="switchAuthMode()">Don't have an account? Sign Up</p>
+            <p id="authToggleText" style="text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-muted); cursor: pointer;" onclick="switchMode()">Don't have an account? <b>Sign Up</b></p>
         </div>
 
-        <!-- 2. MAIN NEWSFEED & USER DASHBOARD -->
+        <!-- 2. USER DASHBOARD SECTION -->
         <div id="userDashboard" class="hidden">
-            
-            <!-- Header Profile Bar -->
-            <div class="glass-panel" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div class="grid-2">
+                <!-- Left Sidebar: Profile & Post Creator -->
                 <div>
-                    <h2 id="profileDisplayName" style="color: var(--accent-color);">Gamer Name</h2>
-                    <p id="profileDisplayMeta" style="font-size: 13px; color: #94a3b8;"></p>
-                    <p id="profileDisplayBio" style="font-size: 13px; margin-top: 4px; font-style: italic;"></p>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-action" onclick="openSettingsModal()">⚙️ Settings & Edit Profile</button>
-                    <button class="btn-action" onclick="userLogout()" style="background: #ef4444; border:none;">Log Out</button>
-                </div>
-            </div>
+                    <!-- Profile Card -->
+                    <div class="card" style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+                            <div class="author-avatar" id="dashAvatar" style="width: 52px; height: 52px; font-size: 20px;">GE</div>
+                            <div>
+                                <h3 id="dashProfileName" style="font-size: 16px; font-weight: 700;">Gamer</h3>
+                                <span id="dashProfileMeta" style="font-size: 12px; color: var(--text-muted);">UID: N/A</span>
+                            </div>
+                        </div>
+                        <p id="dashProfileBio" style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-style: italic;">"No bio added yet."</p>
+                        
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-outline" style="flex: 1;" onclick="openSettings()"><i class="fa-solid fa-gear"></i> Settings</button>
+                            <button class="btn btn-danger" style="flex: 1;" onclick="logoutApp()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                        </div>
+                    </div>
 
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="🔍 Search posts or gamers by name/UID..." class="form-control" style="margin: 0;" oninput="filterCommunityFeed()">
-            </div>
-
-            <div class="grid-layout">
-                <!-- Left Column: Create Post & Gallery Upload -->
-                <div>
-                    <div class="glass-panel">
-                        <h3 style="color: var(--accent-color); margin-bottom: 10px;">📝 Create Post</h3>
+                    <!-- Post Form Card -->
+                    <div class="card">
+                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-pen-nib" style="color: var(--accent);"></i> Create Publication
+                        </h4>
                         <form id="createPostForm">
-                            <textarea id="postText" class="form-control" rows="3" placeholder="What's on your mind, gamer?" required></textarea>
+                            <textarea id="postTextContent" class="form-input" rows="3" placeholder="Share tournament updates, custom room rules, or highlights..." style="padding-left: 16px; resize: none;" required></textarea>
                             
-                            <!-- Gallery Upload Box -->
-                            <div class="upload-box" onclick="document.getElementById('imagePicker').click()">
-                                <p style="font-size: 12px; color: #94a3b8;">📁 Open Gallery / Upload Image (No Quality Loss)</p>
-                                <input type="file" id="imagePicker" accept="image/*" class="hidden" onchange="handleImageSelection(event)">
-                                <img id="imagePreview" class="hidden" alt="Preview">
+                            <!-- Image Gallery Uploader -->
+                            <div class="dropzone" onclick="document.getElementById('galleryInput').click()">
+                                <i class="fa-regular fa-image"></i>
+                                <p>Click to open Gallery & Upload Media</p>
+                                <input type="file" id="galleryInput" accept="image/*" class="hidden" onchange="previewMedia(event)">
+                                <img id="mediaPreviewBox" class="hidden" style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 8px; margin-top: 10px;" alt="Preview">
                             </div>
 
-                            <button type="submit" class="btn-main">Publish Post</button>
+                            <button type="submit" class="btn">Publish to Stream</button>
                         </form>
                     </div>
                 </div>
 
-                <!-- Right Column: Live Feed -->
+                <!-- Right Column: Search & Live News Feed -->
                 <div>
-                    <h3 style="color: #f59e0b; margin-bottom: 10px;">📰 News Feed</h3>
-                    <div id="newsFeedContainer"></div>
+                    <!-- Search Bar Header -->
+                    <div class="card" style="padding: 16px; margin-bottom: 20px;">
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="liveSearchInput" class="form-input" placeholder="Search posts, gamers or match details..." oninput="filterStream()">
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-fire" style="color: #f59e0b;"></i> Community Live Stream
+                    </h3>
+                    <div id="feedStreamContainer"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. SETTINGS & PROFILE EDIT MODAL VIEW -->
-        <div id="settingsSection" class="glass-panel hidden" style="max-width: 600px; margin: 0 auto;">
+        <!-- 3. SETTINGS & PROFILE EDIT SECTION -->
+        <div id="settingsSection" class="card hidden" style="max-width: 600px; margin: 0 auto;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="color: var(--accent-color);">⚙️ Account Settings & Edit Profile</h2>
-                <button class="btn-action" onclick="closeSettingsModal()">❌ Close</button>
+                <h3 style="font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-sliders" style="color: var(--accent);"></i> Account Settings
+                </h3>
+                <button class="btn btn-outline" style="width: auto; padding: 8px 14px;" onclick="closeSettings()"><i class="fa-solid fa-xmark"></i> Close</button>
             </div>
+
             <form id="updateProfileForm">
-                <label style="font-size: 13px; color: #94a3b8;">Full Name / IGN</label>
-                <input type="text" id="settingsName" class="form-control" required>
-                
-                <label style="font-size: 13px; color: #94a3b8;">Free Fire UID</label>
-                <input type="text" id="settingsUid" class="form-control" required>
-                
-                <label style="font-size: 13px; color: #94a3b8;">Esports Role</label>
-                <select id="settingsRole" class="form-control" required>
-                    <option value="Rusher">Rusher</option>
-                    <option value="Assaulter">Assaulter</option>
-                    <option value="Supporter">Supporter</option>
-                    <option value="Sniper">Sniper</option>
-                    <option value="IGL">IGL</option>
-                </select>
-
-                <label style="font-size: 13px; color: #94a3b8;">Bio / Status</label>
-                <input type="text" id="settingsBio" class="form-control" placeholder="Write something about your gaming skills...">
-
-                <button type="submit" class="btn-main" style="background: #10b981;">Save Changes</button>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="setFullName" class="form-input" placeholder="Full Name / IGN" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <input type="text" id="setUid" class="form-input" placeholder="Gaming UID" required>
+                </div>
+                <div class="input-group">
+                    <select id="setRole" class="form-input" required>
+                        <option value="Rusher">Rusher</option>
+                        <option value="Assaulter">Assaulter</option>
+                        <option value="Supporter">Supporter</option>
+                        <option value="Sniper">Sniper</option>
+                        <option value="IGL">IGL</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-quote-left"></i>
+                    <input type="text" id="setBio" class="form-input" placeholder="Bio / Status message">
+                </div>
+                <button type="submit" class="btn" style="background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">Save Changes</button>
             </form>
         </div>
 
-        <!-- 4. ADMIN DASHBOARD -->
-        <div id="adminDashboard" class="glass-panel hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="color: #f59e0b;">🛡️ Master Admin Control Panel</h2>
-                <button class="btn-action" onclick="userLogout()" style="background: #ef4444; border:none;">Log Out</button>
+        <!-- 4. MASTER ADMIN DASHBOARD -->
+        <div id="adminDashboard" class="card hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #f59e0b; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-shield-halved"></i> Master Control Panel
+                </h3>
+                <button class="btn btn-danger" style="width: auto; padding: 10px 18px;" onclick="logoutApp()">Logout</button>
             </div>
 
-            <h3 style="color: var(--accent-color); margin-bottom: 10px;">👥 Registered Users Database</h3>
-            <div style="overflow-x: auto; margin-bottom: 30px;">
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">Registered Gamers Database</h4>
+            <div class="table-wrap" style="margin-bottom: 30px;">
                 <table>
                     <thead>
                         <tr>
@@ -325,17 +482,17 @@
                             <th>Email</th>
                         </tr>
                     </thead>
-                    <tbody id="adminUserTable"></tbody>
+                    <tbody id="adminUserTableRows"></tbody>
                 </table>
             </div>
 
-            <h3 style="color: #f59e0b; margin-bottom: 10px;">🗑️ Manage & Delete Posts</h3>
-            <div id="adminPostList"></div>
+            <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text-muted);">Content Moderation</h4>
+            <div id="adminPostListContainer"></div>
         </div>
 
     </div>
 
-    <!-- FIREBASE & LOGIC SCRIPT -->
+    <!-- FIREBASE & CORE SYSTEM SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -356,42 +513,36 @@
         const db = getFirestore(app);
 
         const ADMIN_SUPER_EMAIL = "admin@ffhub.com";
-        let base64Image = "";
-        let globalPostsCache = [];
+        let base64ImageString = "";
+        let postsCache = [];
 
-        // Theme Switcher
-        window.toggleThemeSystem = function() {
-            const html = document.documentElement;
-            const theme = html.getAttribute("data-theme");
-            html.setAttribute("data-theme", theme === "glassy" ? "classic" : "glassy");
-        }
-
-        // Auth Mode Toggle
-        let isSignup = false;
-        window.switchAuthMode = function() {
-            isSignup = !isSignup;
+        // Auth Form Switcher
+        let isSignupMode = false;
+        window.switchMode = function() {
+            isSignupMode = !isSignupMode;
             document.getElementById('loginForm').classList.toggle('hidden');
             document.getElementById('signupForm').classList.toggle('hidden');
-            document.getElementById('authHeading').innerText = isSignup ? "Create Account" : "Gamer Portal Login";
-            document.getElementById('authToggleText').innerText = isSignup ? "Already registered? Log In" : "Don't have an account? Sign Up";
+            document.getElementById('authTitle').innerText = isSignupMode ? "Create Elite Account" : "Welcome Back";
+            document.getElementById('authSub').innerText = isSignupMode ? "Join the ultimate competitive community" : "Sign in to access your elite gamer dashboard";
+            document.getElementById('authToggleText').innerHTML = isSignupMode ? "Already registered? <b>Sign In</b>" : "Don't have an account? <b>Sign Up</b>";
         }
 
-        // Image Gallery Selector (Base64 Lossless)
-        window.handleImageSelection = function(e) {
+        // Image Gallery Selector (Lossless Base64)
+        window.previewMedia = function(e) {
             const file = e.target.files[0];
-            if(file) {
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(evt) {
-                    base64Image = evt.target.result;
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = base64Image;
+                    base64ImageString = evt.target.result;
+                    const preview = document.getElementById('mediaPreviewBox');
+                    preview.src = base64ImageString;
                     preview.classList.remove('hidden');
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        // Signup
+        // Signup Process
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -401,67 +552,67 @@
                     freeFireUid: document.getElementById('signupUid').value,
                     esportsRole: document.getElementById('signupRole').value,
                     email: document.getElementById('signupEmail').value,
-                    bio: "Hey there! I am using FF Esports Hub.",
+                    bio: "Competitive esports athlete.",
                     createdAt: serverTimestamp()
                 });
                 alert("Account Created Successfully!");
-            } catch(err) { alert("Error: " + err.message); }
+            } catch (err) { alert("Error: " + err.message); }
         });
 
-        // Login
+        // Login Process
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
                 await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);
-            } catch(err) { alert("Login Failed: " + err.message); }
+            } catch (err) { alert("Authentication Failed: " + err.message); }
         });
 
-        window.userLogout = function() { signOut(auth); }
+        window.logoutApp = function() { signOut(auth); }
 
-        // Create Post
+        // Publish Post
         document.getElementById('createPostForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const user = auth.currentUser;
             if(!user) return;
+
             try {
-                const uDoc = await getDoc(doc(db, "users", user.uid));
-                const uData = uDoc.exists() ? uDoc.data() : {};
+                const uSnap = await getDoc(doc(db, "users", user.uid));
+                const uData = uSnap.exists() ? uSnap.data() : {};
 
                 await setDoc(doc(collection(db, "posts")), {
                     authorName: uData.fullName || "Gamer",
                     authorUid: uData.freeFireUid || "N/A",
                     authorRole: uData.esportsRole || "Member",
-                    content: document.getElementById('postText').value,
-                    image: base64Image || "",
+                    content: document.getElementById('postTextContent').value,
+                    mediaImage: base64ImageString || "",
                     createdAt: new Date().toISOString()
                 });
 
-                document.getElementById('postText').value = "";
-                document.getElementById('imagePicker').value = "";
-                document.getElementById('imagePreview').classList.add('hidden');
-                base64Image = "";
-                alert("Post Published!");
-                loadFeedStream();
-            } catch(err) { alert("Error: " + err.message); }
+                document.getElementById('postTextContent').value = "";
+                document.getElementById('galleryInput').value = "";
+                document.getElementById('mediaPreviewBox').classList.add('hidden');
+                base64ImageString = "";
+                loadCommunityFeed();
+            } catch (err) { alert("Publish Error: " + err.message); }
         });
 
-        // Settings / Profile Edit Modals
-        window.openSettingsModal = async function() {
+        // Settings Modal Handlers
+        window.openSettings = async function() {
             const user = auth.currentUser;
             if(!user) return;
-            const uDoc = await getDoc(doc(db, "users", user.uid));
-            if(uDoc.exists()) {
-                const data = uDoc.data();
-                document.getElementById('settingsName').value = data.fullName || "";
-                document.getElementById('settingsUid').value = data.freeFireUid || "";
-                document.getElementById('settingsRole').value = data.esportsRole || "Rusher";
-                document.getElementById('settingsBio').value = data.bio || "";
+            const uSnap = await getDoc(doc(db, "users", user.uid));
+            if(uSnap.exists()) {
+                const data = uSnap.data();
+                document.getElementById('setFullName').value = data.fullName || "";
+                document.getElementById('setUid').value = data.freeFireUid || "";
+                document.getElementById('setRole').value = data.esportsRole || "Rusher";
+                document.getElementById('setBio').value = data.bio || "";
             }
             document.getElementById('settingsSection').classList.remove('hidden');
             document.getElementById('userDashboard').classList.add('hidden');
         }
 
-        window.closeSettingsModal = function() {
+        window.closeSettings = function() {
             document.getElementById('settingsSection').classList.add('hidden');
             document.getElementById('userDashboard').classList.remove('hidden');
         }
@@ -472,31 +623,31 @@
             if(!user) return;
             try {
                 await updateDoc(doc(db, "users", user.uid), {
-                    fullName: document.getElementById('settingsName').value,
-                    freeFireUid: document.getElementById('settingsUid').value,
-                    esportsRole: document.getElementById('settingsRole').value,
-                    bio: document.getElementById('settingsBio').value
+                    fullName: document.getElementById('setFullName').value,
+                    freeFireUid: document.getElementById('setUid').value,
+                    esportsRole: document.getElementById('setRole').value,
+                    bio: document.getElementById('setBio').value
                 });
                 alert("Profile Updated Successfully!");
-                closeSettingsModal();
+                closeSettings();
                 loadUserProfile(user.uid);
-            } catch(err) { alert("Update Error: " + err.message); }
+            } catch (err) { alert("Update Error: " + err.message); }
         });
 
-        // Routing & Auth State
+        // Auth State Observer & Router
         onAuthStateChanged(auth, async (user) => {
             const authSec = document.getElementById('authSection');
             const userDash = document.getElementById('userDashboard');
             const adminDash = document.getElementById('adminDashboard');
             const settingsSec = document.getElementById('settingsSection');
-            const navBtn = document.getElementById('navDynamicButtons');
+            const rightHeader = document.getElementById('headerRightArea');
 
-            if(user) {
+            if (user) {
                 authSec.classList.add('hidden');
                 settingsSec.classList.add('hidden');
-                navBtn.innerHTML = `<span style="font-size: 12px; color: var(--accent-color);">${user.email}</span>`;
+                rightHeader.innerHTML = `<div class="user-quick-badge"><span></span> ${user.email}</div>`;
 
-                if(user.email === ADMIN_SUPER_EMAIL) {
+                if (user.email === ADMIN_SUPER_EMAIL) {
                     adminDash.classList.remove('hidden');
                     userDash.classList.add('hidden');
                     loadAdminPanel();
@@ -504,72 +655,77 @@
                     adminDash.classList.add('hidden');
                     userDash.classList.remove('hidden');
                     loadUserProfile(user.uid);
-                    loadFeedStream();
+                    loadCommunityFeed();
                 }
             } else {
                 authSec.classList.remove('hidden');
                 userDash.classList.add('hidden');
                 adminDash.classList.add('hidden');
                 settingsSec.classList.add('hidden');
-                navBtn.innerHTML = "";
+                rightHeader.innerHTML = "";
             }
         });
 
         async function loadUserProfile(uid) {
-            const uDoc = await getDoc(doc(db, "users", uid));
-            if(uDoc.exists()) {
-                const d = uDoc.data();
-                document.getElementById('profileDisplayName').innerText = d.fullName;
-                document.getElementById('profileDisplayMeta').innerText = `Role: ${d.esportsRole} | UID: ${d.freeFireUid}`;
-                document.getElementById('profileDisplayBio').innerText = `"${d.bio || 'No bio added yet'}"`;
+            const uSnap = await getDoc(doc(db, "users", uid));
+            if(uSnap.exists()) {
+                const d = uSnap.data();
+                document.getElementById('dashProfileName').innerText = d.fullName;
+                document.getElementById('dashProfileMeta').innerText = `UID: ${d.freeFireUid} • ${d.esportsRole}`;
+                document.getElementById('dashProfileBio').innerText = `"${d.bio || 'No bio added.'}"`;
+                document.getElementById('dashAvatar').innerText = d.fullName ? d.fullName.substring(0, 2).toUpperCase() : "GE";
             }
         }
 
-        async function loadFeedStream() {
+        async function loadCommunityFeed() {
             const snap = await getDocs(collection(db, "posts"));
-            globalPostsCache = [];
-            snap.forEach(d => {
-                globalPostsCache.push({ id: d.id, ...d.data() });
-            });
-            renderPosts(globalPostsCache);
+            postsCache = [];
+            snap.forEach(d => { postsCache.push({ id: d.id, ...d.data() }); });
+            renderFeed(postsCache);
         }
 
-        function renderPosts(posts) {
+        function renderFeed(posts) {
             let html = "";
             posts.forEach(p => {
+                const initials = p.authorName ? p.authorName.substring(0, 2).toUpperCase() : "GM";
                 html += `
                     <div class="post-card">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <strong style="color: var(--accent-color);">${p.authorName} <span style="font-size: 11px; background: rgba(56,189,248,0.2); padding: 2px 6px; border-radius: 4px;">${p.authorRole}</span></strong>
-                            <span style="font-size: 12px; color: #94a3b8;">UID: ${p.authorUid}</span>
+                        <div class="post-author">
+                            <div class="author-info">
+                                <div class="author-avatar">${initials}</div>
+                                <div class="author-details">
+                                    <h4>${p.authorName} <span class="role-pill">${p.authorRole}</span></h4>
+                                    <span><i class="fa-solid fa-id-card"></i> UID: ${p.authorUid}</span>
+                                </div>
+                            </div>
                         </div>
-                        <p style="font-size: 14px; line-height: 1.5; margin-bottom: 10px;">${p.content}</p>
-                        ${p.image ? `<img src="${p.image}" style="width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover;" alt="Post Image">` : ''}
+                        <div class="post-content">${p.content}</div>
+                        ${p.mediaImage ? `<img src="${p.mediaImage}" class="post-image" alt="Post Attachment">` : ''}
                     </div>
                 `;
             });
-            document.getElementById('newsFeedContainer').innerHTML = html || "<p style='color: #94a3b8; text-align: center; margin-top: 20px;'>No posts available.</p>";
+            document.getElementById('feedStreamContainer').innerHTML = html || "<p style='color: var(--text-muted); text-align: center; padding: 20px;'>No community updates found.</p>";
         }
 
-        // Live Search Filter
-        window.filterCommunityFeed = function() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = globalPostsCache.filter(p => 
-                p.content.toLowerCase().includes(query) || 
-                p.authorName.toLowerCase().includes(query) || 
-                p.authorUid.toLowerCase().includes(query)
+        // Search Filter
+        window.filterStream = function() {
+            const q = document.getElementById('liveSearchInput').value.toLowerCase();
+            const filtered = postsCache.filter(p => 
+                p.content.toLowerCase().includes(q) || 
+                p.authorName.toLowerCase().includes(q) || 
+                p.authorUid.toLowerCase().includes(q)
             );
-            renderPosts(filtered);
+            renderFeed(filtered);
         }
 
         async function loadAdminPanel() {
             const uSnap = await getDocs(collection(db, "users"));
-            let uRows = "";
+            let rows = "";
             uSnap.forEach(d => {
                 const u = d.data();
-                uRows += `<tr><td>${u.fullName || 'N/A'}</td><td>${u.freeFireUid || 'N/A'}</td><td>${u.esportsRole || 'N/A'}</td><td>${u.email || 'N/A'}</td></tr>`;
+                rows += `<tr><td>${u.fullName || 'N/A'}</td><td>${u.freeFireUid || 'N/A'}</td><td>${u.esportsRole || 'N/A'}</td><td>${u.email || 'N/A'}</td></tr>`;
             });
-            document.getElementById('adminUserTable').innerHTML = uRows;
+            document.getElementById('adminUserTableRows').innerHTML = rows;
 
             const pSnap = await getDocs(collection(db, "posts"));
             let pRows = "";
@@ -579,21 +735,20 @@
                 pRows += `
                     <div class="post-card" style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <strong style="color: var(--accent-color);">${p.authorName} (${p.authorRole})</strong>
-                            <p style="font-size: 13px; margin-top: 4px;">${p.content}</p>
+                            <h4 style="font-size: 14px; margin-bottom: 4px;">${p.authorName} (${p.authorRole})</h4>
+                            <p style="font-size: 13px; color: var(--text-muted);">${p.content}</p>
                         </div>
-                        <button class="btn-action" onclick="adminDeletePost('${id}')" style="background: #ef4444; border:none;">Delete</button>
+                        <button class="btn btn-danger" style="width: auto; padding: 8px 14px;" onclick="adminDelete('${id}')">Delete</button>
                     </div>
                 `;
             });
-            document.getElementById('adminPostList').innerHTML = pRows || "<p style='color: #94a3b8;'>No posts to manage.</p>";
+            document.getElementById('adminPostListContainer').innerHTML = pRows || "<p style='color: var(--text-muted);'>No posts available.</p>";
         }
 
-        window.adminDeletePost = async function(id) {
-            if(confirm("Delete this post?")) {
+        window.adminDelete = async function(id) {
+            if(confirm("Confirm deletion of this post?")) {
                 try {
                     await deleteDoc(doc(db, "posts", id));
-                    alert("Deleted!");
                     loadAdminPanel();
                 } catch(err) { alert("Failed: " + err.message); }
             }
@@ -601,4 +756,3 @@
     </script>
 </body>
 </html>
-
