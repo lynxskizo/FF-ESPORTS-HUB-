@@ -1,1 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="glassy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF Esports Hub - Ultimate Facebook Edition</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b, #09090b);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --accent-color: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.6);
+            --blur-val: blur(16px);
+        }
+
+        [data-theme="classic"] {
+            --bg-gradient: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --accent-glow: none;
+            --blur-val: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: waterAnimation 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        @keyframes waterAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* Top Bar */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-val);
+            -webkit-backdrop-filter: var(--blur-val);
+            border: 1px solid var(--border-color);
+            padding: 15px 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .logo-area h1 {
+            font-size: 20px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .btn-action:hover { background: var(--accent-color); color: #000; }
+
+        /* Glass Panels */
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-val);
+            -webkit-backdrop-filter: var(--blur-val);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout { grid-template-columns: 1fr; }
+            .top-nav { flex-direction: column; gap: 15px; text-align: center; }
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 14px;
+        }
+        .form-control::placeholder { color: #94a3b8; }
+
+        .btn-main {
+            background: var(--accent-color);
+            color: #0f172a;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .btn-main:hover { opacity: 0.9; }
+
+        .hidden { display: none !important; }
+
+        /* Gallery / Image Upload Box */
+        .upload-box {
+            border: 2px dashed var(--border-color);
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            background: rgba(0,0,0,0.15);
+        }
+        .upload-box img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 8px;
+            margin-top: 10px;
+            object-fit: cover;
+        }
+
+        /* Post Cards */
+        .post-card {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        /* Search & Filters */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border: 1px solid var(--border-color); text-align: left; font-size: 14px; }
+        th { background: rgba(56, 189, 248, 0.15); color: var(--accent-color); }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- TOP NAVIGATION -->
+        <div class="top-nav">
+            <div class="logo-area">
+                <h1>🔥 FF ESPORTS FACEBOOK HUB</h1>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-action" onclick="toggleThemeSystem()">✨ Theme (Glassy/Classic)</button>
+                <div id="navDynamicButtons"></div>
+            </div>
+        </div>
+
+        <!-- 1. AUTHENTICATION SECTION (Login & Signup) -->
+        <div id="authSection" class="glass-panel" style="max-width: 450px; margin: 0 auto; text-align: center;">
+            <h2 id="authHeading" style="color: var(--accent-color); margin-bottom: 15px;">Gamer Portal Login</h2>
+            
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email Address" class="form-control" required>
+                <input type="password" id="loginPassword" placeholder="Password" class="form-control" required>
+                <button type="submit" class="btn-main">Log In</button>
+            </form>
+
+            <form id="signupForm" class="hidden">
+                <input type="text" id="signupName" placeholder="Full Name / IGN" class="form-control" required>
+                <input type="text" id="signupUid" placeholder="Free Fire UID" class="form-control" required>
+                <select id="signupRole" class="form-control" required>
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="Rusher">Rusher</option>
+                    <option value="Assaulter">Assaulter</option>
+                    <option value="Supporter">Supporter</option>
+                    <option value="Sniper">Sniper</option>
+                    <option value="IGL">IGL</option>
+                </select>
+                <input type="email" id="signupEmail" placeholder="Email Address" class="form-control" required>
+                <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" class="form-control" required>
+                <button type="submit" class="btn-main" style="background: #10b981;">Create Account</button>
+            </form>
+
+            <p id="authToggleText" style="margin-top: 15px; font-size: 13px; cursor: pointer; color: #94a3b8;" onclick="switchAuthMode()">Don't have an account? Sign Up</p>
+        </div>
+
+        <!-- 2. MAIN NEWSFEED & USER DASHBOARD -->
+        <div id="userDashboard" class="hidden">
+            
+            <!-- Header Profile Bar -->
+            <div class="glass-panel" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h2 id="profileDisplayName" style="color: var(--accent-color);">Gamer Name</h2>
+                    <p id="profileDisplayMeta" style="font-size: 13px; color: #94a3b8;"></p>
+                    <p id="profileDisplayBio" style="font-size: 13px; margin-top: 4px; font-style: italic;"></p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-action" onclick="openSettingsModal()">⚙️ Settings & Edit Profile</button>
+                    <button class="btn-action" onclick="userLogout()" style="background: #ef4444; border:none;">Log Out</button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search posts or gamers by name/UID..." class="form-control" style="margin: 0;" oninput="filterCommunityFeed()">
+            </div>
+
+            <div class="grid-layout">
+                <!-- Left Column: Create Post & Gallery Upload -->
+                <div>
+                    <div class="glass-panel">
+                        <h3 style="color: var(--accent-color); margin-bottom: 10px;">📝 Create Post</h3>
+                        <form id="createPostForm">
+                            <textarea id="postText" class="form-control" rows="3" placeholder="What's on your mind, gamer?" required></textarea>
+                            
+                            <!-- Gallery Upload Box -->
+                            <div class="upload-box" onclick="document.getElementById('imagePicker').click()">
+                                <p style="font-size: 12px; color: #94a3b8;">📁 Open Gallery / Upload Image (No Quality Loss)</p>
+                                <input type="file" id="imagePicker" accept="image/*" class="hidden" onchange="handleImageSelection(event)">
+                                <img id="imagePreview" class="hidden" alt="Preview">
+                            </div>
+
+                            <button type="submit" class="btn-main">Publish Post</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Feed -->
+                <div>
+                    <h3 style="color: #f59e0b; margin-bottom: 10px;">📰 News Feed</h3>
+                    <div id="newsFeedContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SETTINGS & PROFILE EDIT MODAL VIEW -->
+        <div id="settingsSection" class="glass-panel hidden" style="max-width: 600px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: var(--accent-color);">⚙️ Account Settings & Edit Profile</h2>
+                <button class="btn-action" onclick="closeSettingsModal()">❌ Close</button>
+            </div>
+            <form id="updateProfileForm">
+                <label style="font-size: 13px; color: #94a3b8;">Full Name / IGN</label>
+                <input type="text" id="settingsName" class="form-control" required>
+                
+                <label style="font-size: 13px; color: #94a3b8;">Free Fire UID</label>
+                <input type="text" id="settingsUid" class="form-control" required>
+                
+                <label style="font-size: 13px; color: #94a3b8;">Esports Role</label>
+                <select id="settingsRole" class="form-control" required>
+                    <option value="Rusher">Rusher</option>
+                    <option value="Assaulter">Assaulter</option>
+                    <option value="Supporter">Supporter</option>
+                    <option value="Sniper">Sniper</option>
+                    <option value="IGL">IGL</option>
+                </select>
+
+                <label style="font-size: 13px; color: #94a3b8;">Bio / Status</label>
+                <input type="text" id="settingsBio" class="form-control" placeholder="Write something about your gaming skills...">
+
+                <button type="submit" class="btn-main" style="background: #10b981;">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- 4. ADMIN DASHBOARD -->
+        <div id="adminDashboard" class="glass-panel hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: #f59e0b;">🛡️ Master Admin Control Panel</h2>
+                <button class="btn-action" onclick="userLogout()" style="background: #ef4444; border:none;">Log Out</button>
+            </div>
+
+            <h3 style="color: var(--accent-color); margin-bottom: 10px;">👥 Registered Users Database</h3>
+            <div style="overflow-x: auto; margin-bottom: 30px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name / IGN</th>
+                            <th>UID</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUserTable"></tbody>
+                </table>
+            </div>
+
+            <h3 style="color: #f59e0b; margin-bottom: 10px;">🗑️ Manage & Delete Posts</h3>
+            <div id="adminPostList"></div>
+        </div>
+
+    </div>
+
+    <!-- FIREBASE & LOGIC SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdzsLgKC5ssl9ZA1yeGLIpmOkNGC7lXKM",
+          authDomain: "ff-esports-hub-eb964.firebaseapp.com",
+          projectId: "ff-esports-hub-eb964",
+          storageBucket: "ff-esports-hub-eb964.firebasestorage.app",
+          messagingSenderId: "44678895159",
+          appId: "1:44678895159:web:29225572f8c7fee106d1b2",
+          measurementId: "G-62FQQCRS5K"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const ADMIN_SUPER_EMAIL = "admin@ffhub.com";
+        let base64Image = "";
+        let globalPostsCache = [];
+
+        // Theme Switcher
+        window.toggleThemeSystem = function() {
+            const html = document.documentElement;
+            const theme = html.getAttribute("data-theme");
+            html.setAttribute("data-theme", theme === "glassy" ? "classic" : "glassy");
+        }
+
+        // Auth Mode Toggle
+        let isSignup = false;
+        window.switchAuthMode = function() {
+            isSignup = !isSignup;
+            document.getElementById('loginForm').classList.toggle('hidden');
+            document.getElementById('signupForm').classList.toggle('hidden');
+            document.getElementById('authHeading').innerText = isSignup ? "Create Account" : "Gamer Portal Login";
+            document.getElementById('authToggleText').innerText = isSignup ? "Already registered? Log In" : "Don't have an account? Sign Up";
+        }
+
+        // Image Gallery Selector (Base64 Lossless)
+        window.handleImageSelection = function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    base64Image = evt.target.result;
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = base64Image;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Signup
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, document.getElementById('signupEmail').value, document.getElementById('signupPassword').value);
+                await setDoc(doc(db, "users", cred.user.uid), {
+                    fullName: document.getElementById('signupName').value,
+                    freeFireUid: document.getElementById('signupUid').value,
+                    esportsRole: document.getElementById('signupRole').value,
+                    email: document.getElementById('signupEmail').value,
+                    bio: "Hey there! I am using FF Esports Hub.",
+                    createdAt: serverTimestamp()
+                });
+                alert("Account Created Successfully!");
+            } catch(err) { alert("Error: " + err.message); }
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);
+            } catch(err) { alert("Login Failed: " + err.message); }
+        });
+
+        window.userLogout = function() { signOut(auth); }
+
+        // Create Post
+        document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if(!user) return;
+            try {
+                const uDoc = await getDoc(doc(db, "users", user.uid));
+                const uData = uDoc.exists() ? uDoc.data() : {};
+
+                await setDoc(doc(collection(db, "posts")), {
+                    authorName: uData.fullName || "Gamer",
+                    authorUid: uData.freeFireUid || "N/A",
+                    authorRole: uData.esportsRole || "Member",
+                    content: document.getElementById('postText').value,
+                    image: base64Image || "",
+                    createdAt: new Date().toISOString()
+                });
+
+                document.getElementById('postText').value = "";
+                document.getElementById('imagePicker').value = "";
+                document.getElementById('imagePreview').classList.add('hidden');
+                base64Image = "";
+                alert("Post Published!");
+                loadFeedStream();
+            } catch(err) { alert("Error: " + err.message); }
+        });
+
+        // Settings / Profile Edit Modals
+        window.openSettingsModal = async function() {
+            const user = auth.currentUser;
+            if(!user) return;
+            const uDoc = await getDoc(doc(db, "users", user.uid));
+            if(uDoc.exists()) {
+                const data = uDoc.data();
+                document.getElementById('settingsName').value = data.fullName || "";
+                document.getElementById('settingsUid').value = data.freeFireUid || "";
+                document.getElementById('settingsRole').value = data.esportsRole || "Rusher";
+                document.getElementById('settingsBio').value = data.bio || "";
+            }
+            document.getElementById('settingsSection').classList.remove('hidden');
+            document.getElementById('userDashboard').classList.add('hidden');
+        }
+
+        window.closeSettingsModal = function() {
+            document.getElementById('settingsSection').classList.add('hidden');
+            document.getElementById('userDashboard').classList.remove('hidden');
+        }
+
+        document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if(!user) return;
+            try {
+                await updateDoc(doc(db, "users", user.uid), {
+                    fullName: document.getElementById('settingsName').value,
+                    freeFireUid: document.getElementById('settingsUid').value,
+                    esportsRole: document.getElementById('settingsRole').value,
+                    bio: document.getElementById('settingsBio').value
+                });
+                alert("Profile Updated Successfully!");
+                closeSettingsModal();
+                loadUserProfile(user.uid);
+            } catch(err) { alert("Update Error: " + err.message); }
+        });
+
+        // Routing & Auth State
+        onAuthStateChanged(auth, async (user) => {
+            const authSec = document.getElementById('authSection');
+            const userDash = document.getElementById('userDashboard');
+            const adminDash = document.getElementById('adminDashboard');
+            const settingsSec = document.getElementById('settingsSection');
+            const navBtn = document.getElementById('navDynamicButtons');
+
+            if(user) {
+                authSec.classList.add('hidden');
+                settingsSec.classList.add('hidden');
+                navBtn.innerHTML = `<span style="font-size: 12px; color: var(--accent-color);">${user.email}</span>`;
+
+                if(user.email === ADMIN_SUPER_EMAIL) {
+                    adminDash.classList.remove('hidden');
+                    userDash.classList.add('hidden');
+                    loadAdminPanel();
+                } else {
+                    adminDash.classList.add('hidden');
+                    userDash.classList.remove('hidden');
+                    loadUserProfile(user.uid);
+                    loadFeedStream();
+                }
+            } else {
+                authSec.classList.remove('hidden');
+                userDash.classList.add('hidden');
+                adminDash.classList.add('hidden');
+                settingsSec.classList.add('hidden');
+                navBtn.innerHTML = "";
+            }
+        });
+
+        async function loadUserProfile(uid) {
+            const uDoc = await getDoc(doc(db, "users", uid));
+            if(uDoc.exists()) {
+                const d = uDoc.data();
+                document.getElementById('profileDisplayName').innerText = d.fullName;
+                document.getElementById('profileDisplayMeta').innerText = `Role: ${d.esportsRole} | UID: ${d.freeFireUid}`;
+                document.getElementById('profileDisplayBio').innerText = `"${d.bio || 'No bio added yet'}"`;
+            }
+        }
+
+        async function loadFeedStream() {
+            const snap = await getDocs(collection(db, "posts"));
+            globalPostsCache = [];
+            snap.forEach(d => {
+                globalPostsCache.push({ id: d.id, ...d.data() });
+            });
+            renderPosts(globalPostsCache);
+        }
+
+        function renderPosts(posts) {
+            let html = "";
+            posts.forEach(p => {
+                html += `
+                    <div class="post-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <strong style="color: var(--accent-color);">${p.authorName} <span style="font-size: 11px; background: rgba(56,189,248,0.2); padding: 2px 6px; border-radius: 4px;">${p.authorRole}</span></strong>
+                            <span style="font-size: 12px; color: #94a3b8;">UID: ${p.authorUid}</span>
+                        </div>
+                        <p style="font-size: 14px; line-height: 1.5; margin-bottom: 10px;">${p.content}</p>
+                        ${p.image ? `<img src="${p.image}" style="width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover;" alt="Post Image">` : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('newsFeedContainer').innerHTML = html || "<p style='color: #94a3b8; text-align: center; margin-top: 20px;'>No posts available.</p>";
+        }
+
+        // Live Search Filter
+        window.filterCommunityFeed = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = globalPostsCache.filter(p => 
+                p.content.toLowerCase().includes(query) || 
+                p.authorName.toLowerCase().includes(query) || 
+                p.authorUid.toLowerCase().includes(query)
+            );
+            renderPosts(filtered);
+        }
+
+        async function loadAdminPanel() {
+            const uSnap = await getDocs(collection(db, "users"));
+            let uRows = "";
+            uSnap.forEach(d => {
+                const u = d.data();
+                uRows += `<tr><td>${u.fullName || 'N/A'}</td><td>${u.freeFireUid || 'N/A'}</td><td>${u.esportsRole || 'N/A'}</td><td>${u.email || 'N/A'}</td></tr>`;
+            });
+            document.getElementById('adminUserTable').innerHTML = uRows;
+
+            const pSnap = await getDocs(collection(db, "posts"));
+            let pRows = "";
+            pSnap.forEach(d => {
+                const p = d.data();
+                const id = d.id;
+                pRows += `
+                    <div class="post-card" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: var(--accent-color);">${p.authorName} (${p.authorRole})</strong>
+                            <p style="font-size: 13px; margin-top: 4px;">${p.content}</p>
+                        </div>
+                        <button class="btn-action" onclick="adminDeletePost('${id}')" style="background: #ef4444; border:none;">Delete</button>
+                    </div>
+                `;
+            });
+            document.getElementById('adminPostList').innerHTML = pRows || "<p style='color: #94a3b8;'>No posts to manage.</p>";
+        }
+
+        window.adminDeletePost = async function(id) {
+            if(confirm("Delete this post?")) {
+                try {
+                    await deleteDoc(doc(db, "posts", id));
+                    alert("Deleted!");
+                    loadAdminPanel();
+                } catch(err) { alert("Failed: " + err.message); }
+            }
+        }
+    </script>
+</body>
+</html>
 
