@@ -1,554 +1,1123 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Esports Pro Hub - Ultimate Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-base: #050811;
-            --surface: #0d1322;
-            --surface-glass: rgba(13, 19, 34, 0.85);
-            --border: rgba(255, 255, 255, 0.08);
-            --accent: #38bdf8;
-            --accent-secondary: #818cf8;
-            --accent-glow: rgba(56, 189, 248, 0.35);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --danger: #f43f5e;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --radius: 16px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusGG - Esports & Social Hub</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              bg: '#0d1117',
+              cyan: '#00f0ff',
+              pink: '#ff007f',
+              dark: '#161b22',
+              surface: '#21262d'
+            }
+          }
         }
-
-        [data-theme="light"] {
-            --bg-base: #f8fafc;
-            --surface: #ffffff;
-            --surface-glass: rgba(255, 255, 255, 0.9);
-            --border: #e2e8f0;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --accent-glow: rgba(56, 189, 248, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-enter { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        header {
-            background: var(--surface-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 14px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .brand i { color: var(--accent); }
-
-        .btn {
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            color: #050811;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 18px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 20px var(--accent-glow);
-        }
-        .btn:hover { opacity: 0.92; transform: translateY(-1px); }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            box-shadow: none;
-        }
-        .btn-outline:hover { background: rgba(255,255,255,0.04); }
-
-        .btn-danger { background: var(--danger); color: #fff; }
-
-        .wrapper {
-            max-width: 1250px;
-            margin: 24px auto;
-            padding: 0 16px;
-        }
-
-        .card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            margin-bottom: 18px;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr 300px;
-            gap: 20px;
-        }
-
-        @media(max-width: 1024px) {
-            .grid-layout { grid-template-columns: 1fr; }
-        }
-
-        .hidden { display: none !important; }
-
-        .input-box {
-            position: relative;
-            margin-bottom: 14px;
-        }
-        .input-box i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .form-control {
-            width: 100%;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px 14px 12px 42px;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-        }
-        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        select.form-control { padding-left: 14px; cursor: pointer; }
-
-        .auth-card { max-width: 420px; margin: 40px auto; text-align: center; }
-
-        .post-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-        .avatar {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 15px;
-            color: #050811;
-        }
-        .badge {
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--accent);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .actions-bar {
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 8px 0;
-            margin: 12px 0;
-        }
-        .action-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            border-radius: 8px;
-        }
-        .action-btn:hover { background: rgba(255,255,255,0.04); color: var(--accent); }
-        .action-btn.active { color: var(--danger); }
-
-        /* Advanced Notification Toast */
-        #toastBox {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .toast {
-            background: var(--surface);
-            border: 1px solid var(--accent);
-            padding: 12px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            font-size: 13px;
-            animation: fadeIn 0.3s ease;
-        }
-    </style>
+      }
+    }
+  </script>
+  
+  <!-- Custom Application Stylesheet -->
+  <link rel="stylesheet" href="./src/css/main.css">
 </head>
-<body>
+<body class="bg-zinc-50 dark:bg-cyber-bg text-zinc-900 dark:text-zinc-100 min-h-screen font-sans antialiased transition-colors duration-300 flex flex-col justify-between">
 
-    <header>
-        <div class="brand"><i class="fa-solid fa-shield-cat"></i> NEXUS PRO HUB</div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <button class="btn btn-outline" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Theme</button>
-            <div id="headerBadge"></div>
-        </div>
-    </header>
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-light dark:cyber-dark border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+      
+      <!-- Brand Logo & Main Nav -->
+      <div class="flex items-center space-x-8">
+        <a href="/feed" data-link class="text-2xl font-black tracking-widest text-cyan-400 cyber-glow flex items-center space-x-2">
+          <span>NEXUS.GG</span>
+        </a>
+        <nav class="hidden md:flex space-x-6">
+          <a href="/feed" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Feed</a>
+          <a href="/squad" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Squads</a>
+          <a href="/messenger" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Messenger</a>
+        </nav>
+      </div>
 
-    <div class="wrapper">
-        <!-- Auth Section -->
-        <div id="authSection" class="card auth-card animate-enter">
-            <h2 id="authTitle" style="color: var(--accent); margin-bottom: 6px; font-size: 22px;">Portal Authentication</h2>
-            <p id="authSub" style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Secure login to your credentials</p>
+      <!-- Action Utilities & Profile Quick Access -->
+      <div class="flex items-center space-x-4">
+        <!-- Language Selector Dropdown -->
+        <select id="language-selector" class="bg-transparent text-xs font-semibold text-zinc-400 hover:text-cyan-400 focus:outline-none cursor-pointer">
+          <option value="en" class="dark:bg-cyber-dark">EN</option>
+          <option value="bn" class="dark:bg-cyber-dark">BN (Banglish)</option>
+          <option value="hi" class="dark:bg-cyber-dark">HI</option>
+        </select>
 
-            <form id="loginForm">
-                <div class="input-box"><i class="fa-solid fa-envelope"></i><input type="email" id="logEmail" class="form-control" placeholder="Email" required></div>
-                <div class="input-box"><i class="fa-solid fa-lock"></i><input type="password" id="logPass" class="form-control" placeholder="Password" required></div>
-                <button type="submit" class="btn" style="width: 100%;">Sign In</button>
-            </form>
+        <!-- Theme Toggle Switch -->
+        <button id="theme-toggle" aria-label="Toggle Theme" class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition text-zinc-400 hover:text-cyan-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+        </button>
 
-            <form id="signupForm" class="hidden">
-                <div class="input-box"><i class="fa-solid fa-user"></i><input type="text" id="signName" class="form-control" placeholder="Full Name / IGN" required></div>
-                <div class="input-box"><i class="fa-solid fa-id-badge"></i><input type="text" id="signUid" class="form-control" placeholder="Gaming UID" required></div>
-                <div class="input-box">
-                    <select id="signRole" class="form-control" required>
-                        <option value="" disabled selected>Select Role</option>
-                        <option value="Rusher">Rusher</option>
-                        <option value="Assaulter">Assaulter</option>
-                        <option value="Supporter">Supporter</option>
-                        <option value="Sniper">Sniper</option>
-                    </select>
-                </div>
-                <div class="input-box"><i class="fa-solid fa-envelope"></i><input type="email" id="signEmail" class="form-control" placeholder="Email" required></div>
-                <div class="input-box"><i class="fa-solid fa-lock"></i><input type="password" id="signPass" class="form-control" placeholder="Password" required></div>
-                <button type="submit" class="btn" style="width: 100%; background: var(--success);">Register Account</button>
-            </form>
+        <!-- User Profile Quick Settings Link -->
+        <a href="/settings" data-link class="flex items-center space-x-2 p-1 rounded-full hover:ring-2 hover:ring-cyan-400 transition">
+          <img id="nav-user-avatar" src="https://via.placeholder.com/36" class="w-9 h-9 rounded-full object-cover border border-cyan-500/50" alt="User Avatar">
+        </a>
+      </div>
 
-            <p id="authToggleText" style="margin-top: 16px; font-size: 13px; color: var(--text-muted); cursor: pointer;" onclick="toggleAuthMode()">Need an account? <b>Sign Up</b></p>
-        </div>
-
-        <!-- Dashboard -->
-        <div id="userDashboard" class="hidden animate-enter">
-            <div class="grid-layout">
-                <div>
-                    <div class="card" style="text-align: center;">
-                        <div class="avatar" id="dashAvatar" style="margin: 0 auto 12px auto; width: 60px; height: 60px; font-size: 20px;">NX</div>
-                        <h3 id="dashName" style="font-size: 16px; font-weight: 700;">Name</h3>
-                        <p id="dashMeta" style="font-size: 12px; color: var(--accent); margin: 4px 0;">Role</p>
-                        <p id="dashBio" style="font-size: 12px; color: var(--text-muted); font-style: italic; margin-bottom: 16px;">"Bio here"</p>
-                        
-                        <div style="text-align: left; font-size: 12px; color: var(--text-muted); margin-bottom: 14px; border-top: 1px solid var(--border); padding-top: 10px;">
-                            <p><i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord: <span id="dashDiscord">N/A</span></p>
-                            <p><i class="fa-brands fa-youtube" style="color: #FF0000;"></i> YouTube: <span id="dashYoutube">N/A</span></p>
-                        </div>
-
-                        <button class="btn btn-outline" style="width: 100%; margin-bottom: 8px;" onclick="openSettings()"><i class="fa-solid fa-gear"></i> Settings</button>
-                        <button class="btn btn-danger" style="width: 100%;" onclick="logout()"><i class="fa-solid fa-power-off"></i> Logout</button>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="card">
-                        <form id="postForm">
-                            <textarea id="postText" class="form-control" rows="3" placeholder="Broadcast tactical updates..." style="padding-left: 14px; resize: none;" required></textarea>
-                            <div class="input-box" style="margin-top: 10px; margin-bottom: 0;">
-                                <i class="fa-solid fa-image"></i>
-                                <input type="text" id="postImage" class="form-control" placeholder="Optional Image/Banner URL...">
-                            </div>
-                            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Publish Broadcast</button>
-                        </form>
-                    </div>
-                    <div id="feedContainer"></div>
-                </div>
-
-                <div>
-                    <div class="card" style="margin-bottom: 15px;">
-                        <div class="input-box" style="margin-bottom: 0;"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="searchInput" class="form-control" placeholder="Search records..." oninput="filterFeed()"></div>
-                    </div>
-                    <div class="card">
-                        <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--accent);"><i class="fa-solid fa-chart-line"></i> Hub Stats</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Total Active Posts: <b id="statTotalPosts" style="color: var(--text-main);">0</b></p>
-                        <p style="font-size: 12px; color: var(--text-muted);">System Status: <b style="color: var(--success);">Online & Secure</b></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Modal -->
-        <div id="settingsSection" class="card hidden animate-enter" style="max-width: 480px; margin: 0 auto;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 style="font-size: 16px; color: var(--accent);">Profile Configuration</h3>
-                <button class="btn btn-outline" style="padding: 4px 10px;" onclick="closeSettings()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form id="settingsForm">
-                <div class="input-box"><input type="text" id="setFullName" class="form-control" style="padding-left:14px;" placeholder="Full Name" required></div>
-                <div class="input-box"><input type="text" id="setUid" class="form-control" style="padding-left:14px;" placeholder="UID" required></div>
-                <div class="input-box">
-                    <select id="setRole" class="form-control" required>
-                        <option value="Rusher">Rusher</option>
-                        <option value="Assaulter">Assaulter</option>
-                        <option value="Supporter">Supporter</option>
-                        <option value="Sniper">Sniper</option>
-                    </select>
-                </div>
-                <div class="input-box"><input type="text" id="setBio" class="form-control" style="padding-left:14px;" placeholder="Bio"></div>
-                <div class="input-box"><input type="text" id="setDiscord" class="form-control" style="padding-left:14px;" placeholder="Discord Username"></div>
-                <div class="input-box"><input type="text" id="setYoutube" class="form-control" style="padding-left:14px;" placeholder="YouTube Channel Link"></div>
-                <button type="submit" class="btn" style="width: 100%; background: var(--success);">Save Changes</button>
-            </form>
-        </div>
     </div>
+  </header>
 
-    <div id="toastBox"></div>
+  <!-- Dynamic Application SPA Root Container -->
+  <main id="app-root" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Dynamic views (Feed, Squads, Messenger, Settings, Auth) load here via router.js -->
+  </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  <!-- Footer Info -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 py-4 text-center text-xs text-zinc-500">
+    <p>&copy; 2026 NexusGG Esports Network. All rights reserved. Production-Grade Build.</p>
+  </footer>
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyCdzsLgKC5ssl9ZA1yeGLIpmOkNGC7lXKM",
-          authDomain: "ff-esports-hub-eb964.firebaseapp.com",
-          projectId: "ff-esports-hub-eb964",
-          storageBucket: "ff-esports-hub-eb964.firebasestorage.app",
-          messagingSenderId: "44678895159",
-          appId: "1:44678895159:web:29225572f8c7fee106d1b2",
-          measurementId: "G-62FQQCRS5K"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        let feedCache = [];
-
-        function showToast(msg) {
-            const box = document.getElementById('toastBox');
-            const t = document.createElement('div');
-            t.className = 'toast';
-            t.innerText = msg;
-            box.appendChild(t);
-            setTimeout(() => t.remove(), 3000);
-        }
-
-        window.toggleTheme = function() {
-            const h = document.documentElement;
-            h.setAttribute("data-theme", h.getAttribute("data-theme") === "dark" ? "light" : "dark");
-        }
-
-        let isSign = false;
-        window.toggleAuthMode = function() {
-            isSign = !isSign;
-            document.getElementById('loginForm').classList.toggle('hidden');
-            document.getElementById('signupForm').classList.toggle('hidden');
-        }
-
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const cred = await createUserWithEmailAndPassword(auth, document.getElementById('signEmail').value, document.getElementById('signPass').value);
-                await setDoc(doc(db, "users", cred.user.uid), {
-                    fullName: document.getElementById('signName').value,
-                    freeFireUid: document.getElementById('signUid').value,
-                    esportsRole: document.getElementById('signRole').value,
-                    email: document.getElementById('signEmail').value,
-                    bio: "Elite Member",
-                    discord: "N/A",
-                    youtube: "N/A"
-                });
-                showToast("Registered Successfully!");
-            } catch (err) { alert(err.message); }
-        });
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                await signInWithEmailAndPassword(auth, document.getElementById('logEmail').value, document.getElementById('logPass').value);
-                showToast("Welcome Back!");
-            } catch (err) { alert(err.message); }
-        });
-
-        window.logout = function() { signOut(auth); }
-
-        document.getElementById('postForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if(!user) return;
-            const uDoc = await getDoc(doc(db, "users", user.uid));
-            const uData = uDoc.exists() ? uDoc.data() : {};
-
-            await setDoc(doc(collection(db, "posts")), {
-                authorName: uData.fullName || "Gamer",
-                authorUid: uData.freeFireUid || "N/A",
-                authorRole: uData.esportsRole || "Member",
-                content: document.getElementById('postText').value,
-                image: document.getElementById('postImage').value || "",
-                likes: 0
-            });
-            document.getElementById('postText').value = "";
-            document.getElementById('postImage').value = "";
-            showToast("Broadcast Published!");
-            loadFeed();
-        });
-
-        window.likePost = function(btn) {
-            let span = btn.querySelector('.l-count');
-            span.innerText = btn.classList.contains('active') ? parseInt(span.innerText) - 1 : parseInt(span.innerText) + 1;
-            btn.classList.toggle('active');
-            showToast(btn.classList.contains('active') ? "Post Liked!" : "Like Removed");
-        }
-
-        window.openSettings = async function() {
-            const user = auth.currentUser;
-            if(!user) return;
-            const docSnap = await getDoc(doc(db, "users", user.uid));
-            if(docSnap.exists()) {
-                const d = docSnap.data();
-                document.getElementById('setFullName').value = d.fullName || "";
-                document.getElementById('setUid').value = d.freeFireUid || "";
-                document.getElementById('setRole').value = d.esportsRole || "Rusher";
-                document.getElementById('setBio').value = d.bio || "";
-                document.getElementById('setDiscord').value = d.discord || "";
-                document.getElementById('setYoutube').value = d.youtube || "";
-            }
-            document.getElementById('settingsSection').classList.remove('hidden');
-            document.getElementById('userDashboard').classList.add('hidden');
-        }
-
-        window.closeSettings = function() {
-            document.getElementById('settingsSection').classList.add('hidden');
-            document.getElementById('userDashboard').classList.remove('hidden');
-        }
-
-        document.getElementById('settingsForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if(!user) return;
-            await updateDoc(doc(db, "users", user.uid), {
-                fullName: document.getElementById('setFullName').value,
-                freeFireUid: document.getElementById('setUid').value,
-                esportsRole: document.getElementById('setRole').value,
-                bio: document.getElementById('setBio').value,
-                discord: document.getElementById('setDiscord').value,
-                youtube: document.getElementById('setYoutube').value
-            });
-            showToast("Profile Updated!");
-            closeSettings();
-            loadUser(user.uid);
-        });
-
-        onAuthStateChanged(auth, async (user) => {
-            if(user) {
-                document.getElementById('authSection').classList.add('hidden');
-                document.getElementById('userDashboard').classList.remove('hidden');
-                loadUser(user.uid);
-                loadFeed();
-            } else {
-                document.getElementById('authSection').classList.remove('hidden');
-                document.getElementById('userDashboard').classList.add('hidden');
-                document.getElementById('settingsSection').classList.add('hidden');
-            }
-        });
-
-        async function loadUser(uid) {
-            const d = await getDoc(doc(db, "users", uid));
-            if(d.exists()) {
-                const data = d.data();
-                document.getElementById('dashName').innerText = data.fullName;
-                document.getElementById('dashMeta').innerText = `${data.esportsRole} • UID: ${data.freeFireUid}`;
-                document.getElementById('dashBio').innerText = `"${data.bio}"`;
-                document.getElementById('dashDiscord').innerText = data.discord || "N/A";
-                document.getElementById('dashYoutube').innerText = data.youtube || "N/A";
-                document.getElementById('dashAvatar').innerText = data.fullName.substring(0,2).toUpperCase();
-            }
-        }
-
-        async function loadFeed() {
-            const snap = await getDocs(collection(db, "posts"));
-            feedCache = [];
-            snap.forEach(d => feedCache.push({ id: d.id, ...d.data() }));
-            document.getElementById('statTotalPosts').innerText = feedCache.length;
-            renderFeed(feedCache);
-        }
-
-        function renderFeed(posts) {
-            let html = "";
-            posts.forEach(p => {
-                let imgTag = p.image ? `<img src="${p.image}" style="width:100%; border-radius:10px; margin-bottom:10px; max-height:250px; object-fit:cover;" onerror="this.style.display='none'">` : '';
-                html += `
-                    <div class="post-card animate-enter">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <div class="avatar" style="width: 36px; height: 36px; font-size: 13px;">${p.authorName.substring(0,2).toUpperCase()}</div>
-                            <div>
-                                <h4 style="font-size: 13px; font-weight: 700;">${p.authorName} <span class="badge">${p.authorRole}</span></h4>
-                                <span style="font-size: 11px; color: var(--text-muted);">UID: ${p.authorUid}</span>
-                            </div>
-                        </div>
-                        <p style="font-size: 13px; color: var(--text-main); margin-bottom: 10px;">${p.content}</p>
-                        ${imgTag}
-                        <div class="actions-bar">
-                            <button class="action-btn" onclick="likePost(this)"><i class="fa-regular fa-heart"></i> Like (<span class="l-count">${p.likes}</span>)</button>
-                            <button class="action-btn" onclick="showToast('Comments box active')"><i class="fa-regular fa-comment"></i> Comment</button>
-                        </div>
-                    </div>
-                `;
-            });
-            document.getElementById('feedContainer').innerHTML = html || "<p style='color: var(--text-muted); text-align: center;'>No posts found.</p>";
-        }
-
-        window.filterFeed = function() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            renderFeed(feedCache.filter(p => p.content.toLowerCase().includes(q) || p.authorName.toLowerCase().includes(q)));
-        }
-    </script>
+  <!-- Application Main Entry Script -->
+  <script type="module" src="./src/js/app.js"></script>
 </body>
 </html>
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* ==========================================
+     DUAL-THEME ENGINE & GLASSMORPHISM
+     ========================================== */
+
+  /* Clean Glassmorphism (Light Mode Utility) */
+  .glass-light {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  /* Cyberpunk Dark Glassmorphism */
+  .cyber-dark {
+    background: rgba(13, 17, 23, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
+  }
+
+  /* Neon Glow Effects */
+  .cyber-glow {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+  
+  .cyber-border {
+    border-color: #00f0ff;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+
+  .cyber-pink-glow {
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+  }
+
+  /* Custom Scrollbars for High-End Feed and Chat Panels */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 240, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 240, 255, 0.6);
+  }
+}
+
+/* Base structural adjustments */
+body {
+  overflow-x: hidden;
+}
+
+// ==========================================
+// FIREBASE INITIALIZATION & SDK EXPORTS
+// ==========================================
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "nexusgg-platform.firebaseapp.com",
+  projectId: "nexusgg-platform",
+  storageBucket: "nexusgg-platform.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase Core App
+const app = initializeApp(firebaseConfig);
+
+// Export Auth and Firestore instances for modular components
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export default app;
+
+// ==========================================
+// CLIENT-SIDE SPA ROUTER & AUTH GUARDS
+// ==========================================
+
+import { auth } from './firebase-config.js';
+
+class Router {
+  constructor(routes) {
+    this.routes = routes;
+    this.currentRoute = null;
+    
+    // Listen to browser history navigation changes
+    window.addEventListener('popstate', () => this.handleRoute());
+    
+    // Intercept anchor clicks for smooth client-side transitions
+    document.addEventListener('click', e => {
+      const link = e.target.closest('[data-link]');
+      if (link) {
+        e.preventDefault();
+        this.navigateTo(link.href);
+      }
+    });
+  }
+
+  navigateTo(url) {
+    const urlObj = new URL(url, window.location.origin);
+    history.pushState(null, null, urlObj.pathname);
+    this.handleRoute();
+  }
+
+  async handleRoute() {
+    let path = window.location.pathname;
+    
+    // Default fallback to feed if root
+    if (path === "" || path === "/") {
+      path = "/feed";
+    }
+
+    // Protected Route Verification
+    const user = auth.currentUser;
+    const protectedRoutes = ['/feed', '/squad', '/messenger', '/settings', '/profile'];
+    
+    if (protectedRoutes.includes(path) && !user) {
+      // If not authenticated, redirect to auth/landing view
+      this.navigateTo('/auth');
+      return;
+    }
+
+    const route = this.routes[path] || this.routes['/404'];
+    this.currentRoute = path;
+    
+    const appContainer = document.getElementById('app-root');
+    if (appContainer) {
+      appContainer.innerHTML = await route.render();
+    }
+    
+    // Clean up previous view controller lifecycle
+    if (window.activeController && typeof window.activeController.destroy === 'function') {
+      window.activeController.destroy();
+    }
+    
+    // Initialize new view controller if defined
+    if (route.controller) {
+      window.activeController = new route.controller();
+    }
+  }
+}
+
+export default Router;
+
+// ==========================================
+// GLOBAL APPLICATION STATE & PREFERENCES
+// ==========================================
+
+class AppState {
+  constructor() {
+    this.state = {
+      user: null,
+      theme: localStorage.getItem('nexus_theme') || 'dark',
+      language: localStorage.getItem('nexus_lang') || 'en',
+      activeSquad: null
+    };
+    
+    this.initThemeEngine();
+    this.initLanguageEngine();
+  }
+
+  setUser(userObject) {
+    this.state.user = userObject;
+    this.dispatchStateChange();
+  }
+
+  setTheme(themeName) {
+    this.state.theme = themeName;
+    localStorage.setItem('nexus_theme', themeName);
+    this.applyTheme();
+  }
+
+  initThemeEngine() {
+    const root = document.documentElement;
+    if (this.state.theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+
+    // Bind theme toggle button listener once DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleBtn = document.getElementById('theme-toggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const newTheme = this.state.theme === 'dark' ? 'light' : 'dark';
+          this.setTheme(newTheme);
+        });
+      }
+    });
+  }
+
+  applyTheme() {
+    const root = document.documentElement;
+    if (this.state.theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }
+
+  setLanguage(langCode) {
+    this.state.language = langCode;
+    localStorage.setItem('nexus_lang', langCode);
+    // Trigger UI translation update hooks
+    document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: langCode } }));
+  }
+
+  initLanguageEngine() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const langSelector = document.getElementById('language-selector');
+      if (langSelector) {
+        langSelector.value = this.state.language;
+        langSelector.addEventListener('change', (e) => {
+          this.setLanguage(e.target.value);
+        });
+      }
+    });
+  }
+
+  dispatchStateChange() {
+    document.dispatchEvent(new CustomEvent('appStateUpdated', { detail: this.state }));
+  }
+}
+
+export const globalState = new AppState();
+
+// ==========================================
+// APPLICATION ENTRY POINT & ROUTE MAPPING
+// ==========================================
+
+import Router from './router.js';
+import { auth, db } from './firebase-config.js';
+import { globalState } from './state.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// Define View Controllers (Placeholder stubs until individual modules load)
+class FeedController {
+  constructor() { console.log("Feed Controller Initialized"); }
+  destroy() {}
+}
+
+class SquadController {
+  constructor() { console.log("Squad Controller Initialized"); }
+  destroy() {}
+}
+
+class MessengerController {
+  constructor() { console.log("Messenger Controller Initialized"); }
+  destroy() {}
+}
+
+class SettingsController {
+  constructor() { console.log("Settings Controller Initialized"); }
+  destroy() {}
+}
+
+class AuthController {
+  constructor() { console.log("Auth Controller Initialized"); }
+  destroy() {}
+}
+
+// Define SPA Route Table
+const routes = {
+  '/feed': {
+    render: async () => `
+      <div class="space-y-6">
+        <h1 class="text-2xl font-black cyber-glow">ESPORTS LIVE FEED</h1>
+        <div class="cyber-dark p-6 rounded-2xl">
+          <p class="text-zinc-400">Loading social stream and community highlights...</p>
+        </div>
+      </div>
+    `,
+    controller: FeedController
+  },
+  '/squad': {
+    render: async () => `
+      <div class="space-y-6">
+        <h1 class="text-2xl font-black cyber-glow">5-PLAYER SQUAD MANAGEMENT</h1>
+        <div class="cyber-dark p-6 rounded-2xl">
+          <p class="text-zinc-400">Loading active clan roster slots...</p>
+        </div>
+      </div>
+    `,
+    controller: SquadController
+  },
+  '/messenger': {
+    render: async () => `
+      <div class="space-y-6">
+        <h1 class="text-2xl font-black cyber-glow">REAL-TIME MESSENGER</h1>
+        <div class="cyber-dark p-6 rounded-2xl h-[70vh]">
+          <p class="text-zinc-400">Connecting to secure chat relay...</p>
+        </div>
+      </div>
+    `,
+    controller: MessengerController
+  },
+  '/settings': {
+    render: async () => `
+      <div class="space-y-6">
+        <h1 class="text-2xl font-black cyber-glow">FACEBOOK-STYLE SETTINGS SUITE</h1>
+        <div class="cyber-dark p-6 rounded-2xl">
+          <p class="text-zinc-400">Loading user preferences and gaming UID configurations...</p>
+        </div>
+      </div>
+    `,
+    controller: SettingsController
+  },
+  '/auth': {
+    render: async () => `
+      <div class="max-w-md mx-auto mt-12 cyber-dark p-8 rounded-2xl border border-cyan-500/30">
+        <h1 class="text-2xl font-black text-center mb-6 cyber-glow">NEXUS.GG LOGIN</h1>
+        <form id="auth-form" class="space-y-4">
+          <div>
+            <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Email Address</label>
+            <input type="email5" id="auth-email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="player@nexus.gg">
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Password</label>
+            <input type="password" id="auth-password" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full bg-cyan-500 text-zinc-950 font-bold py-3 rounded-lg hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">Access Hub</button>
+        </form>
+      </div>
+    `,
+    controller: AuthController
+  },
+  '/404': {
+    render: async () => `
+      <div class="text-center py-20">
+        <h1 class="text-6xl font-black text-rose-500 mb-4">404</h1>
+        <p class="text-zinc-400 mb-6">Target coordinate not found in the grid.</p>
+        <a href="/feed" data-link class="px-6 py-3 bg-cyan-500 text-zinc-950 font-bold rounded-lg">Return to Feed</a>
+      </div>
+    `,
+    controller: null
+  }
+};
+
+// Initialize Router and Firebase Auth State Observer
+const router = new Router(routes);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    globalState.setUser(user);
+    const avatarEl = document.getElementById('nav-user-avatar');
+    if (avatarEl && user.photoURL) {
+      avatarEl.src = user.photoURL;
+    }
+  } else {
+    globalState.setUser(null);
+  }
+  // Trigger initial route load after auth state check
+  router.handleRoute();
+});
+
+// ==========================================
+// INTERACTIVE SOCIAL FEED COMPONENT
+// ==========================================
+
+import { db, auth } from '../firebase-config.js';
+import { 
+  collection, 
+  addFields, 
+  addDoc, 
+  getDocs, 
+  query, 
+  orderBy, 
+  serverTimestamp, 
+  doc, 
+  updateDoc, 
+  arrayUnion, 
+  arrayRemove 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+export class FeedController {
+  constructor() {
+    this.postsContainerId = 'social-feed-stream';
+    this.initListeners();
+    this.loadPosts();
+  }
+
+  render() {
+    return `
+      <div class="max-w-3xl mx-auto space-y-6">
+        <!-- Post Creation Widget -->
+        <div class="cyber-dark p-6 rounded-2xl border border-cyan-500/30">
+          <form id="create-post-form" class="space-y-4">
+            <textarea 
+              id="post-content-input" 
+              rows="3" 
+              placeholder="Broadcast your gameplay highlights, clips, or thoughts..." 
+              class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition resize-none"
+              required
+            ></textarea>
+            
+            <div class="flex justify-between items-center pt-2 border-t border-zinc-800/60">
+              <div class="flex space-x-3 text-xs text-zinc-400">
+                <label class="cursor-pointer hover:text-cyan-400 transition flex items-center space-x-1">
+                  <span>📷 Image/Clip</span>
+                  <input type="file" id="post-media-file" class="hidden" accept="image/*,video/*">
+                </label>
+                <button type="button" id="embed-video-btn" class="hover:text-cyan-400 transition">🔗 YouTube Embed</button>
+              </div>
+              <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-2 rounded-lg text-sm hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                Broadcast
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Feed Stream Container -->
+        <div id="${this.postsContainerId}" class="space-y-6">
+          <div class="text-center py-8 text-zinc-500 animate-pulse">Syncing live esports transmissions...</div>
+        </div>
+      </div>
+    `;
+  }
+
+  initListeners() {
+    document.addEventListener('submit', async (e) => {
+      if (e.target && e.target.id === 'create-post-form') {
+        e.preventDefault();
+        const contentInput = document.getElementById('post-content-input');
+        const text = contentInput.value.trim();
+        
+        if (!text) return;
+        
+        const user = auth.currentUser;
+        if (!user) {
+          alert('Authentication required to broadcast.');
+          return;
+        }
+
+        try {
+          await addDoc(collection(db, "posts"), {
+            authorId: user.uid,
+            authorName: user.displayName || user.email.split('@')[0],
+            authorAvatar: user.photoURL || 'https://via.placeholder.com/40',
+            content: text,
+            likes: [],
+            commentsCount: 0,
+            createdAt: serverTimestamp()
+          });
+
+          contentInput.value = '';
+          this.loadPosts();
+        } catch (err) {
+          console.error("Error creating post: ", err);
+        }
+      }
+    });
+  }
+
+  async loadPosts() {
+    const container = document.getElementById(this.postsContainerId);
+    if (!container) return;
+
+    try {
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      
+      if (querySnapshot.empty) {
+        container.innerHTML = `<div class="cyber-dark p-6 rounded-xl text-center text-zinc-500">No broadcasts found in the feed grid. Be the first!</div>`;
+        return;
+      }
+
+      let html = '';
+      querySnapshot.forEach((docSnap) => {
+        const post = docSnap.data();
+        const postId = docSnap.id;
+        const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+        const isLiked = currentUserId && post.likes && post.likes.includes(currentUserId);
+
+        html += `
+          <div class="cyber-dark p-6 rounded-2xl border border-zinc-800 space-y-4">
+            <div class="flex items-center space-x-3">
+              <img src="${post.authorAvatar}" class="w-10 h-10 rounded-full object-cover border border-cyan-500/50" alt="Avatar">
+              <div>
+                <h4 class="font-bold text-sm text-zinc-100">${post.authorName}</h4>
+                <span class="text-[10px] text-zinc-500">Live Transmission</span>
+              </div>
+            </div>
+            
+            <p class="text-sm text-zinc-300 leading-relaxed">${escapeHtml(post.content)}</p>
+
+            <div class="flex items-center space-x-6 pt-4 border-t border-zinc-800/60 text-xs text-zinc-400">
+              <button class="flex items-center space-x-1.5 hover:text-cyan-400 transition ${isLiked ? 'text-cyan-400 font-bold' : ''}">
+                <span>⚡</span>
+                <span>${post.likes ? post.likes.length : 0} Resonance</span>
+              </button>
+              <button class="flex items-center space-x-1.5 hover:text-cyan-400 transition">
+                <span>💬</span>
+                <span>${post.commentsCount || 0} Replies</span>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    } catch (err) {
+      console.error("Error loading posts:", err);
+      container.innerHTML = `<div class="cyber-dark p-6 rounded-xl text-center text-rose-400">Failed to sync feed streams.</div>`;
+    }
+  }
+
+  destroy() {
+    // Cleanup event listeners if needed
+  }
+}
+
+// Utility for safe HTML escaping
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+// ==========================================
+// 5-PLAYER SQUAD & CLAN MANAGEMENT MODULE
+// ==========================================
+
+import { db, auth } from '../firebase-config.js';
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+export class SquadController {
+  constructor() {
+    this.maxSquadSize = 5;
+    this.squadId = 'default-squad'; // Active squad context ID
+    this.loadSquadData();
+  }
+
+  render() {
+    return `
+      <div class="max-w-6xl mx-auto space-y-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cyber-dark p-6 rounded-2xl border border-cyan-500/30">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold">Active Clan Roster</span>
+            <h1 id="squad-name-display" class="text-3xl font-black tracking-wider uppercase cyber-glow mt-1">NEXUS ELITE V</i></h1>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span id="squad-slots-badge" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+              Roster: 0 / 5 Active
+            </span>
+            <button id="edit-squad-btn" class="bg-cyan-500 text-zinc-950 font-bold px-4 py-2 rounded-lg text-xs hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+              Manage Squad
+            </button>
+          </div>
+        </div>
+
+        <!-- 5-Player Grid Container -->
+        <div id="squad-roster-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+          <div class="cyber-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center text-center animate-pulse">
+            <div class="w-20 h-20 rounded-full bg-zinc-800 mb-4"></div>
+            <div class="w-24 h-4 bg-zinc-800 rounded mb-2"></div>
+            <div class="w-16 h-3 bg-zinc-800 rounded"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  async loadSquadData() {
+    const gridContainer = document.getElementById('squad-roster-grid');
+    const badgeContainer = document.getElementById('squad-slots-badge');
+    if (!gridContainer) return;
+
+    try {
+      const squadRef = doc(db, "squads", this.squadId);
+      const squadSnap = await getDoc(squadRef);
+
+      let roster = [];
+      let squadName = "NEXUS ELITE V";
+
+      if (squadSnap.exists()) {
+        const data = squadSnap.data();
+        roster = data.roster || [];
+        squadName = data.squadName || squadName;
+        document.getElementById('squad-name-display').innerText = squadName;
+      }
+
+      badgeContainer.innerText = `Roster: ${roster.length} / ${this.maxSquadSize} Active`;
+      badgeContainer.className = `px-4 py-1.5 rounded-full text-xs font-semibold ${roster.length === 5 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-400 border border-amber-500/40'}`;
+
+      let html = '';
+      
+      // Render existing roster members
+      roster.forEach((player, index) => {
+        const isOnline = player.status === 'online';
+        html += `
+          <div class="cyber-dark p-6 rounded-2xl border border-cyan-500/30 flex flex-col items-center text-center relative group transition hover:border-cyan-400">
+            <span class="absolute top-3 left-3 text-[10px] font-mono text-cyan-400 opacity-60">#0${index + 1}</span>
+            <img src="${player.avatar || 'https://via.placeholder.com/80'}" class="w-20 h-20 rounded-full object-cover mb-3 border-2 border-cyan-500/50 shadow-[0_0_10px_rgba(0,240,255,0.2)]" alt="Player Avatar" />
+            <h3 class="font-bold text-sm text-zinc-100 mb-1 truncate w-full">${player.ign}</h3>
+            <p class="text-[11px] text-cyan-400 font-medium mb-4">${player.role || 'Flex Operator'}</p>
+            <div class="flex items-center space-x-1.5 mt-auto">
+              <span class="w-2.5 h-2.5 rounded-full ${isOnline ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-zinc-500'}"></span>
+              <span class="text-[10px] uppercase tracking-widest text-zinc-400">${player.status || 'offline'}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      // Render empty open slots up to 5 players
+      const emptySlots = Math.max(0, this.maxSquadSize - roster.length);
+      for (let i = 0; i < emptySlots; i++) {
+        html += `
+          <div class="border-2 border-dashed border-cyan-500/20 rounded-2xl flex flex-col items-center justify-center p-6 text-cyan-500/40 hover:border-cyan-500/60 transition cursor-pointer group min-h-[220px]">
+            <span class="text-3xl mb-2 group-hover:scale-110 transition">+</span>
+            <span class="text-xs font-semibold uppercase tracking-wider">Open Slot</span>
+            <span class="text-[10px] text-zinc-500 mt-1">Click to Recruit</span>
+          </div>
+        `;
+      }
+
+      gridContainer.innerHTML = html;
+    } catch (err) {
+      console.error("Error loading squad roster:", err);
+      gridContainer.innerHTML = `<div class="col-span-5 text-center text-rose-400 cyber-dark p-6 rounded-xl">Failed to synchronize clan telemetry.</div>`;
+    }
+  }
+
+  destroy() {
+    // Cleanup event listeners
+  }
+}
+
+// ==========================================
+// REAL-TIME MESSENGER COMPONENT
+// ==========================================
+
+import { db, auth } from '../firebase-config.js';
+import { 
+  collection, 
+  addDoc, 
+  query, 
+  orderBy, 
+  onSnapshot, 
+  serverTimestamp, 
+  limit 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+export class MessengerController {
+  constructor() {
+    this.activeChannel = 'squad-global';
+    this.unsubscribe = null;
+    this.initListeners();
+    this.subscribeToMessages();
+  }
+
+  render() {
+    return `
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 h-[75vh]">
+        
+        <!-- Channels / Contacts Sidebar -->
+        <div class="cyber-dark p-4 rounded-2xl border border-zinc-800 flex flex-col space-y-2 overflow-y-auto">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 px-2 mb-2">Comms Channels</h3>
+          
+          <button data-channel="squad-global" class="channel-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/30 transition flex items-center justify-between">
+            <span># Squad Global</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+          </button>
+          
+          <button data-channel="clan-command" class="channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between">
+            <span># Clan Command</span>
+          </button>
+
+          <button data-channel="duo-tactics" class="channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between">
+            <span># Duo Tactics</span>
+          </button>
+        </div>
+
+        <!-- Chat Stream Window -->
+        <div class="cyber-dark md:col-span-3 rounded-2xl border border-zinc-800 flex flex-col overflow-hidden">
+          
+          <!-- Chat Header -->
+          <div class="p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-950/40">
+            <div>
+              <h4 id="active-channel-title" class="font-bold text-sm text-zinc-100"># Squad Global</h4>
+              <span class="text-[10px] text-zinc-500">Secure Encrypted Relay</span>
+            </div>
+            <span class="text-xs text-emerald-400 font-medium">● Connected</span>
+          </div>
+
+          <!-- Messages Scrollable Viewport -->
+          <div id="chat-messages-container" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
+            <div class="text-center text-xs text-zinc-500 animate-pulse my-auto">Initializing secure chat stream...</div>
+          </div>
+
+          <!-- Message Input Form -->
+          <form id="chat-input-form" class="p-4 border-t border-zinc-800 bg-zinc-950/40 flex items-center space-x-3">
+            <input 
+              type="text" 
+              id="chat-message-input" 
+              placeholder="Transmit message to channel..." 
+              autocomplete="off"
+              class="flex-grow bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition"
+              required
+            >
+            <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-3 rounded-xl text-sm hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+              Send
+            </button>
+          </form>
+
+        </div>
+      </div>
+    `;
+  }
+
+  initListeners() {
+    // Handle channel switches
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.channel-btn');
+      if (btn) {
+        document.querySelectorAll('.channel-btn').forEach(b => {
+          b.className = "channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between";
+        });
+        btn.className = "channel-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/30 transition flex items-center justify-between";
+        
+        this.activeChannel = btn.getAttribute('data-channel');
+        document.getElementById('active-channel-title').innerText = btn.querySelector('span').innerText;
+        this.subscribeToMessages();
+      }
+    });
+
+    // Handle sending messages
+    document.addEventListener('submit', async (e) => {
+      if (e.target && e.target.id === 'chat-input-form') {
+        e.preventDefault();
+        const input = document.getElementById('chat-message-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const user = auth.currentUser;
+        if (!user) {
+          alert('Authentication required for transmission.');
+          return;
+        }
+
+        try {
+          await addDoc(collection(db, "chats", this.activeChannel, "messages"), {
+            senderId: user.uid,
+            senderName: user.displayName || user.email.split('@')[0],
+            senderAvatar: user.photoURL || 'https://via.placeholder.com/32',
+            text: text,
+            timestamp: serverTimestamp()
+          });
+
+          input.value = '';
+        } catch (err) {
+          console.error("Error sending message:", err);
+        }
+      }
+    });
+  }
+
+  subscribeToMessages() {
+    if (this.unsubscribe) {
+      this.unsubscribe(); // Unsubscribe from previous channel listener
+    }
+
+    const container = document.getElementById('chat-messages-container');
+    if (!container) return;
+
+    const q = query(
+      collection(db, "chats", this.activeChannel, "messages"),
+      orderBy("timestamp", "asc"),
+      limit(50)
+    );
+
+    this.unsubscribe = onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        container.innerHTML = `<div class="text-center text-xs text-zinc-500 my-auto">No transmissions recorded in this channel yet. Say hello!</div>`;
+        return;
+      }
+
+      let html = '';
+      snapshot.forEach((docSnap) => {
+        const msg = docSnap.data();
+        const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+        const isSelf = currentUserId && msg.senderId === currentUserId;
+
+        html += `
+          <div class="flex items-start space-x-3 ${isSelf ? 'flex-row-reverse space-x-reverse' : ''}">
+            <img src="${msg.senderAvatar}" class="w-8 h-8 rounded-full object-cover border border-cyan-500/40" alt="Avatar">
+            <div class="max-w-[70%] ${isSelf ? 'bg-cyan-500/10 border border-cyan-500/30 text-zinc-100' : 'bg-zinc-900 border border-zinc-800 text-zinc-300'} p-3.5 rounded-2xl text-sm space-y-1">
+              <div class="flex justify-between items-center space-x-4">
+                <span class="font-bold text-xs text-cyan-400">${msg.senderName}</span>
+              </div>
+              <p class="leading-relaxed">${escapeHtml(msg.text)}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      container.scrollTop = container.scrollHeight;
+    }, (err) => {
+      console.error("Error listening to messages:", err);
+      container.innerHTML = `<div class="text-center text-xs text-rose-400 my-auto">Failed to establish real-time chat sync.</div>`;
+    });
+  }
+
+  destroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
+}
+
+// Utility for safe HTML escaping
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g,">&#039;");
+}
+
+// ==========================================
+// FACEBOOK-STYLE SETTINGS SUITE COMPONENT
+// ==========================================
+
+import { db, auth } from '../firebase-config.js';
+import { doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+export class SettingsController {
+  constructor() {
+    this.activeTab = 'general';
+    this.initListeners();
+    this.loadUserData();
+  }
+
+  render() {
+    return `
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <!-- Settings Navigation Sidebar -->
+        <div class="cyber-dark p-4 rounded-2xl border border-zinc-800 space-y-2 h-fit">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 px-2 mb-3">Account Settings</h3>
+          
+          <button data-tab="general" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/30 transition">
+            General Profile
+          </button>
+          
+          <button data-tab="gaming" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
+            Gaming & UID Config
+          </button>
+
+          <button data-tab="socials" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
+            Social Links
+          </button>
+
+          <button data-tab="privacy" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
+            Privacy & Security
+          </button>
+        </div>
+
+        <!-- Settings Form Container -->
+        <div class="cyber-dark md:col-span-3 p-8 rounded-2xl border border-zinc-800">
+          <form id="settings-form" class="space-y-6">
+            <div class="border-b border-zinc-800 pb-4">
+              <h2 id="settings-section-title" class="text-xl font-black text-zinc-100 cyber-glow">General Profile Configuration</h2>
+              <p class="text-xs text-zinc-400 mt-1">Update your public identity and account details across the NexusGG network.</p>
+            </div>
+
+            <!-- Dynamic Tab Content Panels -->
+            <div id="settings-tab-content" class="space-y-4">
+              <div>
+                <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Display Handle / IGN</label>
+                <input type="text" id="settings-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="ViperOperator">
+              </div>
+
+              <div>
+                <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio</label>
+                <textarea id="settings-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition resize-none" placeholder="Competitive FPS player and tactical strategist..."></textarea>
+              </div>
+
+              <div>
+                <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">In-Game UID / ID</label>
+                <input type="text" id="settings-gaming-uid" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="UID-98234182">
+              </div>
+            </div>
+
+            <div class="flex justify-end pt-4 border-t border-zinc-800">
+              <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-8 py-3 rounded-xl text-sm hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+
+  initListeners() {
+    // Handle tab switches
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.settings-tab-btn');
+      if (btn) {
+        document.querySelectorAll('.settings-tab-btn').forEach(b => {
+          b.className = "settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition";
+        });
+        btn.className = "settings-tab-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/30 transition";
+        
+        this.activeTab = btn.getAttribute('data-tab');
+        this.renderTabContent(this.activeTab);
+      }
+    });
+
+    // Handle settings submission
+    document.addEventListener('submit', async (e) => {
+      if (e.target && e.target.id === 'settings-form') {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const displayName = document.getElementById('settings-display-name')?.value || '';
+        const bio = document.getElementById('settings-bio')?.value || '';
+        const gamingUid = document.getElementById('settings-gaming-uid')?.value || '';
+
+        try {
+          const userRef = doc(db, "users", user.uid);
+          await setDoc(userRef, {
+            displayName,
+            bio,
+            gamingUid,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+
+          alert('Settings successfully updated across the network grid.');
+        } catch (err) {
+          console.error("Error saving settings:", err);
+          alert('Failed to save settings.');
+        }
+      }
+    });
+  }
+
+  renderTabContent(tab) {
+    const titleEl = document.getElementById('settings-section-title');
+    const contentEl = document.getElementById('settings-tab-content');
+    if (!titleEl || !contentEl) return;
+
+    if (tab === 'general') {
+      titleEl.innerText = "General Profile Configuration";
+      contentEl.innerHTML = `
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Display Handle / IGN</label>
+          <input type="text" id="settings-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="ViperOperator">
+        </div>
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio</label>
+          <textarea id="settings-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition resize-none" placeholder="Competitive FPS player..."></textarea>
+        </div>
+      `;
+    } else if (tab === 'gaming') {
+      titleEl.innerText = "Gaming & UID Configuration";
+      contentEl.innerHTML = `
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">In-Game UID / ID</label>
+          <input type="text" id="settings-gaming-uid" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="UID-98234182">
+        </div>
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Primary Esports Title</label>
+          <input type="text" id="settings-game-title" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="Valorant / PUBG / Free Fire">
+        </div>
+      `;
+    } else if (tab === 'socials') {
+      titleEl.innerText = "Social Media Handles";
+      contentEl.innerHTML = `
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Discord Tag</label>
+          <input type="text" id="settings-discord" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="username#0000">
+        </div>
+        <div>
+          <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">YouTube Channel URL</label>
+          <input type="text" id="settings-youtube" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="https://youtube.com/@channel">
+        </div>
+      `;
+    } else if (tab === 'privacy') {
+      titleEl.innerText = "Privacy & Security Controls";
+      contentEl.innerHTML = `
+        <div class="flex items-center justify-between p-4 bg-zinc-950 border border-zinc-800 rounded-xl">
+          <div>
+            <h4 class="font-bold text-sm text-zinc-100">Public Squad Status</h4>
+            <p class="text-xs text-zinc-400">Allow other players to view your active squad membership.</p>
+          </div>
+          <input type="checkbox" checked class="w-5 h-5 accent-cyan-500 cursor-pointer">
+        </div>
+      `;
+    }
+    this.loadUserData();
+  }
+
+  async loadUserData() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        const nameInput = document.getElementById('settings-display-name');
+        const bioInput = document.getElementById('settings-bio');
+        const uidInput = document.getElementById('settings-gaming-uid');
+
+        if (nameInput) nameInput.value = data.displayName || '';
+        if (bioInput) bioInput.value = data.bio || '';
+        if (uidInput) uidInput.value = data.gamingUid || '';
+      }
+    } catch (err) {
+      console.error("Error loading user profile settings:", err);
+    }
+  }
+
+  destroy() {
+    // Cleanup listeners if necessary
+  }
+}
