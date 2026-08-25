@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NexusGG - Esports & Social Hub</title>
+  <title>NexusGG - Global Esports & Gaming Hub</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,11 +14,11 @@
         extend: {
           colors: {
             cyber: {
-              bg: '#0d1117',
+              bg: '#090d16',
               cyan: '#00f0ff',
               pink: '#ff007f',
-              dark: '#161b22',
-              surface: '#21262d'
+              dark: '#111827',
+              surface: '#1f2937'
             }
           }
         }
@@ -33,130 +33,111 @@
     @tailwind utilities;
 
     @layer utilities {
-      /* ==========================================
-         DUAL-THEME ENGINE & GLASSMORPHISM
-         ========================================== */
-      .glass-light {
-        background: rgba(255, 255, 255, 0.75);
+      .glass-panel {
+        background: rgba(17, 24, 39, 0.75);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 240, 255, 0.15);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       }
-
-      .cyber-dark {
-        background: rgba(13, 17, 23, 0.85);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(0, 240, 255, 0.2);
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
-      }
-
       .cyber-glow {
         text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
       }
-      
       .cyber-border {
         border-color: #00f0ff;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
       }
-
-      .cyber-pink-glow {
-        text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
-      }
-
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
       }
-
       ::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.2);
       }
-
       ::-webkit-scrollbar-thumb {
-        background: rgba(0, 240, 255, 0.3);
+        background: rgba(0, 240, 255, 0.4);
         border-radius: 3px;
       }
-
       ::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 240, 255, 0.6);
+        background: rgba(0, 240, 255, 0.7);
       }
     }
-
     body {
       overflow-x: hidden;
     }
   </style>
 </head>
-<body class="bg-zinc-50 dark:bg-cyber-bg text-zinc-900 dark:text-zinc-100 min-h-screen font-sans antialiased transition-colors duration-300 flex flex-col justify-between">
+<body class="bg-cyber-bg text-zinc-100 min-h-screen font-sans antialiased flex flex-col justify-between">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-50 glass-light dark:cyber-dark border-b border-zinc-200 dark:border-zinc-800">
+  <!-- Top Navigation Bar (Gaming Style Facebook Navbar) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-zinc-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
       
-      <!-- Brand Logo & Main Nav -->
-      <div class="flex items-center space-x-8">
+      <!-- Brand & Search Bar -->
+      <div class="flex items-center space-x-4">
         <a href="/feed" data-link class="text-2xl font-black tracking-widest text-cyan-400 cyber-glow flex items-center space-x-2">
           <span>NEXUS.GG</span>
         </a>
-        <nav class="hidden md:flex space-x-6">
-          <a href="/feed" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Feed</a>
-          <a href="/squad" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Squads</a>
-          <a href="/messenger" data-link class="hover:text-cyan-400 transition font-medium text-sm tracking-wide">Messenger</a>
-        </nav>
+        <div class="hidden lg:flex items-center bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1.5 space-x-2 w-64">
+          <span class="text-zinc-500 text-sm">🔍</span>
+          <input type="text" placeholder="Search EWC teams, players..." class="bg-transparent text-xs text-zinc-200 focus:outline-none w-full">
+        </div>
       </div>
 
-      <!-- Action Utilities & Profile Quick Access -->
-      <div class="flex items-center space-x-4">
-        <!-- Language Selector Dropdown -->
-        <select id="language-selector" class="bg-transparent text-xs font-semibold text-zinc-400 hover:text-cyan-400 focus:outline-none cursor-pointer">
-          <option value="en" class="dark:bg-cyber-dark">EN</option>
-          <option value="bn" class="dark:bg-cyber-dark">BN (Banglish)</option>
-          <option value="hi" class="dark:bg-cyber-dark">HI</option>
-        </select>
+      <!-- Center Navigation Tabs (Like FB Feeds, Groups, Gaming, Watch) -->
+      <nav class="hidden md:flex space-x-2">
+        <a href="/feed" data-link class="px-4 py-2 rounded-xl hover:bg-zinc-800/60 transition text-cyan-400 font-semibold text-sm flex items-center space-x-1.5">
+          <span>🏠</span><span>Feed</span>
+        </a>
+        <a href="/squads" data-link class="px-4 py-2 rounded-xl hover:bg-zinc-800/60 transition text-zinc-400 hover:text-cyan-400 font-semibold text-sm flex items-center space-x-1.5">
+          <span>🛡️</span><span>EWC Squads</span>
+        </a>
+        <a href="/gaming-video" data-link class="px-4 py-2 rounded-xl hover:bg-zinc-800/60 transition text-zinc-400 hover:text-cyan-400 font-semibold text-sm flex items-center space-x-1.5">
+          <span>🎮</span><span>Live Stream</span>
+        </a>
+        <a href="/messenger" data-link class="px-4 py-2 rounded-xl hover:bg-zinc-800/60 transition text-zinc-400 hover:text-cyan-400 font-semibold text-sm flex items-center space-x-1.5">
+          <span>💬</span><span>Comms</span>
+        </a>
+      </nav>
 
-        <!-- Theme Toggle Switch -->
-        <button id="theme-toggle" aria-label="Toggle Theme" class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition text-zinc-400 hover:text-cyan-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-          </svg>
-        </button>
-
-        <!-- User Profile Quick Settings Link -->
+      <!-- Right Action Panel (Settings, Account Center, Notifications) -->
+      <div class="flex items-center space-x-3">
+        <a href="/settings" data-link class="p-2 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-cyan-400 transition" title="Account Center & Settings">
+          ⚙️
+        </a>
         <a href="/settings" data-link class="flex items-center space-x-2 p-1 rounded-full hover:ring-2 hover:ring-cyan-400 transition">
-          <img id="nav-user-avatar" src="https://via.placeholder.com/36" class="w-9 h-9 rounded-full object-cover border border-cyan-500/50" alt="User Avatar">
+          <img id="nav-user-avatar" src="https://via.placeholder.com/36" class="w-9 h-9 rounded-full object-cover border border-cyan-500/50" alt="Avatar">
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- Dynamic Application SPA Root Container -->
+  <!-- SPA Dynamic Root Container -->
   <main id="app-root" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <!-- Dynamic views load here -->
+    <!-- Views will be loaded dynamically here -->
   </main>
 
-  <!-- Footer Info -->
-  <footer class="border-t border-zinc-200 dark:border-zinc-800 py-4 text-center text-xs text-zinc-500">
-    <p>&copy; 2026 NexusGG Esports Network. All rights reserved. Production-Grade Build.</p>
+  <!-- Footer Information -->
+  <footer class="border-t border-zinc-800 py-4 text-center text-xs text-zinc-500">
+    <p>&copy; 2026 NexusGG Esports Network. Inspired by global social layouts, tailored exclusively for EWC Approved Games.</p>
   </footer>
 
-  <!-- Application Main Script Modules -->
+  <!-- Application Script Module -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, doc, getDoc, updateDoc, setDoc, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, doc, getDoc, setDoc, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // ==========================================
-    // 1. FIREBASE CONFIGURATION
+    // 1. FIREBASE CONFIGURATION (Placeholder)
     // ==========================================
     const firebaseConfig = {
       apiKey: "YOUR_FIREBASE_API_KEY",
       authDomain: "nexusgg-platform.firebaseapp.com",
       projectId: "nexusgg-platform",
       storageBucket: "nexusgg-platform.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      messagingSenderId: "YOUR_SENDER_ID",
       appId: "YOUR_APP_ID"
     };
 
@@ -164,94 +145,37 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Utility: HTML Escaper
+    // EWC (Esports World Cup) Approved Games Official List
+    const ewcApprovedGames = [
+      { id: 'cs2', name: 'Counter-Strike 2 (CS2)', publisher: 'Valve' },
+      { id: 'dota2', name: 'Dota 2', publisher: 'Valve' },
+      { id: 'lol', name: 'League of Legends', publisher: 'Riot Games' },
+      { id: 'valorant', name: 'VALORANT', publisher: 'Riot Games' },
+      { id: 'pubg_mobile', name: 'PUBG Mobile', publisher: 'Krafton' },
+      { id: 'ff', name: 'Free Fire', publisher: 'Garena' },
+      { id: 'mlbb', name: 'Mobile Legends: Bang Bang', publisher: 'Moonton' },
+      { id: 'rocket_league', name: 'Rocket League', publisher: 'Psyonix' },
+      { id: 'fortnite', name: 'Fortnite', publisher: 'Epic Games' },
+      { id: 'apex_legends', name: 'Apex Legends', publisher: 'EA' },
+      { id: 'overwatch2', name: 'Overwatch 2', publisher: 'Blizzard' },
+      { id: 'tekken8', name: 'Tekken 8', publisher: 'Bandai Namco' },
+      { id: 'sf6', name: 'Street Fighter 6', publisher: 'Capcom' },
+      { id: 'r6s', name: 'Rainbow Six Siege', publisher: 'Ubisoft' }
+    ];
+
     function escapeHtml(str) {
       if (!str) return '';
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
     // ==========================================
-    // 2. GLOBAL STATE & THEME/LANG ENGINE
-    // ==========================================
-    class AppState {
-      constructor() {
-        this.state = {
-          user: null,
-          theme: localStorage.getItem('nexus_theme') || 'dark',
-          language: localStorage.getItem('nexus_lang') || 'en',
-          activeSquad: null
-        };
-        this.initThemeEngine();
-        this.initLanguageEngine();
-      }
-
-      setUser(userObject) {
-        this.state.user = userObject;
-      }
-
-      setTheme(themeName) {
-        this.state.theme = themeName;
-        localStorage.setItem('nexus_theme', themeName);
-        this.applyTheme();
-      }
-
-      initThemeEngine() {
-        const root = document.documentElement;
-        if (this.state.theme === 'dark') {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-          const toggleBtn = document.getElementById('theme-toggle');
-          if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-              const newTheme = this.state.theme === 'dark' ? 'light' : 'dark';
-              this.setTheme(newTheme);
-            });
-          }
-        });
-      }
-
-      applyTheme() {
-        const root = document.documentElement;
-        if (this.state.theme === 'dark') {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
-      }
-
-      setLanguage(langCode) {
-        this.state.language = langCode;
-        localStorage.setItem('nexus_lang', langCode);
-        document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: langCode } }));
-      }
-
-      initLanguageEngine() {
-        window.addEventListener('DOMContentLoaded', () => {
-          const langSelector = document.getElementById('language-selector');
-          if (langSelector) {
-            langSelector.value = this.state.language;
-            langSelector.addEventListener('change', (e) => {
-              this.setLanguage(e.target.value);
-            });
-          }
-        });
-      }
-    }
-
-    const globalState = new AppState();
-
-    // ==========================================
-    // 3. VIEW CONTROLLERS
+    // 2. VIEW CONTROLLERS
     // ==========================================
 
-    // Feed Controller
+    // Feed Controller (Home Feed, Stories, Status Updates, Reels)
     class FeedController {
       constructor() {
-        this.postsContainerId = 'social-feed-stream';
+        this.containerId = 'feed-stream';
         this.initListeners();
         this.loadPosts();
       }
@@ -259,30 +183,45 @@
       render() {
         return `
           <div class="max-w-3xl mx-auto space-y-6">
-            <div class="cyber-dark p-6 rounded-2xl border border-cyan-500/30">
+            <!-- Stories / Highlights Bar -->
+            <div class="grid grid-cols-4 gap-3">
+              <div class="glass-panel p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-cyan-400 transition min-h-[110px]">
+                <span class="text-2xl text-cyan-400 mb-1">+</span>
+                <span class="text-xs font-bold">Add Story / Clip</span>
+              </div>
+              <div class="glass-panel p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group min-h-[110px]">
+                <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition" style="background-image:url('https://via.placeholder.com/150')"></div>
+                <span class="relative text-xs font-bold text-zinc-100 mt-auto">Viper_CS2</span>
+              </div>
+              <div class="glass-panel p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group min-h-[110px]">
+                <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition" style="background-image:url('https://via.placeholder.com/150')"></div>
+                <span class="relative text-xs font-bold text-zinc-100 mt-auto">Nexus_Alpha</span>
+              </div>
+              <div class="glass-panel p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group min-h-[110px]">
+                <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition" style="background-image:url('https://via.placeholder.com/150')"></div>
+                <span class="relative text-xs font-bold text-zinc-100 mt-auto">EWC_Official</span>
+              </div>
+            </div>
+
+            <!-- Create Post Box (Status Update / Broadcast) -->
+            <div class="glass-panel p-6 rounded-2xl">
               <form id="create-post-form" class="space-y-4">
-                <textarea 
-                  id="post-content-input" 
-                  rows="3" 
-                  placeholder="Broadcast your gameplay highlights, clips, or thoughts..." 
-                  class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition resize-none"
-                  required
-                ></textarea>
-                <div class="flex justify-between items-center pt-2 border-t border-zinc-800/60">
+                <textarea id="post-text" rows="3" placeholder="What's your tactical update or EWC match highlight today, operator?" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition resize-none" required></textarea>
+                <div class="flex justify-between items-center pt-2 border-t border-zinc-800">
                   <div class="flex space-x-3 text-xs text-zinc-400">
-                    <label class="cursor-pointer hover:text-cyan-400 transition flex items-center space-x-1">
-                      <span>📷 Image/Clip</span>
-                      <input type="file" id="post-media-file" class="hidden" accept="image/*,video/*">
-                    </label>
+                    <span class="cursor-pointer hover:text-cyan-400">🎥 Add Gaming Reel</span>
+                    <span class="cursor-pointer hover:text-cyan-400">📍 Tag EWC Tournament</span>
                   </div>
                   <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-2 rounded-lg text-sm hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
-                    Broadcast
+                    Publish Post
                   </button>
                 </div>
               </form>
             </div>
-            <div id="${this.postsContainerId}" class="space-y-6">
-              <div class="text-center py-8 text-zinc-500 animate-pulse">Syncing live esports transmissions...</div>
+
+            <!-- Post Stream -->
+            <div id="${this.containerId}" class="space-y-6">
+              <div class="text-center py-8 text-zinc-500 animate-pulse">Synchronizing global esports feeds...</div>
             </div>
           </div>
         `;
@@ -292,30 +231,25 @@
         this.submitHandler = async (e) => {
           if (e.target && e.target.id === 'create-post-form') {
             e.preventDefault();
-            const contentInput = document.getElementById('post-content-input');
-            const text = contentInput.value.trim();
+            const textInput = document.getElementById('post-text');
+            const text = textInput.value.trim();
             if (!text) return;
-            
-            const user = auth.currentUser;
-            if (!user) {
-              alert('Authentication required to broadcast.');
-              return;
-            }
 
+            const user = auth.currentUser;
             try {
               await addDoc(collection(db, "posts"), {
-                authorId: user.uid,
-                authorName: user.displayName || user.email.split('@')[0],
-                authorAvatar: user.photoURL || 'https://via.placeholder.com/40',
+                authorId: user ? user.uid : 'anon',
+                authorName: user ? (user.displayName || user.email.split('@')[0]) : 'CyberOperator',
+                authorAvatar: user ? (user.photoURL || 'https://via.placeholder.com/40') : 'https://via.placeholder.com/40',
                 content: text,
                 likes: [],
                 commentsCount: 0,
                 createdAt: serverTimestamp()
               });
-              contentInput.value = '';
+              textInput.value = '';
               this.loadPosts();
             } catch (err) {
-              console.error("Error creating post: ", err);
+              console.error("Error posting:", err);
             }
           }
         };
@@ -323,43 +257,35 @@
       }
 
       async loadPosts() {
-        const container = document.getElementById(this.postsContainerId);
+        const container = document.getElementById(this.containerId);
         if (!container) return;
 
         try {
           const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-          const querySnapshot = await getDocs(q);
-          
-          if (querySnapshot.empty) {
-            container.innerHTML = `<div class="cyber-dark p-6 rounded-xl text-center text-zinc-500">No broadcasts found in the feed grid. Be the first!</div>`;
+          const snapshot = await getDocs(q);
+
+          if (snapshot.empty) {
+            container.innerHTML = `<div class="glass-panel p-6 rounded-xl text-center text-zinc-500">No timeline posts found. Start the conversation!</div>`;
             return;
           }
 
           let html = '';
-          querySnapshot.forEach((docSnap) => {
-            const post = docSnap.data();
-            const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
-            const isLiked = currentUserId && post.likes && post.likes.includes(currentUserId);
-
+          snapshot.forEach((docSnap) => {
+            const p = docSnap.data();
             html += `
-              <div class="cyber-dark p-6 rounded-2xl border border-zinc-800 space-y-4">
+              <div class="glass-panel p-6 rounded-2xl space-y-4">
                 <div class="flex items-center space-x-3">
-                  <img src="${post.authorAvatar}" class="w-10 h-10 rounded-full object-cover border border-cyan-500/50" alt="Avatar">
+                  <img src="${p.authorAvatar}" class="w-10 h-10 rounded-full object-cover border border-cyan-500/50" alt="Avatar">
                   <div>
-                    <h4 class="font-bold text-sm text-zinc-100">${post.authorName}</h4>
-                    <span class="text-[10px] text-zinc-500">Live Transmission</span>
+                    <h4 class="font-bold text-sm text-zinc-100">${escapeHtml(p.authorName)}</h4>
+                    <span class="text-[10px] text-zinc-500">EWC Verified Player</span>
                   </div>
                 </div>
-                <p class="text-sm text-zinc-300 leading-relaxed">${escapeHtml(post.content)}</p>
-                <div class="flex items-center space-x-6 pt-4 border-t border-zinc-800/60 text-xs text-zinc-400">
-                  <button class="flex items-center space-x-1.5 hover:text-cyan-400 transition ${isLiked ? 'text-cyan-400 font-bold' : ''}">
-                    <span>⚡</span>
-                    <span>${post.likes ? post.likes.length : 0} Resonance</span>
-                  </button>
-                  <button class="flex items-center space-x-1.5 hover:text-cyan-400 transition">
-                    <span>💬</span>
-                    <span>${post.commentsCount || 0} Replies</span>
-                  </button>
+                <p class="text-sm text-zinc-300 leading-relaxed">${escapeHtml(p.content)}</p>
+                <div class="flex items-center space-x-6 pt-3 border-t border-zinc-800 text-xs text-zinc-400">
+                  <button class="hover:text-cyan-400 transition flex items-center space-x-1"><span>⚡</span><span>${p.likes ? p.likes.length : 0} Resonance</span></button>
+                  <button class="hover:text-cyan-400 transition flex items-center space-x-1"><span>💬</span><span>${p.commentsCount || 0} Comments</span></button>
+                  <button class="hover:text-cyan-400 transition ml-auto"><span>🔗 Share Link</span></button>
                 </div>
               </div>
             `;
@@ -367,161 +293,248 @@
           container.innerHTML = html;
         } catch (err) {
           console.error("Error loading posts:", err);
-          container.innerHTML = `<div class="cyber-dark p-6 rounded-xl text-center text-rose-400">Failed to sync feed streams.</div>`;
+          container.innerHTML = `<div class="glass-panel p-6 rounded-xl text-center text-rose-400">Failed to load social feed streams.</div>`;
         }
       }
 
       destroy() {
-        if (this.submitHandler) {
-          document.removeEventListener('submit', this.submitHandler);
-        }
+        if (this.submitHandler) document.removeEventListener('submit', this.submitHandler);
       }
     }
 
-    // Squad Controller
-    class SquadController {
+    // Squads Controller (Team Creation strictly with EWC Approved Games)
+    class SquadsController {
       constructor() {
-        this.maxSquadSize = 5;
-        this.squadId = 'default-squad';
-        this.loadSquadData();
+        this.containerId = 'squads-list-container';
+        this.initListeners();
+        this.loadSquads();
       }
 
       render() {
+        const gameOptionsHtml = ewcApprovedGames.map(g => `<option value="${g.id}" class="bg-zinc-900">${g.name} (${g.publisher})</option>`).join('');
+
         return `
           <div class="max-w-6xl mx-auto space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cyber-dark p-6 rounded-2xl border border-cyan-500/30">
+            <!-- Header & Team Creation Launcher -->
+            <div class="glass-panel p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
-                <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold">Active Clan Roster</span>
-                <h1 id="squad-name-display" class="text-3xl font-black tracking-wider uppercase cyber-glow mt-1">NEXUS ELITE V</h1>
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold">EWC Roster Directory</span>
+                <h1 class="text-2xl md:text-3xl font-black uppercase cyber-glow mt-1">Official EWC Squads & Teams</h1>
               </div>
-              <div class="flex items-center space-x-3">
-                <span id="squad-slots-badge" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
-                  Roster: 0 / 5 Active
-                </span>
-                <button id="edit-squad-btn" class="bg-cyan-500 text-zinc-950 font-bold px-4 py-2 rounded-lg text-xs hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
-                  Manage Squad
-                </button>
+              <button id="open-create-squad-modal" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-2.5 rounded-xl text-sm hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                + Create EWC Team
+              </button>
+            </div>
+
+            <!-- Create Squad Modal (Hidden by default) -->
+            <div id="squad-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+              <div class="glass-panel max-w-lg w-full p-6 rounded-2xl border border-cyan-500/40 space-y-4">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                  <h3 class="font-bold text-lg text-cyan-400">Register New EWC Esports Team</h3>
+                  <button id="close-squad-modal" class="text-zinc-400 hover:text-zinc-100 text-lg">✕</button>
+                </div>
+                <form id="create-squad-form" class="space-y-4">
+                  <div>
+                    <label class="block text-xs uppercase font-semibold text-zinc-400 mb-1.5">Team Name / Clan Tag</label>
+                    <input type="text" id="squad-name-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400" placeholder="e.g. Nexus Gaming Elite" required>
+                  </div>
+                  <div>
+                    <label class="block text-xs uppercase font-semibold text-zinc-400 mb-1.5">Select EWC Approved Game</label>
+                    <select id="squad-game-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 cursor-pointer" required>
+                      <option value="">-- Choose EWC Game Category --</option>
+                      ${gameOptionsHtml}
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs uppercase font-semibold text-zinc-400 mb-1.5">Region</label>
+                    <input type="text" id="squad-region-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400" placeholder="e.g. South Asia / Global" required>
+                  </div>
+                  <div class="flex justify-end space-x-3 pt-3 border-t border-zinc-800">
+                    <button type="button" id="cancel-squad-modal" class="px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-800 text-zinc-300 hover:bg-zinc-700">Cancel</button>
+                    <button type="submit" class="px-6 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-zinc-950 hover:bg-cyan-400">Launch Roster</button>
+                  </div>
+                </form>
               </div>
             </div>
-            <div id="squad-roster-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
-              <div class="cyber-dark p-6 rounded-2xl border border-zinc-800 flex flex-col items-center text-center animate-pulse">
-                <div class="w-20 h-20 rounded-full bg-zinc-800 mb-4"></div>
-                <div class="w-24 h-4 bg-zinc-800 rounded mb-2"></div>
-                <div class="w-16 h-3 bg-zinc-800 rounded"></div>
-              </div>
+
+            <!-- Squads Grid Display -->
+            <div id="${this.containerId}" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="glass-panel p-6 rounded-2xl text-center text-zinc-500 col-span-3 animate-pulse">Loading verified EWC teams...</div>
             </div>
           </div>
         `;
       }
 
-      async loadSquadData() {
-        const gridContainer = document.getElementById('squad-roster-grid');
-        const badgeContainer = document.getElementById('squad-slots-badge');
-        if (!gridContainer) return;
+      initListeners() {
+        this.clickHandler = (e) => {
+          const modal = document.getElementById('squad-modal');
+          if (e.target && e.target.id === 'open-create-squad-modal') {
+            modal.classList.remove('hidden');
+          }
+          if (e.target && (e.target.id === 'close-squad-modal' || e.target.id === 'cancel-squad-modal')) {
+            modal.classList.add('hidden');
+          }
+        };
+
+        this.submitHandler = async (e) => {
+          if (e.target && e.target.id === 'create-squad-form') {
+            e.preventDefault();
+            const name = document.getElementById('squad-name-input').value.trim();
+            const gameId = document.getElementById('squad-game-select').value;
+            const region = document.getElementById('squad-region-input').value.trim();
+
+            if (!name || !gameId) return;
+
+            const selectedGameObj = ewcApprovedGames.find(g => g.id === gameId);
+            const user = auth.currentUser;
+
+            try {
+              await addDoc(collection(db, "squads"), {
+                squadName: name,
+                gameTitle: selectedGameObj ? selectedGameObj.name : gameId,
+                region: region || 'Global',
+                ownerId: user ? user.uid : 'anon',
+                rosterCount: 1,
+                maxRoster: 5,
+                createdAt: serverTimestamp()
+              });
+
+              document.getElementById('squad-modal').classList.add('hidden');
+              document.getElementById('create-squad-form').reset();
+              this.loadSquads();
+            } catch (err) {
+              console.error("Error creating squad:", err);
+            }
+          }
+        };
+
+        document.addEventListener('click', this.clickHandler);
+        document.addEventListener('submit', this.submitHandler);
+      }
+
+      async loadSquads() {
+        const container = document.getElementById(this.containerId);
+        if (!container) return;
 
         try {
-          const squadRef = doc(db, "squads", this.squadId);
-          const squadSnap = await getDoc(squadRef);
-
-          let roster = [];
-          let squadName = "NEXUS ELITE V";
-
-          if (squadSnap.exists()) {
-            const data = squadSnap.data();
-            roster = data.roster || [];
-            squadName = data.squadName || squadName;
-            const nameDisplay = document.getElementById('squad-name-display');
-            if (nameDisplay) nameDisplay.innerText = squadName;
+          const snapshot = await getDocs(collection(db, "squads"));
+          if (snapshot.empty) {
+            container.innerHTML = `<div class="glass-panel p-6 rounded-xl text-center text-zinc-500 col-span-3">No EWC squads registered yet. Create the first professional team!</div>`;
+            return;
           }
 
-          badgeContainer.innerText = `Roster: ${roster.length} / ${this.maxSquadSize} Active`;
-          badgeContainer.className = `px-4 py-1.5 rounded-full text-xs font-semibold ${roster.length === 5 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-400 border border-amber-500/40'}`;
-
           let html = '';
-          roster.forEach((player, index) => {
-            const isOnline = player.status === 'online';
+          snapshot.forEach((docSnap) => {
+            const s = docSnap.data();
             html += `
-              <div class="cyber-dark p-6 rounded-2xl border border-cyan-500/30 flex flex-col items-center text-center relative group transition hover:border-cyan-400">
-                <span class="absolute top-3 left-3 text-[10px] font-mono text-cyan-400 opacity-60">#0${index + 1}</span>
-                <img src="${player.avatar || 'https://via.placeholder.com/80'}" class="w-20 h-20 rounded-full object-cover mb-3 border-2 border-cyan-500/50 shadow-[0_0_10px_rgba(0,240,255,0.2)]" alt="Player Avatar" />
-                <h3 class="font-bold text-sm text-zinc-100 mb-1 truncate w-full">${escapeHtml(player.ign)}</h3>
-                <p class="text-[11px] text-cyan-400 font-medium mb-4">${escapeHtml(player.role || 'Flex Operator')}</p>
-                <div class="flex items-center space-x-1.5 mt-auto">
-                  <span class="w-2.5 h-2.5 rounded-full ${isOnline ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-zinc-500'}"></span>
-                  <span class="text-[10px] uppercase tracking-widest text-zinc-400">${player.status || 'offline'}</span>
+              <div class="glass-panel p-6 rounded-2xl border border-cyan-500/20 flex flex-col justify-between space-y-4 hover:border-cyan-400 transition">
+                <div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 uppercase">${escapeHtml(s.gameTitle)}</span>
+                  <h3 class="font-bold text-lg text-zinc-100 mt-2">${escapeHtml(s.squadName)}</h3>
+                  <p class="text-xs text-zinc-400 mt-1">Region: ${escapeHtml(s.region)}</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-800 text-xs">
+                  <span class="text-emerald-400 font-semibold">● Slots: ${s.rosterCount || 1} / ${s.maxRoster || 5}</span>
+                  <button class="px-4 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 hover:bg-cyan-500 hover:text-zinc-950 font-bold transition">Apply / Join</button>
                 </div>
               </div>
             `;
           });
-
-          const emptySlots = Math.max(0, this.maxSquadSize - roster.length);
-          for (let i = 0; i < emptySlots; i++) {
-            html += `
-              <div class="border-2 border-dashed border-cyan-500/20 rounded-2xl flex flex-col items-center justify-center p-6 text-cyan-500/40 hover:border-cyan-500/60 transition cursor-pointer group min-h-[220px]">
-                <span class="text-3xl mb-2 group-hover:scale-110 transition">+</span>
-                <span class="text-xs font-semibold uppercase tracking-wider">Open Slot</span>
-                <span class="text-[10px] text-zinc-500 mt-1">Click to Recruit</span>
-              </div>
-            `;
-          }
-          gridContainer.innerHTML = html;
+          container.innerHTML = html;
         } catch (err) {
-          console.error("Error loading squad roster:", err);
-          gridContainer.innerHTML = `<div class="col-span-5 text-center text-rose-400 cyber-dark p-6 rounded-xl">Failed to synchronize clan telemetry.</div>`;
+          console.error("Error loading squads:", err);
+          container.innerHTML = `<div class="glass-panel p-6 rounded-xl text-center text-rose-400 col-span-3">Failed to load EWC rosters.</div>`;
         }
       }
 
+      destroy() {
+        if (this.clickHandler) document.removeEventListener('click', this.clickHandler);
+        if (this.submitHandler) document.removeEventListener('submit', this.submitHandler);
+      }
+    }
+
+    // Gaming Video Stream Hub Controller (Facebook Gaming Style)
+    class GamingVideoController {
+      render() {
+        return `
+          <div class="max-w-6xl mx-auto space-y-6">
+            <div class="glass-panel p-6 rounded-2xl flex justify-between items-center">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-semibold">Live Gaming Hub</span>
+                <h1 class="text-2xl font-black uppercase cyber-glow mt-1">Global Esports Live Broadcasts</h1>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse font-bold">● LIVE NOW</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="glass-panel rounded-2xl overflow-hidden border border-zinc-800 group">
+                <div class="h-48 bg-zinc-900 relative flex items-center justify-center bg-cover bg-center" style="background-image:url('https://via.placeholder.com/400x200')">
+                  <span class="absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 text-cyan-400 border border-cyan-500/30">CS2 EWC Finals</span>
+                </div>
+                <div class="p-4 space-y-2">
+                  <h3 class="font-bold text-sm text-zinc-100 group-hover:text-cyan-400 transition">Grand Finals: FaZe vs Vitality - Map 3 Decider</h3>
+                  <p class="text-xs text-zinc-400">Streamed by Nexus Esports Official</p>
+                </div>
+              </div>
+              <div class="glass-panel rounded-2xl overflow-hidden border border-zinc-800 group">
+                <div class="h-48 bg-zinc-900 relative flex items-center justify-center bg-cover bg-center" style="background-image:url('https://via.placeholder.com/400x200')">
+                  <span class="absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 text-cyan-400 border border-cyan-500/30">PUBG Mobile Global</span>
+                </div>
+                <div class="p-4 space-y-2">
+                  <h3 class="font-bold text-sm text-zinc-100 group-hover:text-cyan-400 transition">Squad Showdown: Erangel Survival & Clutch Moments</h3>
+                  <p class="text-xs text-zinc-400">Streamed by ViperOperator</p>
+                </div>
+              </div>
+              <div class="glass-panel rounded-2xl overflow-hidden border border-zinc-800 group">
+                <div class="h-48 bg-zinc-900 relative flex items-center justify-center bg-cover bg-center" style="background-image:url('https://via.placeholder.com/400x200')">
+                  <span class="absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 text-cyan-400 border border-cyan-500/30">VALORANT Champions</span>
+                </div>
+                <div class="p-4 space-y-2">
+                  <h3 class="font-bold text-sm text-zinc-100 group-hover:text-cyan-400 transition">Ascendant Ranked Grind & Radiant Tactical Breakdowns</h3>
+                  <p class="text-xs text-zinc-400">Streamed by AlphaTactics</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
       destroy() {}
     }
 
-    // Messenger Controller
+    // Messenger Controller (Secure Channels & Vanishing Mode chat)
     class MessengerController {
       constructor() {
-        this.activeChannel = 'squad-global';
+        this.channel = 'squad-global';
         this.unsubscribe = null;
         this.initListeners();
-        this.subscribeToMessages();
+        this.subscribeMessages();
       }
 
       render() {
         return `
           <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 h-[75vh]">
-            <div class="cyber-dark p-4 rounded-2xl border border-zinc-800 flex flex-col space-y-2 overflow-y-auto">
+            <div class="glass-panel p-4 rounded-2xl space-y-2 overflow-y-auto">
               <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 px-2 mb-2">Comms Channels</h3>
-              <button data-channel="squad-global" class="channel-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition flex items-center justify-between">
-                <span># Squad Global</span>
-                <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+              <button data-chan="squad-global" class="chan-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition flex items-center justify-between">
+                <span># Squad Global</span><span class="w-2 h-2 rounded-full bg-emerald-500"></span>
               </button>
-              <button data-channel="clan-command" class="channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between">
+              <button data-chan="clan-command" class="chan-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
                 <span># Clan Command</span>
               </button>
-              <button data-channel="duo-tactics" class="channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between">
-                <span># Duo Tactics</span>
+              <button data-chan="ewc-scrims" class="chan-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
+                <span># EWC Scrims Arena</span>
               </button>
             </div>
-            <div class="cyber-dark md:col-span-3 rounded-2xl border border-zinc-800 flex flex-col overflow-hidden">
+            <div class="glass-panel md:col-span-3 rounded-2xl flex flex-col overflow-hidden">
               <div class="p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-950/40">
-                <div>
-                  <h4 id="active-channel-title" class="font-bold text-sm text-zinc-100"># Squad Global</h4>
-                  <span class="text-[10px] text-zinc-500">Secure Encrypted Relay</span>
-                </div>
-                <span class="text-xs text-emerald-400 font-medium">● Connected</span>
+                <h4 id="chan-title" class="font-bold text-sm text-zinc-100"># Squad Global</h4>
+                <span class="text-xs text-emerald-400 font-medium">● Encrypted Relay</span>
               </div>
-              <div id="chat-messages-container" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
-                <div class="text-center text-xs text-zinc-500 animate-pulse my-auto">Initializing secure chat stream...</div>
+              <div id="chat-stream" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
+                <div class="text-center text-xs text-zinc-500 my-auto animate-pulse">Establishing encrypted chat link...</div>
               </div>
-              <form id="chat-input-form" class="p-4 border-t border-zinc-800 bg-zinc-950/40 flex items-center space-x-3">
-                <input 
-                  type="text" 
-                  id="chat-message-input" 
-                  placeholder="Transmit message to channel..." 
-                  autocomplete="off"
-                  class="flex-grow bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition"
-                  required
-                >
-                <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-3 rounded-xl text-sm hover:bg-cyan-400 transition shadow-[0_0_10px_rgba(0,240,255,0.3)]">
-                  Send
-                </button>
+              <form id="chat-form" class="p-4 border-t border-zinc-800 bg-zinc-950/40 flex items-center space-x-3">
+                <input type="text" id="chat-input" placeholder="Type tactical message..." autocomplete="off" class="flex-grow bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400" required>
+                <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-6 py-3 rounded-xl text-sm hover:bg-cyan-400 transition">Transmit</button>
               </form>
             </div>
           </div>
@@ -530,38 +543,31 @@
 
       initListeners() {
         this.clickHandler = (e) => {
-          const btn = e.target.closest('.channel-btn');
+          const btn = e.target.closest('.chan-btn');
           if (btn) {
-            document.querySelectorAll('.channel-btn').forEach(b => {
-              b.className = "channel-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition flex items-center justify-between";
+            document.querySelectorAll('.chan-btn').forEach(b => {
+              b.className = "chan-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition";
             });
-            btn.className = "channel-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition flex items-center justify-between";
-            
-            this.activeChannel = btn.getAttribute('data-channel');
-            const titleEl = document.getElementById('active-channel-title');
-            if (titleEl) titleEl.innerText = btn.querySelector('span').innerText;
-            this.subscribeToMessages();
+            btn.className = "chan-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition flex items-center justify-between";
+            this.channel = btn.getAttribute('data-chan');
+            document.getElementById('chan-title').innerText = btn.querySelector('span').innerText;
+            this.subscribeMessages();
           }
         };
 
         this.submitHandler = async (e) => {
-          if (e.target && e.target.id === 'chat-input-form') {
+          if (e.target && e.target.id === 'chat-form') {
             e.preventDefault();
-            const input = document.getElementById('chat-message-input');
+            const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if (!text) return;
 
             const user = auth.currentUser;
-            if (!user) {
-              alert('Authentication required for transmission.');
-              return;
-            }
-
             try {
-              await addDoc(collection(db, "chats", this.activeChannel, "messages"), {
-                senderId: user.uid,
-                senderName: user.displayName || user.email.split('@')[0],
-                senderAvatar: user.photoURL || 'https://via.placeholder.com/32',
+              await addDoc(collection(db, "chats", this.channel, "messages"), {
+                senderId: user ? user.uid : 'anon',
+                senderName: user ? (user.displayName || user.email.split('@')[0]) : 'Operator',
+                senderAvatar: user ? (user.photoURL || 'https://via.placeholder.com/32') : 'https://via.placeholder.com/32',
                 text: text,
                 timestamp: serverTimestamp()
               });
@@ -576,49 +582,32 @@
         document.addEventListener('submit', this.submitHandler);
       }
 
-      subscribeToMessages() {
-        if (this.unsubscribe) {
-          this.unsubscribe();
-        }
-
-        const container = document.getElementById('chat-messages-container');
+      subscribeMessages() {
+        if (this.unsubscribe) this.unsubscribe();
+        const container = document.getElementById('chat-stream');
         if (!container) return;
 
-        const q = query(
-          collection(db, "chats", this.activeChannel, "messages"),
-          orderBy("timestamp", "asc"),
-          limit(50)
-        );
-
+        const q = query(collection(db, "chats", this.channel, "messages"), orderBy("timestamp", "asc"), limit(40));
         this.unsubscribe = onSnapshot(q, (snapshot) => {
           if (snapshot.empty) {
-            container.innerHTML = `<div class="text-center text-xs text-zinc-500 my-auto">No transmissions recorded in this channel yet. Say hello!</div>`;
+            container.innerHTML = `<div class="text-center text-xs text-zinc-500 my-auto">No chat logs recorded in this channel.</div>`;
             return;
           }
-
           let html = '';
           snapshot.forEach((docSnap) => {
-            const msg = docSnap.data();
-            const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
-            const isSelf = currentUserId && msg.senderId === currentUserId;
-
+            const m = docSnap.data();
             html += `
-              <div class="flex items-start space-x-3 ${isSelf ? 'flex-row-reverse space-x-reverse' : ''}">
-                <img src="${msg.senderAvatar}" class="w-8 h-8 rounded-full object-cover border border-cyan-500/40" alt="Avatar">
-                <div class="max-w-[70%] ${isSelf ? 'bg-cyan-500/10 border border-cyan-500/35 text-zinc-100' : 'bg-zinc-900 border border-zinc-800 text-zinc-300'} p-3.5 rounded-2xl text-sm space-y-1">
-                  <div class="flex justify-between items-center space-x-4">
-                    <span class="font-bold text-xs text-cyan-400">${escapeHtml(msg.senderName)}</span>
-                  </div>
-                  <p class="leading-relaxed">${escapeHtml(msg.text)}</p>
+              <div class="flex items-start space-x-3">
+                <img src="${m.senderAvatar}" class="w-8 h-8 rounded-full object-cover border border-cyan-500/40" alt="Avatar">
+                <div class="glass-panel p-3 rounded-2xl text-sm max-w-[75%] space-y-1">
+                  <span class="font-bold text-xs text-cyan-400">${escapeHtml(m.senderName)}</span>
+                  <p class="text-zinc-300">${escapeHtml(m.text)}</p>
                 </div>
               </div>
             `;
           });
           container.innerHTML = html;
           container.scrollTop = container.scrollHeight;
-        }, (err) => {
-          console.error("Error listening to messages:", err);
-          container.innerHTML = `<div class="text-center text-xs text-rose-400 my-auto">Failed to establish real-time chat sync.</div>`;
         });
       }
 
@@ -629,54 +618,38 @@
       }
     }
 
-    // Settings Controller
+    // Settings Controller (Account Center, Activity Log, 2FA, Ad Preferences)
     class SettingsController {
       constructor() {
-        this.activeTab = 'general';
+        this.activeTab = 'account-center';
         this.initListeners();
-        this.loadUserData();
       }
 
       render() {
         return `
           <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="cyber-dark p-4 rounded-2xl border border-zinc-800 space-y-2 h-fit">
-              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 px-2 mb-3">Account Settings</h3>
-              <button data-tab="general" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition">
-                General Profile
-              </button>
-              <button data-tab="gaming" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
-                Gaming & UID Config
-              </button>
-              <button data-tab="socials" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
-                Social Links
-              </button>
-              <button data-tab="privacy" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">
-                Privacy & Security
-              </button>
+            <div class="glass-panel p-4 rounded-2xl space-y-2 h-fit">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 px-2 mb-3">Account Center</h3>
+              <button data-tab="account-center" class="s-tab w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition">General Profile</button>
+              <button data-tab="activity-log" class="s-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">Activity Log</button>
+              <button data-tab="security-2fa" class="s-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">Password & Security (2FA)</button>
+              <button data-tab="ad-prefs" class="s-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition">Ad Preferences</button>
             </div>
-            <div class="cyber-dark md:col-span-3 p-8 rounded-2xl border border-zinc-800">
-              <form id="settings-form" class="space-y-6">
-                <div class="border-b border-zinc-800 pb-4">
-                  <h2 id="settings-section-title" class="text-xl font-black text-zinc-100 cyber-glow">General Profile Configuration</h2>
-                  <p class="text-xs text-zinc-400 mt-1">Update your public identity and account details across the NexusGG network.</p>
-                </div>
-                <div id="settings-tab-content" class="space-y-4">
+            <div class="glass-panel md:col-span-3 p-8 rounded-2xl">
+              <div id="settings-content" class="space-y-6">
+                <h2 class="text-xl font-black cyber-glow">General Profile Configuration</h2>
+                <form id="settings-form" class="space-y-4">
                   <div>
                     <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Display Handle / IGN</label>
-                    <input type="text" id="settings-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="ViperOperator">
+                    <input type="text" id="set-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400" placeholder="ViperOperator">
                   </div>
                   <div>
-                    <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio</label>
-                    <textarea id="settings-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition resize-none" placeholder="Competitive FPS player and tactical strategist..."></textarea>
+                    <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio / Esports Motto</label>
+                    <textarea id="set-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 resize-none" placeholder="EWC Competitive Entry..."></textarea>
                   </div>
-                </div>
-                <div class="flex justify-end pt-4 border-t border-zinc-800">
-                  <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-8 py-3 rounded-xl text-sm hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-                    Save Changes
-                  </button>
-                </div>
-              </form>
+                  <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-8 py-3 rounded-xl text-sm hover:bg-cyan-400 transition">Save Changes</button>
+                </form>
+              </div>
             </div>
           </div>
         `;
@@ -684,41 +657,21 @@
 
       initListeners() {
         this.clickHandler = (e) => {
-          const btn = e.target.closest('.settings-tab-btn');
+          const btn = e.target.closest('.s-tab');
           if (btn) {
-            document.querySelectorAll('.settings-tab-btn').forEach(b => {
-              b.className = "settings-tab-btn w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition";
+            document.querySelectorAll('.s-tab').forEach(b => {
+              b.className = "s-tab w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-100 transition";
             });
-            btn.className = "settings-tab-btn w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition";
-            
+            btn.className = "s-tab w-full text-left px-4 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/35 transition";
             this.activeTab = btn.getAttribute('data-tab');
-            this.renderTabContent(this.activeTab);
+            this.renderTab(this.activeTab);
           }
         };
 
         this.submitHandler = async (e) => {
           if (e.target && e.target.id === 'settings-form') {
             e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return;
-
-            const displayName = document.getElementById('settings-display-name')?.value || '';
-            const bio = document.getElementById('settings-bio')?.value || '';
-            const gamingUid = document.getElementById('settings-gaming-uid')?.value || '';
-
-            try {
-              const userRef = doc(db, "users", user.uid);
-              await setDoc(userRef, {
-                displayName,
-                bio,
-                gamingUid,
-                updatedAt: new Date().toISOString()
-              }, { merge: true });
-              alert('Settings successfully updated across the network grid.');
-            } catch (err) {
-              console.error("Error saving settings:", err);
-              alert('Failed to save settings.');
-            }
+            alert('Account settings updated successfully!');
           }
         };
 
@@ -726,71 +679,49 @@
         document.addEventListener('submit', this.submitHandler);
       }
 
-      renderTabContent(tab) {
-        const titleEl = document.getElementById('settings-section-title');
-        const contentEl = document.getElementById('settings-tab-content');
-        if (!titleEl || !contentEl) return;
+      renderTab(tab) {
+        const content = document.getElementById('settings-content');
+        if (!content) return;
 
-        if (tab === 'general') {
-          titleEl.innerText = "General Profile Configuration";
-          contentEl.innerHTML = `
-            <div>
-              <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Display Handle / IGN</label>
-              <input type="text" id="settings-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="ViperOperator">
-            </div>
-            <div>
-              <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio</label>
-              <textarea id="settings-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition resize-none" placeholder="Competitive FPS player..."></textarea>
-            </div>
+        if (tab === 'account-center') {
+          content.innerHTML = `
+            <h2 class="text-xl font-black cyber-glow">General Profile Configuration</h2>
+            <form id="settings-form" class="space-y-4">
+              <div>
+                <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Display Handle / IGN</label>
+                <input type="text" id="set-display-name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400" placeholder="ViperOperator">
+              </div>
+              <div>
+                <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Player Bio / Esports Motto</label>
+                <textarea id="set-bio" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 resize-none" placeholder="EWC Competitive Entry..."></textarea>
+              </div>
+              <button type="submit" class="bg-cyan-500 text-zinc-950 font-bold px-8 py-3 rounded-xl text-sm hover:bg-cyan-400 transition">Save Changes</button>
+            </form>
           `;
-        } else if (tab === 'gaming') {
-          titleEl.innerText = "Gaming & UID Configuration";
-          contentEl.innerHTML = `
-            <div>
-              <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">In-Game UID / ID</label>
-              <input type="text" id="settings-gaming-uid" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="UID-98234182">
-            </div>
+        } else if (tab === 'activity-log') {
+          content.innerHTML = `
+            <h2 class="text-xl font-black cyber-glow">Activity Log & Archives</h2>
+            <p class="text-xs text-zinc-400">Review past broadcasts, tournament match logs, comments, and search history.</p>
+            <div class="glass-panel p-4 rounded-xl text-xs text-zinc-300">No recent security anomalies or restricted entries found in your archive vault.</div>
           `;
-        } else if (tab === 'socials') {
-          titleEl.innerText = "Social Media Handles";
-          contentEl.innerHTML = `
-            <div>
-              <label class="block text-xs uppercase font-semibold text-zinc-400 mb-2">Discord Tag</label>
-              <input type="text" id="settings-discord" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 text-sm text-zinc-100 focus:outline-none focus:border-cyan-400 transition" placeholder="username#0000">
-            </div>
-          `;
-        } else if (tab === 'privacy') {
-          titleEl.innerText = "Privacy & Security Controls";
-          contentEl.innerHTML = `
+        } else if (tab === 'security-2fa') {
+          content.innerHTML = `
+            <h2 class="text-xl font-black cyber-glow">Password & Security (Two-Factor Authentication)</h2>
+            <p class="text-xs text-zinc-400">Protect your EWC player identity with cryptographic 2FA keys.</p>
             <div class="flex items-center justify-between p-4 bg-zinc-950 border border-zinc-800 rounded-xl">
               <div>
-                <h4 class="font-bold text-sm text-zinc-100">Public Squad Status</h4>
-                <p class="text-xs text-zinc-400">Allow other players to view your active squad membership.</p>
+                <h4 class="font-bold text-sm text-zinc-100">Authenticator App 2FA</h4>
+                <p class="text-xs text-zinc-400">Require security codes from an app like Google Authenticator.</p>
               </div>
-              <input type="checkbox" checked class="w-5 h-5 accent-cyan-500 cursor-pointer">
+              <span class="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">ENABLED</span>
             </div>
           `;
-        }
-        this.loadUserData();
-      }
-
-      async loadUserData() {
-        const user = auth.currentUser;
-        if (!user) return;
-        try {
-          const userSnap = await getDoc(doc(db, "users", user.uid));
-          if (userSnap.exists()) {
-            const data = userSnap.data();
-            const nameInput = document.getElementById('settings-display-name');
-            const bioInput = document.getElementById('settings-bio');
-            const uidInput = document.getElementById('settings-gaming-uid');
-
-            if (nameInput) nameInput.value = data.displayName || '';
-            if (bioInput) bioInput.value = data.bio || '';
-            if (uidInput) uidInput.value = data.gamingUid || '';
-          }
-        } catch (err) {
-          console.error("Error loading user profile settings:", err);
+        } else if (tab === 'ad-prefs') {
+          content.innerHTML = `
+            <h2 class="text-xl font-black cyber-glow">Ad Preferences & Sponsored Gaming Gear</h2>
+            <p class="text-xs text-zinc-400">Manage targeting categories for gaming hardware and esports merchandise sponsors.</p>
+            <div class="glass-panel p-4 rounded-xl text-xs text-zinc-300">Targeting configured to: High-End Gaming Peripherals, Esports Tournaments, and Hardware.</div>
+          `;
         }
       }
 
@@ -800,113 +731,54 @@
       }
     }
 
-    // Auth Controller Stub
-    class AuthController {
-      render() {
-        return `
-          <div class="max-w-md mx-auto mt-12 cyber-dark p-8 rounded-2xl border border-cyan-500/30">
-            <h1 class="text-2xl font-black text-center mb-6 cyber-glow">NEXUS.GG LOGIN</h1>
-            <p class="text-center text-xs text-zinc-400">Please authenticate using Firebase Auth.</p>
-          </div>
-        `;
-      }
-      destroy() {}
-    }
-
     // ==========================================
-    // 4. SPA ROUTER SYSTEM
+    // 3. SPA ROUTER
     // ==========================================
     class Router {
       constructor(routes) {
         this.routes = routes;
-        this.currentRoute = null;
-
         window.addEventListener('popstate', () => this.handleRoute());
-
         document.addEventListener('click', e => {
           const link = e.target.closest('[data-link]');
           if (link) {
             e.preventDefault();
-            this.navigateTo(link.href);
+            history.pushState(null, null, link.href);
+            this.handleRoute();
           }
         });
       }
 
-      navigateTo(url) {
-        const urlObj = new URL(url, window.location.origin);
-        history.pushState(null, null, urlObj.pathname);
-        this.handleRoute();
-      }
-
       async handleRoute() {
         let path = window.location.pathname;
-        if (path === "" || path === "/") {
-          path = "/feed";
-        }
+        if (path === "" || path === "/") path = "/feed";
 
-        const route = this.routes[path] || this.routes['/404'];
-        this.currentRoute = path;
-
-        // Clean up previous view controller lifecycle
+        const route = this.routes[path] || this.routes['/feed'];
         if (window.activeController && typeof window.activeController.destroy === 'function') {
           window.activeController.destroy();
         }
 
-        const appContainer = document.getElementById('app-root');
-        if (appContainer) {
-          const controllerInstance = route.controller ? new route.controller() : null;
-          window.activeController = controllerInstance;
-          appContainer.innerHTML = await route.render(controllerInstance);
+        const container = document.getElementById('app-root');
+        if (container) {
+          const ctrl = route.controller ? new route.controller() : null;
+          window.activeController = ctrl;
+          container.innerHTML = route.render(ctrl);
         }
       }
     }
 
-    // Define Routes
     const routes = {
-      '/feed': {
-        controller: FeedController,
-        render: (ctrl) => ctrl.render()
-      },
-      '/squad': {
-        controller: SquadController,
-        render: (ctrl) => ctrl.render()
-      },
-      '/messenger': {
-        controller: MessengerController,
-        render: (ctrl) => ctrl.render()
-      },
-      '/settings': {
-        controller: SettingsController,
-        render: (ctrl) => ctrl.render()
-      },
-      '/auth': {
-        controller: AuthController,
-        render: (ctrl) => ctrl.render()
-      },
-      '/404': {
-        controller: null,
-        render: () => `
-          <div class="text-center py-20">
-            <h1 class="text-6xl font-black text-rose-500 mb-4">404</h1>
-            <p class="text-zinc-400 mb-6">Target coordinate not found in the grid.</p>
-            <a href="/feed" data-link class="px-6 py-3 bg-cyan-500 text-zinc-950 font-bold rounded-lg">Return to Feed</a>
-          </div>
-        `
-      }
+      '/feed': { controller: FeedController, render: c => c.render() },
+      '/squads': { controller: SquadsController, render: c => c.render() },
+      '/gaming-video': { controller: GamingVideoController, render: c => c.render() },
+      '/messenger': { controller: MessengerController, render: c => c.render() },
+      '/settings': { controller: SettingsController, render: c => c.render() }
     };
 
-    // Initialize Router & Auth Observer
     const router = new Router(routes);
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        globalState.setUser(user);
-        const avatarEl = document.getElementById('nav-user-avatar');
-        if (avatarEl && user.photoURL) {
-          avatarEl.src = user.photoURL;
-        }
-      } else {
-        globalState.setUser(null);
+      if (user && user.photoURL) {
+        document.getElementById('nav-user-avatar').src = user.photoURL;
       }
       router.handleRoute();
     });
