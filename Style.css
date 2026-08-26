@@ -1,0 +1,296 @@
+:root {
+  --bg-dark: #090a10;
+  --card-bg: #141722;
+  --accent-neon: #00ff88;
+  --text-main: #f1f5f9;
+  --text-muted: #8e9bb0;
+  --border-dark: #23283b;
+  --danger-red: #ff4757;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.dark-theme {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding-bottom: 75px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* Auth Cards UI */
+.auth-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-dark);
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.brand-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.brand-icon {
+  font-size: 40px;
+  color: var(--accent-neon);
+}
+
+.auth-toggle {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.toggle-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toggle-btn.active {
+  color: var(--accent-neon);
+  border-bottom: 2px solid var(--accent-neon);
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-box i {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  background: #0d0e17;
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  color: #fff;
+}
+
+/* Game Select Grid */
+.field-title {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.game-selection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.game-option input {
+  display: none;
+}
+
+.game-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #0d0e17;
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.game-option input:checked + .game-badge {
+  border-color: var(--accent-neon);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.game-badge img {
+  width: 25px;
+  height: 25px;
+}
+
+/* Buttons */
+.glow-btn {
+  background: var(--accent-neon);
+  color: #000;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+}
+
+.glow-btn-sm {
+  background: var(--accent-neon);
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.danger-btn-sm {
+  background: var(--danger-red);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Permanent Image-Style Bottom Navbar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: var(--card-bg);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid var(--border-dark);
+  z-index: 9999;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  width: 20%;
+}
+
+.nav-item i {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+.nav-item.active {
+  color: var(--accent-neon);
+}
+
+/* Profile Header UI */
+.profile-header-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-dark);
+}
+
+.cover-bg {
+  height: 120px;
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+}
+
+.profile-info-row {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+  position: relative;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--card-bg);
+  margin-top: -40px;
+}
+
+.user-text {
+  flex: 1;
+}
+
+/* Modal UI */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content input, .modal-content select {
+  padding: 10px;
+  background: #0d0e17;
+  border: 1px solid var(--border-dark);
+  color: #fff;
+  border-radius: 4px;
+}
+
+.info-note {
+  font-size: 11px;
+  color: var(--text-muted);
+}
