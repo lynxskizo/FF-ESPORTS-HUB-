@@ -3,23 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Sports Hub - Login & Registration</title>
-  <link rel="stylesheet" href="style.css">
+  <title>E-Sports Hub - Login & Sign Up</title>
+  
+  <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #090a10;
+      --card-bg: #141722;
+      --accent-neon: #00ff88;
+      --text-main: #f1f5f9;
+      --text-muted: #8e9bb0;
+      --border-dark: #23283b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-bottom: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .auth-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-dark);
+      width: 90%;
+      max-width: 420px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+      margin: 20px 0;
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .brand-icon {
+      font-size: 42px;
+      color: var(--accent-neon);
+      margin-bottom: 8px;
+    }
+
+    .brand-header h2 {
+      letter-spacing: 1px;
+    }
+
+    .auth-toggle {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .toggle-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-btn.active {
+      color: var(--accent-neon);
+      border-bottom: 2px solid var(--accent-neon);
+    }
+
+    .auth-form {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .auth-form.active {
+      display: flex;
+    }
+
+    .input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-box i {
+      position: absolute;
+      left: 12px;
+      color: var(--text-muted);
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      background: #0d0e17;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      color: #fff;
+      outline: none;
+    }
+
+    .input-box input:focus {
+      border-color: var(--accent-neon);
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .game-selection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .game-option input {
+      display: none;
+    }
+
+    .game-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      background: #0d0e17;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .game-option input:checked + .game-badge {
+      border-color: var(--accent-neon);
+      background: rgba(0, 255, 136, 0.1);
+      color: var(--accent-neon);
+    }
+
+    .glow-btn {
+      background: var(--accent-neon);
+      color: #000;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+      margin-top: 5px;
+    }
+
+    /* Global Fixed Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: var(--card-bg);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid var(--border-dark);
+      z-index: 9999;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      width: 20%;
+      transition: color 0.2s ease;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    .nav-item.active {
+      color: var(--accent-neon);
+    }
+  </style>
 </head>
-<body class="dark-theme auth-body">
+<body>
 
   <div class="auth-card">
     <div class="brand-header">
       <i class="fa-solid fa-gamepad brand-icon"></i>
-      <h1>E-SPORTS HUB</h1>
-      <p>Worldwide Gamer Community & Team Manager</p>
+      <h2>E-SPORTS HUB</h2>
+      <p style="font-size: 12px; color: var(--text-muted);">Worldwide Gamer Community</p>
     </div>
 
-    <!-- Switcher -->
+    <!-- Toggle Buttons -->
     <div class="auth-toggle">
-      <button id="show-login-btn" class="toggle-btn active" onclick="toggleAuth('login')">Login</button>
-      <button id="show-signup-btn" class="toggle-btn" onclick="toggleAuth('signup')">Sign Up</button>
+      <button id="btn-login" class="toggle-btn active" onclick="switchForm('login')">Login</button>
+      <button id="btn-signup" class="toggle-btn" onclick="switchForm('signup')">Sign Up</button>
     </div>
 
     <!-- Login Form -->
@@ -32,14 +229,14 @@
         <i class="fa-solid fa-lock"></i>
         <input type="password" id="login-password" placeholder="Password" required>
       </div>
-      <button type="submit" class="glow-btn full-width">ENTER ARENA</button>
+      <button type="submit" class="glow-btn">ENTER ARENA</button>
     </form>
 
     <!-- Registration Form -->
     <form id="signup-form" class="auth-form">
       <div class="input-box">
         <i class="fa-solid fa-user"></i>
-        <input type="text" id="username" placeholder="Gamer Tag / In-Game Name" required>
+        <input type="text" id="username" placeholder="Gamer Tag / Username" required>
       </div>
       <div class="input-box">
         <i class="fa-solid fa-envelope"></i>
@@ -50,43 +247,43 @@
         <input type="password" id="signup-password" placeholder="Password (Min 6 chars)" required>
       </div>
 
-      <span class="field-title">Select Main Game (EWC Approved):</span>
+      <p class="field-label">Select Primary Game (EWC Approved):</p>
       <div class="game-selection-grid">
         <label class="game-option">
           <input type="radio" name="primaryGame" value="Free Fire" checked>
           <div class="game-badge">
-            <img src="https://img.icons8.com/color/48/free-fire.png" alt="FF">
+            <i class="fa-solid fa-fire" style="color: #ff4757;"></i>
             <span>Free Fire</span>
           </div>
         </label>
         <label class="game-option">
           <input type="radio" name="primaryGame" value="PUBG Mobile">
           <div class="game-badge">
-            <img src="https://img.icons8.com/color/48/pubg.png" alt="PUBG">
+            <i class="fa-solid fa-crosshair" style="color: #eccc68;"></i>
             <span>PUBG Mobile</span>
           </div>
         </label>
         <label class="game-option">
           <input type="radio" name="primaryGame" value="Valorant">
           <div class="game-badge">
-            <img src="https://img.icons8.com/color/48/valorant.png" alt="VAL">
+            <i class="fa-solid fa-shield-halved" style="color: #ff6b81;"></i>
             <span>Valorant</span>
           </div>
         </label>
         <label class="game-option">
           <input type="radio" name="primaryGame" value="Mobile Legends">
           <div class="game-badge">
-            <img src="https://img.icons8.com/color/48/mobile-legends.png" alt="MLBB">
+            <i class="fa-solid fa-dragon" style="color: #70a1ff;"></i>
             <span>MLBB</span>
           </div>
         </label>
       </div>
 
-      <button type="submit" class="glow-btn full-width">CREATE GAMER ACCOUNT</button>
+      <button type="submit" class="glow-btn">CREATE GAMER ACCOUNT</button>
     </form>
   </div>
 
-  <!-- Global Fixed Bottom Navigation -->
+  <!-- Permanent Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="index.html" class="nav-item active">
       <i class="fa-solid fa-house"></i>
@@ -112,22 +309,22 @@
 
   <script src="app.js" type="module"></script>
   <script>
-    function toggleAuth(type) {
+    function switchForm(type) {
       const loginForm = document.getElementById('login-form');
       const signupForm = document.getElementById('signup-form');
-      const loginBtn = document.getElementById('show-login-btn');
-      const signupBtn = document.getElementById('show-signup-btn');
+      const btnLogin = document.getElementById('btn-login');
+      const btnSignup = document.getElementById('btn-signup');
 
       if (type === 'login') {
         loginForm.classList.add('active');
         signupForm.classList.remove('active');
-        loginBtn.classList.add('active');
-        signupBtn.classList.remove('active');
+        btnLogin.classList.add('active');
+        btnSignup.classList.remove('active');
       } else {
         signupForm.classList.add('active');
         loginForm.classList.remove('active');
-        signupBtn.classList.add('active');
-        loginBtn.classList.remove('active');
+        btnSignup.classList.add('active');
+        btnLogin.classList.remove('active');
       }
     }
   </script>
