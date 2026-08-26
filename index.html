@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Sports Hub - Login & Sign Up</title>
-  
-  <!-- FontAwesome Icons CDN -->
+  <title>E-Sports Hub - Multi-Role E2EE Platform</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -13,319 +11,218 @@
       --bg-dark: #090a10;
       --card-bg: #141722;
       --accent-neon: #00ff88;
+      --accent-purple: #70a1ff;
+      --accent-orange: #ffa502;
+      --accent-red: #ff4757;
       --text-main: #f1f5f9;
       --text-muted: #8e9bb0;
       --border-dark: #23283b;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       padding-bottom: 75px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
     }
 
-    .auth-card {
+    .top-header {
       background: var(--card-bg);
-      border: 1px solid var(--border-dark);
-      width: 90%;
-      max-width: 420px;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
-      margin: 20px 0;
-    }
-
-    .brand-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .brand-icon {
-      font-size: 42px;
-      color: var(--accent-neon);
-      margin-bottom: 8px;
-    }
-
-    .brand-header h2 {
-      letter-spacing: 1px;
-    }
-
-    .auth-toggle {
+      padding: 12px 16px;
       display: flex;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      align-items: center;
       border-bottom: 1px solid var(--border-dark);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
+    .brand-logo { font-size: 18px; font-weight: bold; color: var(--accent-neon); }
+    .user-tag { font-size: 12px; color: var(--accent-purple); font-weight: bold; }
 
-    .toggle-btn {
-      flex: 1;
-      background: none;
-      border: none;
-      color: var(--text-muted);
+    .main-container {
+      max-width: 600px;
+      margin: 0 auto;
       padding: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .toggle-btn.active {
-      color: var(--accent-neon);
-      border-bottom: 2px solid var(--accent-neon);
-    }
-
-    .auth-form {
-      display: none;
+      display: flex;
       flex-direction: column;
       gap: 15px;
     }
 
-    .auth-form.active {
-      display: flex;
-    }
-
-    .input-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-box i {
-      position: absolute;
-      left: 12px;
-      color: var(--text-muted);
-    }
-
-    .input-box input {
-      width: 100%;
-      padding: 12px 12px 12px 40px;
-      background: #0d0e17;
+    /* FB Style Search Card */
+    .search-card {
+      background: var(--card-bg);
       border: 1px solid var(--border-dark);
-      border-radius: 6px;
-      color: #fff;
-      outline: none;
-    }
-
-    .input-box input:focus {
-      border-color: var(--accent-neon);
-    }
-
-    .field-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 5px;
-    }
-
-    .game-selection-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .game-option input {
-      display: none;
-    }
-
-    .game-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px;
-      background: #0d0e17;
-      border: 1px solid var(--border-dark);
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: all 0.2s ease;
-    }
-
-    .game-option input:checked + .game-badge {
-      border-color: var(--accent-neon);
-      background: rgba(0, 255, 136, 0.1);
-      color: var(--accent-neon);
-    }
-
-    .glow-btn {
-      background: var(--accent-neon);
-      color: #000;
-      border: none;
       padding: 12px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-      margin-top: 5px;
+      border-radius: 10px;
+    }
+    .search-input-group { display: flex; gap: 8px; }
+    .search-input-group input {
+      flex: 1; background: #0d0e17; border: 1px solid var(--border-dark);
+      padding: 8px 12px; border-radius: 6px; color: #fff; outline: none; font-size: 12px;
+    }
+    .search-btn {
+      background: var(--accent-purple); color: #000; border: none; padding: 8px 14px;
+      font-weight: bold; border-radius: 6px; cursor: pointer;
+    }
+    .search-results { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+
+    /* Smart Feed Post Input Box */
+    .create-post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    .post-input-row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .avatar-sm {
+      width: 38px; height: 38px; border-radius: 50%; background: var(--accent-neon);
+      display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; flex-shrink: 0;
+    }
+    .create-post-card textarea {
+      width: 100%; background: #0d0e17; border: 1px solid var(--border-dark);
+      padding: 10px; border-radius: 8px; color: #fff; outline: none; resize: none; height: 60px; font-family: inherit;
+    }
+    .post-controls { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-dark); padding-top: 10px; }
+    .type-select {
+      background: #0d0e17; color: var(--accent-neon); border: 1px solid var(--border-dark);
+      padding: 6px 10px; border-radius: 6px; outline: none; font-size: 12px;
+    }
+    .post-btn {
+      background: var(--accent-neon); color: #000; border: none; padding: 8px 18px; font-weight: bold; border-radius: 6px; cursor: pointer;
     }
 
-    /* Global Fixed Bottom Navigation */
+    /* Category Filter Chips */
+    .filter-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
+    .chip {
+      background: var(--card-bg); border: 1px solid var(--border-dark); padding: 6px 12px;
+      border-radius: 15px; font-size: 11px; cursor: pointer; white-space: nowrap; color: var(--text-muted);
+    }
+    .chip.active { border-color: var(--accent-neon); color: var(--accent-neon); }
+
+    /* Feed Post Items */
+    .feed-container { display: flex; flex-direction: column; gap: 12px; }
+    .feed-card {
+      background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 10px; padding: 14px;
+    }
+    .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .user-info h4 { font-size: 13px; color: #fff; }
+    .user-info span { font-size: 10px; color: var(--text-muted); }
+    .role-badge { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+
+    /* Live Chat Messenger Box */
+    .messenger-box {
+      background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 10px; padding: 15px;
+    }
+    .chat-header {
+      border-bottom: 1px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-messages {
+      height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 5px;
+    }
+    .chat-msg { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 12px; }
+    .chat-msg.me { align-self: flex-end; background: rgba(0, 255, 136, 0.15); border: 1px solid var(--accent-neon); color: #fff; }
+    .chat-msg.other { align-self: flex-start; background: #0d0e17; border: 1px solid var(--border-dark); color: #fff; }
+
+    /* Bottom Fixed Nav */
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background-color: var(--card-bg);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-top: 1px solid var(--border-dark);
-      z-index: 9999;
+      position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: var(--card-bg);
+      display: flex; justify-content: space-around; align-items: center; border-top: 1px solid var(--border-dark); z-index: 9999;
     }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 11px;
-      width: 20%;
-      transition: color 0.2s ease;
-    }
-
-    .nav-item i {
-      font-size: 18px;
-      margin-bottom: 3px;
-    }
-
-    .nav-item.active {
-      color: var(--accent-neon);
-    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-muted); font-size: 11px; width: 25%; }
+    .nav-item i { font-size: 18px; margin-bottom: 3px; }
+    .nav-item.active { color: var(--accent-neon); }
   </style>
 </head>
 <body>
 
-  <div class="auth-card">
-    <div class="brand-header">
-      <i class="fa-solid fa-gamepad brand-icon"></i>
-      <h2>E-SPORTS HUB</h2>
-      <p style="font-size: 12px; color: var(--text-muted);">Worldwide Gamer Community</p>
+  <header class="top-header">
+    <div class="brand-logo"><i class="fa-solid fa-gamepad"></i> E-SPORTS HUB</div>
+    <span id="header-user" class="user-tag"><i class="fa-solid fa-user"></i> Guest</span>
+  </header>
+
+  <div class="main-container">
+
+    <!-- User & Role Search Card -->
+    <div class="search-card">
+      <div class="search-input-group">
+        <input type="text" id="search-input" placeholder="Search Player, Host, Coach, or Org...">
+        <button id="search-btn" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
     </div>
 
-    <!-- Toggle Buttons -->
-    <div class="auth-toggle">
-      <button id="btn-login" class="toggle-btn active" onclick="switchForm('login')">Login</button>
-      <button id="btn-signup" class="toggle-btn" onclick="switchForm('signup')">Sign Up</button>
+    <!-- Smart Multi-Role Post Creator -->
+    <div class="create-post-card">
+      <div class="post-input-row">
+        <div class="avatar-sm">YOU</div>
+        <textarea id="post-input" placeholder="Share gameplay, recruit players, share coach strategies, or post host jobs..."></textarea>
+      </div>
+      <div class="post-controls">
+        <select id="post-type-select" class="type-select">
+          <option value="clip">🎮 Gameplay / Post</option>
+          <option value="hire">🎯 Squad Hiring (Player)</option>
+          <option value="analysis">📊 Coach Breakdown</option>
+          <option value="host">🎙️ Host / Organizer Job</option>
+        </select>
+        <button id="publish-btn" class="post-btn">Publish</button>
+      </div>
     </div>
 
-    <!-- Login Form -->
-    <form id="login-form" class="auth-form active">
-      <div class="input-box">
-        <i class="fa-solid fa-envelope"></i>
-        <input type="email" id="login-email" placeholder="Email Address" required>
-      </div>
-      <div class="input-box">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="login-password" placeholder="Password" required>
-      </div>
-      <button type="submit" class="glow-btn">ENTER ARENA</button>
-    </form>
+    <!-- Category Filter Chips -->
+    <div class="filter-chips">
+      <span class="chip active" onclick="filterFeed('all', this)">All Feeds</span>
+      <span class="chip" onclick="filterFeed('clip', this)">Gameplay Clips</span>
+      <span class="chip" onclick="filterFeed('hire', this)">Player Hiring</span>
+      <span class="chip" onclick="filterFeed('analysis', this)">Coach Analysis</span>
+      <span class="chip" onclick="filterFeed('host', this)">Host Positions</span>
+    </div>
 
-    <!-- Registration Form -->
-    <form id="signup-form" class="auth-form">
-      <div class="input-box">
-        <i class="fa-solid fa-user"></i>
-        <input type="text" id="username" placeholder="Gamer Tag / Username" required>
-      </div>
-      <div class="input-box">
-        <i class="fa-solid fa-envelope"></i>
-        <input type="email" id="signup-email" placeholder="Email Address" required>
-      </div>
-      <div class="input-box">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="signup-password" placeholder="Password (Min 6 chars)" required>
+    <!-- Smart Feed Container -->
+    <div id="feed-container" class="feed-container"></div>
+
+    <!-- E2EE Squad Live Chat Messenger -->
+    <div class="messenger-box">
+      <div class="chat-header">
+        <h3 style="font-size: 13px; color: var(--accent-neon);"><i class="fa-solid fa-lock"></i> Encrypted Live Chat</h3>
+        <span style="font-size: 10px; color: var(--accent-neon); background: rgba(0,255,136,0.1); padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-shield-halved"></i> E2EE Active</span>
       </div>
 
-      <p class="field-label">Select Primary Game (EWC Approved):</p>
-      <div class="game-selection-grid">
-        <label class="game-option">
-          <input type="radio" name="primaryGame" value="Free Fire" checked>
-          <div class="game-badge">
-            <i class="fa-solid fa-fire" style="color: #ff4757;"></i>
-            <span>Free Fire</span>
-          </div>
-        </label>
-        <label class="game-option">
-          <input type="radio" name="primaryGame" value="PUBG Mobile">
-          <div class="game-badge">
-            <i class="fa-solid fa-crosshair" style="color: #eccc68;"></i>
-            <span>PUBG Mobile</span>
-          </div>
-        </label>
-        <label class="game-option">
-          <input type="radio" name="primaryGame" value="Valorant">
-          <div class="game-badge">
-            <i class="fa-solid fa-shield-halved" style="color: #ff6b81;"></i>
-            <span>Valorant</span>
-          </div>
-        </label>
-        <label class="game-option">
-          <input type="radio" name="primaryGame" value="Mobile Legends">
-          <div class="game-badge">
-            <i class="fa-solid fa-dragon" style="color: #70a1ff;"></i>
-            <span>MLBB</span>
-          </div>
-        </label>
+      <div id="chat-messages" class="chat-messages">
+        <div style="text-align: center; color: var(--text-muted); font-size: 12px; margin-top: 20px;">Connecting to encrypted stream...</div>
       </div>
 
-      <button type="submit" class="glow-btn">CREATE GAMER ACCOUNT</button>
-    </form>
+      <div style="display: flex; gap: 8px; margin-top: 10px;">
+        <input type="text" id="chat-input" placeholder="Type encrypted message..." style="flex: 1; background: #0d0e17; border: 1px solid var(--border-dark); border-radius: 6px; padding: 8px 12px; color: #fff; outline: none; font-size: 12px;">
+        <button id="chat-send-btn" style="background: var(--accent-neon); color: #000; border: none; padding: 8px 15px; font-weight: bold; border-radius: 6px; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Permanent Bottom Navigation -->
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item active">
-      <i class="fa-solid fa-house"></i>
-      <span>Home</span>
-    </a>
-    <a href="post.html" class="nav-item">
-      <i class="fa-solid fa-trophy"></i>
-      <span>Tournaments</span>
-    </a>
-    <a href="userprofile.html" class="nav-item">
-      <i class="fa-solid fa-users"></i>
-      <span>My Teams</span>
-    </a>
-    <a href="post.html" class="nav-item">
-      <i class="fa-solid fa-layer-group"></i>
-      <span>Feed</span>
-    </a>
-    <a href="userprofile.html" class="nav-item">
-      <i class="fa-solid fa-user"></i>
-      <span>Account</span>
-    </a>
+    <a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i><span>Feed</span></a>
+    <a href="post.html" class="nav-item"><i class="fa-solid fa-trophy"></i><span>Tournaments</span></a>
+    <a href="userprofile.html" class="nav-item"><i class="fa-solid fa-users"></i><span>Teams</span></a>
+    <a href="userprofile.html" class="nav-item"><i class="fa-solid fa-user"></i><span>Account</span></a>
   </nav>
 
   <script src="app.js" type="module"></script>
   <script>
-    function switchForm(type) {
-      const loginForm = document.getElementById('login-form');
-      const signupForm = document.getElementById('signup-form');
-      const btnLogin = document.getElementById('btn-login');
-      const btnSignup = document.getElementById('btn-signup');
+    function filterFeed(category, chipElement) {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chipElement.classList.add('active');
 
-      if (type === 'login') {
-        loginForm.classList.add('active');
-        signupForm.classList.remove('active');
-        btnLogin.classList.add('active');
-        btnSignup.classList.remove('active');
-      } else {
-        signupForm.classList.add('active');
-        loginForm.classList.remove('active');
-        btnSignup.classList.add('active');
-        btnLogin.classList.remove('active');
-      }
+      const cards = document.querySelectorAll('.feed-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-type') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
   </script>
 </body>
