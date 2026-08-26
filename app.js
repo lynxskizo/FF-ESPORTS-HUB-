@@ -4,12 +4,13 @@ import { getFirestore, doc, setDoc, getDoc, collection, addDoc, updateDoc, array
 
 // Your Firebase Config Setup
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "ff-esports-hub.firebaseapp.com",
-  projectId: "ff-esports-hub",
-  storageBucket: "ff-esports-hub.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCdzsLgKC5ssl9ZA1yeGLIpmOkNGC7lXKM",
+  authDomain: "ff-esports-hub-eb964.firebaseapp.com",
+  projectId: "ff-esports-hub-eb964",
+  storageBucket: "ff-esports-hub-eb964.firebasestorage.app",
+  messagingSenderId: "44678895159",
+  appId: "1:44678895159:web:29225572f8c7fee106d1b2",
+  measurementId: "G-62FQQCRS5K"
 };
 
 const app = initializeApp(firebaseConfig);
