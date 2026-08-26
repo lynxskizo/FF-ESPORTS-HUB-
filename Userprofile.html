@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile & Team Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Main Profile Wrapper -->
+  <div class="container">
+    <div class="profile-header-card">
+      <div class="cover-bg"></div>
+      <div class="profile-info-row">
+        <img id="user-avatar" src="https://via.placeholder.com/100/00ff88/000000?text=GAMER" alt="Avatar" class="avatar">
+        <div class="user-text">
+          <h2 id="profile-name">Loading Gamer Tag...</h2>
+          <p class="meta-tag"><i class="fa-solid fa-gamepad"></i> Main Game: <span id="profile-game">--</span></p>
+        </div>
+        <button id="logout-btn" class="danger-btn-sm">Logout</button>
+      </div>
+    </div>
+
+    <!-- Team & Squad Creator Section -->
+    <div class="team-section">
+      <div class="section-title-bar">
+        <h3><i class="fa-solid fa-shield-halved"></i> Esports Team Dashboard</h3>
+        <button class="glow-btn-sm" onclick="document.getElementById('create-team-modal').style.display='flex'">+ Create Team</button>
+      </div>
+
+      <!-- Active Team Info -->
+      <div id="team-display-area" class="team-container">
+        <div class="empty-state">
+          <i class="fa-solid fa-users-slash"></i>
+          <p>You have not joined or created an Esports Team yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Team Modal -->
+  <div id="create-team-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Create New Esports Team</h4>
+        <span class="close-btn" onclick="document.getElementById('create-team-modal').style.display='none'">&times;</span>
+      </div>
+      <form id="create-team-form">
+        <input type="text" id="team-name" placeholder="Team Name (e.g. Apex Predators)" required>
+        <select id="team-game" required>
+          <option value="Free Fire">Free Fire</option>
+          <option value="PUBG Mobile">PUBG Mobile</option>
+          <option value="Valorant">Valorant</option>
+          <option value="Mobile Legends">Mobile Legends</option>
+        </select>
+        <p class="info-note">* Maximum limit: 50 Members per Team | 5 Members per Squad.</p>
+        <button type="submit" class="glow-btn full-width">CREATE SQUAD HUB</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Global Fixed Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="post.html" class="nav-item">
+      <i class="fa-solid fa-trophy"></i>
+      <span>Tournaments</span>
+    </a>
+    <a href="userprofile.html" class="nav-item active">
+      <i class="fa-solid fa-users"></i>
+      <span>My Teams</span>
+    </a>
+    <a href="post.html" class="nav-item">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Feed</span>
+    </a>
+    <a href="userprofile.html" class="nav-item active">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </a>
+  </nav>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
