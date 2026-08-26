@@ -3,163 +3,229 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS.GG - True 2000+ Lines Enterprise Ultimate Engine</title>
-  
-  <!-- Tailwind CSS CDN -->
+  <title>NEXUS ESPORTS - EWC Ultimate Gaming Network</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
           colors: {
-            nexus: {
-              bg: '#030508',
-              card: '#080c14',
-              cyan: '#00f0ff',
-              purple: '#b000ff',
-              border: '#121a2b',
-              hover: '#0d1320'
-            }
+            ewc: { bg: '#060913', card: '#0d1222', border: '#1a243d', accent: '#00ffaa', cyan: '#00f0ff', purple: '#9d00ff' }
           }
         }
       }
     }
   </script>
-  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; background-color: #030508; color: #f8fafc; }
-    h1, h2, h3, .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
-    .glass-ultimate {
-      background: rgba(8, 12, 20, 0.99);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-    }
-    .neon-ultimate-glow { box-shadow: 0 0 45px rgba(0, 240, 255, 0.35); }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #030508; }
-    ::-webkit-scrollbar-thumb { background: #121a2b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+    body { background-color: #060913; color: #f1f5f9; }
+    .neon-border { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); border: 1px solid rgba(0, 240, 255, 0.3); }
+    .glow-accent { box-shadow: 0 0 20px rgba(0, 255, 170, 0.4); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #060913; }
+    ::-webkit-scrollbar-thumb { background: #1a243d; border-radius: 4px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+<body class="min-h-screen flex flex-col font-sans">
 
-  <!-- ================= AUTHENTICATION ECOSYSTEM ================= -->
-  <div id="auth-screen" class="fixed inset-0 z-50 bg-[#020305]/99 backdrop-blur-3xl flex items-center justify-center p-4">
-    <div class="glass-ultimate p-12 rounded-3xl max-w-xl w-full space-y-8 border border-cyan-500/50 neon-ultimate-glow">
-      <div class="text-center space-y-3">
-        <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 mx-auto flex items-center justify-center font-black text-black text-5xl font-rajdhani shadow-2xl">
-          N
-        </div>
-        <h1 class="text-5xl font-black font-rajdhani tracking-wider text-white">NEXUS<span class="text-cyan-400">.GG</span></h1>
-        <p class="text-xs text-zinc-400 font-mono tracking-widest uppercase">True 2000+ Lines Enterprise Edition</p>
+  <!-- Authentication Overlay -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-[#060913]/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-ewc-card border border-ewc-cyan p-8 rounded-2xl max-w-md w-full space-y-6 neon-border">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-xl bg-gradient-to-tr from-ewc-cyan to-ewc-purple mx-auto flex items-center justify-center font-orbitron font-black text-black text-3xl">X</div>
+        <h2 class="font-orbitron font-black text-2xl text-white">NEXUS<span class="text-ewc-accent">.EWC</span></h2>
+        <p class="text-xs text-zinc-400 font-mono">E-Sports Player & Squad Portal</p>
       </div>
-
-      <div class="space-y-5">
+      <div class="space-y-4">
         <div>
-          <label class="block text-xs uppercase font-mono font-bold text-zinc-400 mb-2">Master Node Identifier</label>
-          <input type="email" id="auth-email" placeholder="commander@nexus.gg" class="w-full bg-nexus-bg border border-nexus-border rounded-xl p-4 text-xs text-zinc-100 focus:outline-none focus:border-cyan-400 transition">
+          <label class="block text-xs font-mono text-zinc-400 mb-1">Gamer Email</label>
+          <input type="email" id="auth-email" placeholder="player@nexus.gg" class="w-full bg-ewc-bg border border-ewc-border rounded-xl p-3 text-xs text-zinc-100 focus:outline-none focus:border-ewc-cyan">
         </div>
         <div>
-          <label class="block text-xs uppercase font-mono font-bold text-zinc-400 mb-2">Encrypted Security Passkey</label>
-          <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-nexus-bg border border-nexus-border rounded-xl p-4 text-xs text-zinc-100 focus:outline-none focus:border-cyan-400 transition">
+          <label class="block text-xs font-mono text-zinc-400 mb-1">Passkey</label>
+          <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-ewc-bg border border-ewc-border rounded-xl p-3 text-xs text-zinc-100 focus:outline-none focus:border-ewc-cyan">
         </div>
-        <div class="flex space-x-4 pt-4">
-          <button onclick="handleLogin()" class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold py-4 rounded-xl text-xs font-rajdhani tracking-widest uppercase hover:opacity-95 transition shadow-[0_0_30px_rgba(0,240,255,0.6)]">
-            Initialize Access
-          </button>
-          <button onclick="handleRegister()" class="flex-1 bg-nexus-border text-cyan-400 border border-cyan-500/40 font-bold py-4 rounded-xl text-xs font-rajdhani tracking-widest uppercase hover:bg-cyan-500/10 transition">
-            Provision Node
-          </button>
+        <div class="flex space-x-3 pt-2">
+          <button onclick="handleLogin()" class="flex-1 bg-ewc-cyan hover:bg-cyan-400 text-black font-rajdhani font-black py-3 rounded-xl text-xs uppercase tracking-wider transition">Login</button>
+          <button onclick="handleRegister()" class="flex-1 bg-ewc-border hover:bg-ewc-cyan/20 text-ewc-cyan border border-ewc-cyan/40 font-rajdhani font-black py-3 rounded-xl text-xs uppercase tracking-wider transition">Register</button>
         </div>
       </div>
-      <div id="auth-error" class="text-center text-[11px] text-rose-400 font-mono hidden"></div>
+      <div id="auth-error" class="text-center text-xs text-rose-400 font-mono hidden"></div>
     </div>
   </div>
 
-  <!-- ================= MAIN ECOSYSTEM WORKSPACE ================= -->
-  <div id="main-app" class="hidden flex flex-col min-h-screen justify-between">
-
-    <!-- Navbar -->
-    <header class="sticky top-0 z-40 glass-ultimate border-b border-nexus-border">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-black text-black text-2xl font-rajdhani neon-ultimate-glow">N</div>
-          <span class="text-3xl font-black tracking-wider text-cyan-400 font-rajdhani">NEXUS<span class="text-white">.GG</span></span>
-        </div>
-
-        <nav class="hidden lg:flex space-x-2 py-2">
-          <button onclick="switchTab('feed')" id="nav-feed" class="px-5 py-2.5 rounded-xl text-cyan-400 font-semibold text-xs bg-cyan-500/10 border border-cyan-500/30 whitespace-nowrap">Global Transmission</button>
-          <button onclick="switchTab('matrix')" id="nav-matrix" class="px-5 py-2.5 rounded-xl text-zinc-400 hover:text-cyan-400 font-semibold text-xs whitespace-nowrap">Node Matrix</button>
-          <button onclick="switchTab('terminal')" id="nav-terminal" class="px-5 py-2.5 rounded-xl text-zinc-400 hover:text-cyan-400 font-semibold text-xs whitespace-nowrap">Advanced Diagnostic</button>
-        </nav>
-
-        <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-2 bg-nexus-border/50 px-4 py-2 rounded-xl border border-nexus-border">
-            <span id="display-username" class="text-xs font-bold text-zinc-200 font-rajdhani">Commander</span>
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          </div>
-          <button onclick="handleLogout()" class="px-4 py-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-black font-bold text-xs transition">Disconnect</button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Content Workspace -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      
-      <!-- TAB 1: FEED -->
-      <div id="view-feed" class="space-y-6 max-w-2xl mx-auto">
-        <div class="glass-ultimate p-6 rounded-3xl space-y-4">
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold font-rajdhani text-lg" id="profile-avatar-initial">N</div>
-            <textarea id="new-post-text" rows="3" placeholder="Broadcast system-wide signal or status across enterprise network..." class="w-full bg-nexus-bg border border-nexus-border rounded-xl p-4 text-xs text-zinc-100 focus:outline-none focus:border-cyan-400 resize-none"></textarea>
-          </div>
-          <div class="flex justify-between items-center pt-3 border-t border-nexus-border">
-            <span class="text-xs text-zinc-400 font-mono">Protocol: Secure Cloud Broadcast</span>
-            <button onclick="createPost()" class="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold px-8 py-3 rounded-xl text-xs font-rajdhani uppercase hover:opacity-90 transition">Broadcast</button>
-          </div>
-        </div>
-
-        <div id="posts-container" class="space-y-6">
-          <div class="text-center text-xs text-zinc-500 font-mono py-12">Waiting for node transmissions...</div>
-        </div>
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-[#060913]/90 backdrop-blur-md border-b border-ewc-border">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-ewc-cyan to-ewc-purple flex items-center justify-center font-orbitron font-black text-black text-xl">X</div>
+        <span class="font-orbitron font-black text-2xl tracking-wider text-white">NEXUS<span class="text-ewc-accent">.EWC</span></span>
       </div>
 
-      <!-- TAB 2: MATRIX -->
-      <div id="view-matrix" class="hidden space-y-6 max-w-4xl mx-auto">
-        <div class="glass-ultimate p-8 rounded-3xl space-y-4">
-          <h2 class="text-2xl font-bold font-rajdhani text-cyan-400">Enterprise Node Matrix Registry</h2>
-          <p class="text-xs text-zinc-400">Deep telemetry view of the compiled active enterprise vectors.</p>
-          <div id="matrix-nodes-list" class="grid grid-cols-2 gap-3 pt-4 max-h-96 overflow-y-auto"></div>
+      <div class="hidden md:flex items-center space-x-1 bg-ewc-card border border-ewc-border p-1 rounded-xl">
+        <button onclick="switchTab('feed')" id="tab-feed" class="px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-ewc-accent bg-ewc-border">Hub Feed</button>
+        <button onclick="switchTab('teams')" id="tab-teams" class="px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-zinc-400 hover:text-white">Squad Matrix</button>
+        <button onclick="switchTab('lft')" id="tab-lft" class="px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-zinc-400 hover:text-white">Recruitment (LFT)</button>
+        <button onclick="switchTab('ewc')" id="tab-ewc" class="px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-zinc-400 hover:text-white">Tournaments</button>
+        <button onclick="switchTab('chat')" id="tab-chat" class="px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-zinc-400 hover:text-white">Global Chat</button>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button onclick="openTeamModal()" class="bg-gradient-to-r from-ewc-accent to-ewc-cyan text-black font-rajdhani font-black text-xs uppercase px-4 py-2.5 rounded-lg glow-accent hover:opacity-90 transition">+ Build Squad</button>
+        <div class="flex items-center space-x-2 bg-ewc-card border border-ewc-border px-3 py-1.5 rounded-lg">
+          <div id="user-avatar" class="w-7 h-7 rounded-full bg-ewc-cyan/20 text-ewc-cyan flex items-center justify-center font-bold text-xs font-rajdhani">P</div>
+          <span id="user-display-name" class="text-xs font-bold text-zinc-200">Gamer</span>
+        </div>
+        <button onclick="handleLogout()" class="text-xs text-rose-400 hover:underline font-mono">Exit</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow w-full">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="hidden lg:block lg:col-span-3 space-y-4">
+      <div class="bg-ewc-card border border-ewc-border p-4 rounded-2xl space-y-3">
+        <h3 class="font-rajdhani font-bold text-xs uppercase text-zinc-400 tracking-wider">EWC Approved Games</h3>
+        <div class="space-y-1 text-xs">
+          <div class="p-2.5 rounded-lg bg-ewc-border/40 text-ewc-cyan font-bold flex justify-between items-center cursor-pointer"><span>PUBG Mobile</span><span class="text-[10px] bg-ewc-cyan/10 px-2 py-0.5 rounded">EWC 2026</span></div>
+          <div class="p-2.5 rounded-lg hover:bg-ewc-border/30 text-zinc-300 font-semibold flex justify-between items-center cursor-pointer"><span>Counter-Strike 2</span></div>
+          <div class="p-2.5 rounded-lg hover:bg-ewc-border/30 text-zinc-300 font-semibold flex justify-between items-center cursor-pointer"><span>Dota 2</span></div>
+          <div class="p-2.5 rounded-lg hover:bg-ewc-border/30 text-zinc-300 font-semibold flex justify-between items-center cursor-pointer"><span>Apex Legends</span></div>
+          <div class="p-2.5 rounded-lg hover:bg-ewc-border/30 text-zinc-300 font-semibold flex justify-between items-center cursor-pointer"><span>Mobile Legends</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Interactive Views -->
+    <main class="col-span-1 lg:col-span-6 space-y-4">
+
+      <!-- View 1: Main Feed -->
+      <div id="view-feed" class="space-y-4">
+        <div class="bg-ewc-card border border-ewc-border p-4 rounded-2xl space-y-3">
+          <textarea id="feed-post-text" rows="2" placeholder="Share clutch highlights, scrim updates, or news..." class="w-full bg-ewc-bg border border-ewc-border rounded-xl p-3 text-xs text-zinc-100 focus:outline-none focus:border-ewc-cyan resize-none"></textarea>
+          
+          <!-- Media Upload Section -->
+          <div class="flex items-center justify-between pt-1">
+            <div class="flex items-center space-x-2">
+              <label class="cursor-pointer bg-ewc-border/60 hover:bg-ewc-border text-xs text-ewc-cyan px-3 py-1.5 rounded-lg border border-ewc-border flex items-center space-x-1 font-mono">
+                <span>📷 Upload Image</span>
+                <input type="file" id="post-media-file" accept="image/*" class="hidden" onchange="previewMediaName()">
+              </label>
+              <span id="media-file-name" class="text-[10px] text-zinc-400 font-mono"></span>
+            </div>
+            <select id="post-game-tag" class="bg-ewc-bg border border-ewc-border text-zinc-300 rounded-lg text-xs px-3 py-1.5 focus:outline-none">
+              <option>PUBG Mobile</option>
+              <option>CS2</option>
+              <option>Dota 2</option>
+              <option>Mobile Legends</option>
+            </select>
+          </div>
+
+          <div class="flex justify-end pt-2 border-t border-ewc-border">
+            <button onclick="publishPost()" id="publish-btn" class="bg-ewc-cyan hover:bg-cyan-400 text-black font-rajdhani font-bold text-xs uppercase px-6 py-2 rounded-lg transition">Broadcast Signal</button>
+          </div>
+        </div>
+        <div id="feed-container" class="space-y-4">
+          <div class="text-center text-xs text-zinc-500 font-mono py-8">Loading Live Database Feed...</div>
         </div>
       </div>
 
-      <!-- TAB 3: TERMINAL -->
-      <div id="view-terminal" class="hidden space-y-6 max-w-4xl mx-auto">
-        <div class="glass-ultimate p-8 rounded-3xl space-y-4">
-          <h2 class="text-2xl font-bold font-rajdhani text-cyan-400">Ultimate Diagnostic Terminal</h2>
-          <div id="terminal-logs" class="bg-nexus-bg p-4 rounded-xl border border-nexus-border font-mono text-[11px] text-emerald-400 h-72 overflow-y-auto space-y-1">
-            <p>[INIT] Initializing core infrastructure matrix...</p>
+      <!-- View 2: Squad / Team Matrix -->
+      <div id="view-teams" class="hidden space-y-4">
+        <div class="bg-ewc-card border border-ewc-border p-5 rounded-2xl space-y-3">
+          <h2 class="font-orbitron font-bold text-lg text-ewc-cyan">Registered EWC Squads</h2>
+          <div id="teams-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </div>
+      </div>
+
+      <!-- View 3: LFT / Player Recruitment -->
+      <div id="view-lft" class="hidden space-y-4">
+        <div class="bg-ewc-card border border-ewc-border p-5 rounded-2xl space-y-4">
+          <h2 class="font-orbitron font-bold text-lg text-ewc-accent">Looking For Team (LFT) Directory</h2>
+          <div id="lft-list" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- View 4: EWC Tournaments -->
+      <div id="view-ewc" class="hidden space-y-4">
+        <div class="bg-ewc-card border border-ewc-border p-5 rounded-2xl space-y-3">
+          <h2 class="font-orbitron font-bold text-lg text-ewc-purple">Esports World Cup Official Stages</h2>
+          <div class="space-y-3 font-mono text-xs">
+            <div class="p-4 bg-ewc-bg border border-ewc-border rounded-xl flex justify-between items-center">
+              <div><p class="font-bold text-white font-sans text-sm">PUBG Mobile World Cup</p><p class="text-zinc-400">$3,000,000 Prize Pool • Riyadh Stage</p></div>
+              <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-lg">QUALIFIERS LIVE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 5: Live Global Chat -->
+      <div id="view-chat" class="hidden space-y-4">
+        <div class="bg-ewc-card border border-ewc-border p-5 rounded-2xl space-y-4 h-[500px] flex flex-col justify-between">
+          <h2 class="font-orbitron font-bold text-lg text-ewc-cyan">Global Gamer Lobby</h2>
+          <div id="chat-messages" class="flex-grow overflow-y-auto space-y-2 text-xs font-mono p-2 bg-ewc-bg rounded-xl border border-ewc-border"></div>
+          <div class="flex space-x-2">
+            <input type="text" id="chat-input" placeholder="Type a message..." class="flex-grow bg-ewc-bg border border-ewc-border rounded-lg p-2 text-xs text-white focus:outline-none">
+            <button onclick="sendChatMessage()" class="bg-ewc-accent text-black font-bold px-4 rounded-lg text-xs uppercase">Send</button>
           </div>
         </div>
       </div>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-nexus-border py-6 text-center text-xs text-zinc-500 font-mono">
-      <p>&copy; 2026 NEXUS.GG • True 2000+ Lines Enterprise Ultimate Engine Architecture</p>
-    </footer>
+    <!-- Right Sidebar -->
+    <aside class="hidden lg:block lg:col-span-3 space-y-4">
+      <div class="bg-ewc-card border border-ewc-border p-4 rounded-2xl space-y-3">
+        <h3 class="font-rajdhani font-bold text-xs uppercase text-zinc-400 tracking-wider">Squad Voice Rooms</h3>
+        <div class="p-3 bg-ewc-bg rounded-xl border border-ewc-border flex justify-between items-center text-xs">
+          <div><p class="font-bold text-zinc-200">Main Scrim Channel</p><p class="text-[10px] text-emerald-400">● Live Audio</p></div>
+          <button class="px-3 py-1 bg-emerald-500 text-black font-bold text-[10px] rounded-md">JOIN</button>
+        </div>
+      </div>
+    </aside>
 
   </div>
 
-  <!-- ================= FIREBASE & LOGIC CONTROLLER ================= -->
+  <!-- Register Squad Modal -->
+  <div id="team-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-ewc-card border border-ewc-cyan p-6 rounded-2xl max-w-md w-full space-y-4 neon-border">
+      <h3 class="font-orbitron font-bold text-lg text-ewc-cyan">Register EWC Squad</h3>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-zinc-400 mb-1">Squad Name</label>
+          <input type="text" id="modal-team-name" placeholder="e.g. ALPHA VANGUARD" class="w-full bg-ewc-bg border border-ewc-border rounded-lg p-2.5 text-zinc-100 focus:outline-none focus:border-ewc-cyan">
+        </div>
+        <div>
+          <label class="block text-zinc-400 mb-1">EWC Game Title</label>
+          <select id="modal-team-game" class="w-full bg-ewc-bg border border-ewc-border rounded-lg p-2.5 text-zinc-100 focus:outline-none focus:border-ewc-cyan">
+            <option>PUBG Mobile</option>
+            <option>Counter-Strike 2</option>
+            <option>Dota 2</option>
+            <option>Mobile Legends: Bang Bang</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeTeamModal()" class="flex-1 bg-ewc-border text-zinc-300 font-bold py-2.5 rounded-lg text-xs uppercase">Cancel</button>
+        <button onclick="saveTeam()" class="flex-1 bg-ewc-accent text-black font-bold py-2.5 rounded-lg text-xs uppercase glow-accent">Register Team</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase & Logic Module -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCdzsLgKC5ssl9ZA1yeGLIpmOkNGC7lXKM",
@@ -174,21 +240,23 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    let currentEmail = "";
+    let currentUser = null;
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        currentEmail = user.email;
-        document.getElementById('display-username').innerText = user.email.split('@')[0];
-        document.getElementById('profile-avatar-initial').innerText = user.email.charAt(0).toUpperCase();
-        document.getElementById('auth-screen').classList.add('hidden');
-        document.getElementById('main-app').classList.remove('hidden');
-        loadFeedPosts();
-        initializeMassiveMatrixRegistry();
+        currentUser = user;
+        const name = user.email.split('@')[0];
+        document.getElementById('user-display-name').innerText = name;
+        document.getElementById('user-avatar').innerText = name.charAt(0).toUpperCase();
+        document.getElementById('auth-modal').classList.add('hidden');
+        loadLiveFeed();
+        loadLiveTeams();
+        loadGlobalChat();
       } else {
-        document.getElementById('main-app').classList.add('hidden');
-        document.getElementById('auth-screen').classList.remove('hidden');
+        currentUser = null;
+        document.getElementById('auth-modal').classList.remove('hidden');
       }
     });
 
@@ -208,248 +276,141 @@
 
     window.handleLogout = () => signOut(auth);
 
-    window.switchTab = (tabId) => {
-      ['feed', 'matrix', 'terminal'].forEach(t => {
-        const el = document.getElementById('view-' + t);
-        const btn = document.getElementById('nav-' + t);
-        if (el) el.classList.add('hidden');
-        if (btn) btn.className = "px-5 py-2.5 rounded-xl text-zinc-400 hover:text-cyan-400 font-semibold text-xs whitespace-nowrap";
-      });
-      const activeEl = document.getElementById('view-' + tabId);
-      const activeBtn = document.getElementById('nav-' + tabId);
-      if (activeEl) activeEl.classList.remove('hidden');
-      if (activeBtn) activeBtn.className = "px-5 py-2.5 rounded-xl text-cyan-400 font-semibold text-xs bg-cyan-500/10 border border-cyan-500/30 whitespace-nowrap";
+    window.previewMediaName = () => {
+      const fileInput = document.getElementById('post-media-file');
+      document.getElementById('media-file-name').innerText = fileInput.files.length > 0 ? fileInput.files[0].name : "";
     };
 
-    window.createPost = async () => {
-      const textEl = document.getElementById('new-post-text');
-      const text = textEl.value.trim();
-      if (!text) return;
+    window.publishPost = async () => {
+      const text = document.getElementById('feed-post-text').value;
+      const game = document.getElementById('post-game-tag').value;
+      const fileInput = document.getElementById('post-media-file');
+      const btn = document.getElementById('publish-btn');
+
+      if (!text && fileInput.files.length === 0) return;
+      if (!currentUser) return;
+
+      btn.innerText = "Uploading...";
+      btn.disabled = true;
+
       try {
-        await addDoc(collection(db, "ultimate_architecture_posts"), {
-          author: currentEmail.split('@')[0],
+        let imageUrl = "";
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const storageRef = ref(storage, 'post_media/' + Date.now() + '_' + file.name);
+          await uploadBytes(storageRef, file);
+          imageUrl = await getDownloadURL(storageRef);
+        }
+
+        await addDoc(collection(db, "ewc_posts"), {
+          author: currentUser.email.split('@')[0],
+          game: game,
           content: text,
+          imageUrl: imageUrl,
           likes: 0,
           createdAt: serverTimestamp()
         });
-        textEl.value = "";
-      } catch (e) { alert("Cloud error: " + e.message); }
+
+        document.getElementById('feed-post-text').value = "";
+        fileInput.value = "";
+        document.getElementById('media-file-name').innerText = "";
+      } catch (e) { alert(e.message); } finally { btn.innerText = "Broadcast Signal"; btn.disabled = false; }
     };
 
-    function loadFeedPosts() {
-      const container = document.getElementById('posts-container');
-      const q = query(collection(db, "ultimate_architecture_posts"), orderBy("createdAt", "desc"));
+    function loadLiveFeed() {
+      const feedContainer = document.getElementById('feed-container');
+      const q = query(collection(db, "ewc_posts"), orderBy("createdAt", "desc"));
+      
       onSnapshot(q, (snapshot) => {
-        container.innerHTML = "";
-        if (snapshot.empty) {
-          container.innerHTML = `<div class="text-center text-xs text-zinc-500 font-mono py-12">No transmissions recorded.</div>`;
-          return;
-        }
+        feedContainer.innerHTML = "";
         snapshot.forEach((docSnap) => {
           const p = docSnap.data();
-          const id = docSnap.id;
-          const div = document.createElement('div');
-          div.className = "glass-ultimate p-6 rounded-3xl space-y-3";
-          div.innerHTML = `
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold font-rajdhani text-xs">
-                ${p.author ? p.author.charAt(0).toUpperCase() : 'U'}
+          const docId = docSnap.id;
+          let imageTag = p.imageUrl ? `<div class="rounded-xl overflow-hidden border border-ewc-border max-h-80"><img src="${p.imageUrl}" class="w-full h-full object-cover"></div>` : '';
+
+          feedContainer.innerHTML += `
+            <div class="bg-ewc-card border border-ewc-border p-4 rounded-2xl space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-full bg-ewc-cyan/20 text-ewc-cyan flex items-center justify-center font-bold text-xs font-rajdhani">${p.author ? p.author.charAt(0).toUpperCase() : 'P'}</div>
+                  <div><h4 class="font-bold text-xs text-white">${p.author}</h4><span class="text-[10px] text-ewc-cyan font-mono">${p.game}</span></div>
+                </div>
               </div>
-              <div>
-                <h4 class="font-bold text-xs text-zinc-100 font-rajdhani">${p.author || 'Commander'}</h4>
-                <span class="text-[10px] text-zinc-500">Secure Ultimate Broadcast</span>
+              <p class="text-xs text-zinc-300 leading-relaxed">${p.content}</p>
+              ${imageTag}
+              <div class="pt-2 border-t border-ewc-border flex justify-between text-xs text-zinc-400">
+                <button onclick="likePost('${docId}')" class="hover:text-ewc-accent font-bold">❤️ Like (${p.likes || 0})</button>
               </div>
-            </div>
-            <p class="text-xs text-zinc-300 leading-relaxed">${p.content}</p>
-            <div class="pt-3 border-t border-nexus-border text-xs">
-              <button onclick="likePost('${id}')" class="text-cyan-400 hover:underline font-semibold">
-                👍 Resonance Likes (${p.likes || 0})
-              </button>
-            </div>
-          `;
-          container.appendChild(div);
+            </div>`;
         });
       });
     }
 
     window.likePost = async (id) => {
-      try {
-        await updateDoc(doc(db, "ultimate_architecture_posts", id), { likes: increment(1) });
-      } catch (e) { console.error(e); }
+      await updateDoc(doc(db, "ewc_posts", id), { likes: increment(1) });
     };
 
-    function initializeMassiveMatrixRegistry() {
-      const listEl = document.getElementById('matrix-nodes-list');
-      const termEl = document.getElementById('terminal-logs');
-      if(!listEl) return;
-      listEl.innerHTML = "";
-      
-      for(let i = 1; i <= 300; i++) {
-        const nodeDiv = document.createElement('div');
-        nodeDiv.className = "p-3 bg-nexus-bg rounded-xl border border-nexus-border text-[11px] font-mono flex justify-between items-center";
-        nodeDiv.innerHTML = `<span class="text-zinc-400">CORE_NODE_${i}</span><span class="text-emerald-400">ONLINE</span>`;
-        listEl.appendChild(nodeDiv);
-        
-        if(i <= 80) {
-          const p = document.createElement('p');
-          p.innerText = `[SUCCESS] Compiled structural block sequence matrix reference #${i} verified.`;
-          termEl.appendChild(p);
-        }
-      }
-    }
-  </script>
+    window.sendChatMessage = async () => {
+      const input = document.getElementById('chat-input');
+      if (!input.value || !currentUser) return;
+      await addDoc(collection(db, "global_chat"), {
+        user: currentUser.email.split('@')[0],
+        msg: input.value,
+        createdAt: serverTimestamp()
+      });
+      input.value = "";
+    };
 
-  <!-- ================= MASSIVE 2000+ LINES EXHAUSTIVE EXPANSION BLOCKS (TRUE LINE COUNT GENERATOR) ================= -->
-  <script>
-    /**
-     * Module Block Alpha: Vector Registry & Deep Neural Telemetry Engine
-     * Each individual array configuration forces deep, multi-line programmatic structures
-     * to fulfill absolute enterprise requirements without shorthand placeholders.
-     */
-    const __vectorRegistryClusterAlpha = [
-      { id: 1, tag: "ALPHA_01", status: "ACTIVE", load: 0.12 },
-      { id: 2, tag: "ALPHA_02", status: "ACTIVE", load: 0.14 },
-      { id: 3, tag: "ALPHA_03", status: "ACTIVE", load: 0.19 },
-      { id: 4, tag: "ALPHA_04", status: "ACTIVE", load: 0.11 },
-      { id: 5, tag: "ALPHA_05", status: "ACTIVE", load: 0.22 },
-      { id: 6, tag: "ALPHA_06", status: "ACTIVE", load: 0.18 },
-      { id: 7, tag: "ALPHA_07", status: "ACTIVE", load: 0.15 },
-      { id: 8, tag: "ALPHA_08", status: "ACTIVE", load: 0.10 },
-      { id: 9, tag: "ALPHA_09", status: "ACTIVE", load: 0.25 },
-      { id: 10, tag: "ALPHA_10", status: "ACTIVE", load: 0.17 },
-      { id: 11, tag: "ALPHA_11", status: "ACTIVE", load: 0.13 },
-      { id: 12, tag: "ALPHA_12", status: "ACTIVE", load: 0.21 },
-      { id: 13, tag: "ALPHA_13", status: "ACTIVE", load: 0.16 },
-      { id: 14, tag: "ALPHA_14", status: "ACTIVE", load: 0.14 },
-      { id: 15, tag: "ALPHA_15", status: "ACTIVE", load: 0.20 },
-      { id: 16, tag: "ALPHA_16", status: "ACTIVE", load: 0.12 },
-      { id: 17, tag: "ALPHA_17", status: "ACTIVE", load: 0.19 },
-      { id: 18, tag: "ALPHA_18", status: "ACTIVE", load: 0.15 },
-      { id: 19, tag: "ALPHA_19", status: "ACTIVE", load: 0.23 },
-      { id: 20, tag: "ALPHA_20", status: "ACTIVE", load: 0.11 },
-      { id: 21, tag: "ALPHA_21", status: "ACTIVE", load: 0.14 },
-      { id: 22, tag: "ALPHA_22", status: "ACTIVE", load: 0.17 },
-      { id: 23, tag: "ALPHA_23", status: "ACTIVE", load: 0.19 },
-      { id: 24, tag: "ALPHA_24", status: "ACTIVE", load: 0.12 },
-      { id: 25, tag: "ALPHA_25", status: "ACTIVE", load: 0.16 },
-      { id: 26, tag: "ALPHA_26", status: "ACTIVE", load: 0.15 },
-      { id: 27, tag: "ALPHA_27", status: "ACTIVE", load: 0.18 },
-      { id: 28, tag: "ALPHA_28", status: "ACTIVE", load: 0.13 },
-      { id: 29, tag: "ALPHA_29", status: "ACTIVE", load: 0.20 },
-      { id: 30, tag: "ALPHA_30", status: "ACTIVE", load: 0.14 }
-    ];
-
-    const __vectorRegistryClusterBeta = [
-      { id: 31, tag: "BETA_01", status: "SYNCED", load: 0.22 },
-      { id: 32, tag: "BETA_02", status: "SYNCED", load: 0.25 },
-      { id: 33, tag: "BETA_03", status: "SYNCED", load: 0.19 },
-      { id: 34, tag: "BETA_04", status: "SYNCED", load: 0.21 },
-      { id: 35, tag: "BETA_05", status: "SYNCED", load: 0.24 },
-      { id: 36, tag: "BETA_06", status: "SYNCED", load: 0.18 },
-      { id: 37, tag: "BETA_07", status: "SYNCED", load: 0.20 },
-      { id: 38, tag: "BETA_08", status: "SYNCED", load: 0.26 },
-      { id: 39, tag: "BETA_09", status: "SYNCED", load: 0.17 },
-      { id: 40, tag: "BETA_10", status: "SYNCED", load: 0.23 },
-      { id: 41, tag: "BETA_11", status: "SYNCED", load: 0.15 },
-      { id: 42, tag: "BETA_12", status: "SYNCED", load: 0.22 },
-      { id: 43, tag: "BETA_13", status: "SYNCED", load: 0.19 },
-      { id: 44, tag: "BETA_14", status: "SYNCED", load: 0.21 },
-      { id: 45, tag: "BETA_15", status: "SYNCED", load: 0.25 },
-      { id: 46, tag: "BETA_16", status: "SYNCED", load: 0.18 },
-      { id: 47, tag: "BETA_17", status: "SYNCED", load: 0.20 },
-      { id: 48, tag: "BETA_18", status: "SYNCED", load: 0.23 },
-      { id: 49, tag: "BETA_19", status: "SYNCED", load: 0.16 },
-      { id: 50, tag: "BETA_20", status: "SYNCED", load: 0.24 },
-      { id: 51, tag: "BETA_21", status: "SYNCED", load: 0.19 },
-      { id: 52, tag: "BETA_22", status: "SYNCED", load: 0.21 },
-      { id: 53, tag: "BETA_23", status: "SYNCED", load: 0.17 },
-      { id: 54, tag: "BETA_24", status: "SYNCED", load: 0.22 },
-      { id: 55, tag: "BETA_25", status: "SYNCED", load: 0.20 },
-      { id: 56, tag: "BETA_26", status: "SYNCED", load: 0.25 },
-      { id: 57, tag: "BETA_27", status: "SYNCED", load: 0.18 },
-      { id: 58, tag: "BETA_28", status: "SYNCED", load: 0.23 },
-      { id: 59, tag: "BETA_29", status: "SYNCED", load: 0.16 },
-      { id: 60, tag: "BETA_30", status: "SYNCED", load: 0.21 }
-    ];
-
-    const __vectorRegistryClusterGamma = [
-      { id: 61, tag: "GAMMA_01", status: "OPTIMIZED", load: 0.08 },
-      { id: 62, tag: "GAMMA_02", status: "OPTIMIZED", load: 0.11 },
-      { id: 63, tag: "GAMMA_03", status: "OPTIMIZED", load: 0.09 },
-      { id: 64, tag: "GAMMA_04", status: "OPTIMIZED", load: 0.12 },
-      { id: 65, tag: "GAMMA_05", status: "OPTIMIZED", load: 0.07 },
-      { id: 66, tag: "GAMMA_06", status: "OPTIMIZED", load: 0.14 },
-      { id: 67, tag: "GAMMA_07", status: "OPTIMIZED", load: 0.10 },
-      { id: 68, tag: "GAMMA_08", status: "OPTIMIZED", load: 0.13 },
-      { id: 69, tag: "GAMMA_09", status: "OPTIMIZED", load: 0.09 },
-      { id: 70, tag: "GAMMA_10", status: "OPTIMIZED", load: 0.11 },
-      { id: 71, tag: "GAMMA_11", status: "OPTIMIZED", load: 0.08 },
-      { id: 72, tag: "GAMMA_12", status: "OPTIMIZED", load: 0.15 },
-      { id: 73, tag: "GAMMA_13", status: "OPTIMIZED", load: 0.10 },
-      { id: 74, tag: "GAMMA_14", status: "OPTIMIZED", load: 0.12 },
-      { id: 75, tag: "GAMMA_15", status: "OPTIMIZED", load: 0.07 },
-      { id: 76, tag: "GAMMA_16", status: "OPTIMIZED", load: 0.13 },
-      { id: 77, tag: "GAMMA_17", status: "OPTIMIZED", load: 0.09 },
-      { id: 78, tag: "GAMMA_18", status: "OPTIMIZED", load: 0.11 },
-      { id: 79, tag: "GAMMA_19", status: "OPTIMIZED", load: 0.14 },
-      { id: 80, tag: "GAMMA_20", status: "OPTIMIZED", load: 0.08 }
-    ];
-  </script>
-
-  <script>
-    /**
-     * Module Block Delta: Security Pipeline & Cryptographic Verification Matrices
-     */
-    class SecureEnterprisePipeline {
-      constructor() {
-        this.pipelineId = "PIPE_SECURE_994X";
-        this.activeSessionsCount = 1420;
-        this.encryptionAlgorithm = "AES-256-GCM-ULTRA";
-        this.auditLogRegistry = [];
-        this.buildExtensiveAuditLogs();
-      }
-
-      buildExtensiveAuditLogs() {
-        for (let i = 1; i <= 500; i++) {
-          this.auditLogRegistry.push({
-            sequenceIndex: i,
-            nodeTarget: `GATEWAY_NODE_${i % 25}`,
-            securityState: i % 13 === 0 ? "WARNING_RESOLVED" : "SECURE_VERIFIED",
-            responseTimeMs: Math.floor(Math.random() * 35) + 3,
-            timestampEpoch: Date.now() - (i * 1000)
-          });
-        }
-      }
-    }
-
-    const __securePipelineInstance = new SecureEnterprisePipeline();
-    console.log("[PIPELINE_INIT] Secure enterprise pipeline deployed with audit items:", __securePipelineInstance.auditLogRegistry.length);
-  </script>
-
-  <script>
-    /**
-     * Module Block Omega: High-Density Memory Telemetry & Diagnostic Registry
-     */
-    const __omegaTelemetryDiagnosticsTable = [];
-    for (let omegaIndex = 1; omegaIndex <= 400; omegaIndex++) {
-      __omegaTelemetryDiagnosticsTable.push({
-        diagnosticID: omegaIndex,
-        moduleReference: `MOD_CORE_${omegaIndex % 30}`,
-        healthFactor: parseFloat((Math.random() * 0.1 + 0.95).toFixed(4)),
-        memoryAllocationBytes: 5242880 * ((omegaIndex % 8) + 1),
-        executionStatus: "RUNNING_STABLE"
+    function loadGlobalChat() {
+      const chatBox = document.getElementById('chat-messages');
+      const q = query(collection(db, "global_chat"), orderBy("createdAt", "asc"));
+      onSnapshot(q, (snapshot) => {
+        chatBox.innerHTML = "";
+        snapshot.forEach(docSnap => {
+          const c = docSnap.data();
+          chatBox.innerHTML += `<div><span class="text-ewc-cyan font-bold">${c.user}:</span> <span class="text-zinc-300">${c.msg}</span></div>`;
+        });
+        chatBox.scrollTop = chatBox.scrollHeight;
       });
     }
-    console.log("[OMEGA_DIAGNOSTICS] Fully compiled omega diagnostics count:", __omegaTelemetryDiagnosticsTable.length);
-  </script>
 
-  <script>
-    /**
-     * NEXUS.GG Absolute System Boot and Runtime Event Listener Verification
-     */
-    window.addEventListener('load', () => {
-      console.log("[NEXUS_TRUE_ENGINE] 2000+ Lines Enterprise Ecosystem successfully compiled and mounted to browser virtual DOM.");
-    });
+    window.saveTeam = async () => {
+      const name = document.getElementById('modal-team-name').value;
+      const game = document.getElementById('modal-team-game').value;
+      if (!name) return;
+      await addDoc(collection(db, "ewc_teams"), { name: name, game: game, leader: currentUser.email.split('@')[0], createdAt: serverTimestamp() });
+      closeTeamModal();
+    };
+
+    function loadLiveTeams() {
+      const grid = document.getElementById('teams-grid');
+      const q = query(collection(db, "ewc_teams"), orderBy("createdAt", "desc"));
+      onSnapshot(q, (snapshot) => {
+        grid.innerHTML = "";
+        snapshot.forEach((docSnap) => {
+          const t = docSnap.data();
+          grid.innerHTML += `
+            <div class="p-4 bg-ewc-bg rounded-xl border border-ewc-border space-y-2">
+              <span class="text-[9px] bg-ewc-accent/10 text-ewc-accent px-2 py-0.5 rounded font-mono">EWC Squad</span>
+              <h4 class="font-bold text-sm text-white font-rajdhani">${t.name}</h4>
+              <p class="text-xs text-zinc-400">${t.game}</p>
+              <div class="pt-2 flex justify-between items-center text-[11px] text-zinc-500"><span>Leader: ${t.leader}</span></div>
+            </div>`;
+        });
+      });
+    }
+
+    window.switchTab = (tab) => {
+      ['feed', 'teams', 'lft', 'ewc', 'chat'].forEach(t => {
+        document.getElementById('view-' + t).classList.add('hidden');
+        document.getElementById('tab-' + t).className = "px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-zinc-400 hover:text-white";
+      });
+      document.getElementById('view-' + tab).classList.remove('hidden');
+      document.getElementById('tab-' + tab).className = "px-4 py-2 rounded-lg font-rajdhani font-bold text-xs uppercase text-ewc-accent bg-ewc-border";
+    };
+
+    window.openTeamModal = () => document.getElementById('team-modal').classList.remove('hidden');
+    window.closeTeamModal = () => document.getElementById('team-modal').classList.add('hidden');
   </script>
 </body>
 </html>
