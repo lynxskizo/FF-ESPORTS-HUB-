@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Sports Hub - Login & Registration</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme auth-body">
+
+  <div class="auth-card">
+    <div class="brand-header">
+      <i class="fa-solid fa-gamepad brand-icon"></i>
+      <h1>E-SPORTS HUB</h1>
+      <p>Worldwide Gamer Community & Team Manager</p>
+    </div>
+
+    <!-- Switcher -->
+    <div class="auth-toggle">
+      <button id="show-login-btn" class="toggle-btn active" onclick="toggleAuth('login')">Login</button>
+      <button id="show-signup-btn" class="toggle-btn" onclick="toggleAuth('signup')">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-form" class="auth-form active">
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="login-email" placeholder="Email Address" required>
+      </div>
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="login-password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="glow-btn full-width">ENTER ARENA</button>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="signup-form" class="auth-form">
+      <div class="input-box">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="username" placeholder="Gamer Tag / In-Game Name" required>
+      </div>
+      <div class="input-box">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="signup-email" placeholder="Email Address" required>
+      </div>
+      <div class="input-box">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="signup-password" placeholder="Password (Min 6 chars)" required>
+      </div>
+
+      <span class="field-title">Select Main Game (EWC Approved):</span>
+      <div class="game-selection-grid">
+        <label class="game-option">
+          <input type="radio" name="primaryGame" value="Free Fire" checked>
+          <div class="game-badge">
+            <img src="https://img.icons8.com/color/48/free-fire.png" alt="FF">
+            <span>Free Fire</span>
+          </div>
+        </label>
+        <label class="game-option">
+          <input type="radio" name="primaryGame" value="PUBG Mobile">
+          <div class="game-badge">
+            <img src="https://img.icons8.com/color/48/pubg.png" alt="PUBG">
+            <span>PUBG Mobile</span>
+          </div>
+        </label>
+        <label class="game-option">
+          <input type="radio" name="primaryGame" value="Valorant">
+          <div class="game-badge">
+            <img src="https://img.icons8.com/color/48/valorant.png" alt="VAL">
+            <span>Valorant</span>
+          </div>
+        </label>
+        <label class="game-option">
+          <input type="radio" name="primaryGame" value="Mobile Legends">
+          <div class="game-badge">
+            <img src="https://img.icons8.com/color/48/mobile-legends.png" alt="MLBB">
+            <span>MLBB</span>
+          </div>
+        </label>
+      </div>
+
+      <button type="submit" class="glow-btn full-width">CREATE GAMER ACCOUNT</button>
+    </form>
+  </div>
+
+  <!-- Global Fixed Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="post.html" class="nav-item">
+      <i class="fa-solid fa-trophy"></i>
+      <span>Tournaments</span>
+    </a>
+    <a href="userprofile.html" class="nav-item">
+      <i class="fa-solid fa-users"></i>
+      <span>My Teams</span>
+    </a>
+    <a href="post.html" class="nav-item">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Feed</span>
+    </a>
+    <a href="userprofile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </a>
+  </nav>
+
+  <script src="app.js" type="module"></script>
+  <script>
+    function toggleAuth(type) {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const loginBtn = document.getElementById('show-login-btn');
+      const signupBtn = document.getElementById('show-signup-btn');
+
+      if (type === 'login') {
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+      } else {
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>
