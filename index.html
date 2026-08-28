@@ -1,212 +1,173 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Sports Hub - Gaming Social Network</title>
+  <title>E-Sports Hub | Social Network</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <style>
     :root {
-      --bg-dark: #0a0c14;
-      --panel-bg: #121522;
-      --input-bg: #1c2033;
+      --bg-dark: #090a10;
+      --card-bg: #131722;
+      --input-bg: #1c2130;
       --accent-neon: #00ff88;
       --accent-blue: #3b82f6;
-      --accent-red: #ef4444;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --border-dark: #1f293d;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-dark: #22293a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; }
 
-    /* Top Facebook Style Header */
+    /* FB Header */
     .fb-header {
-      background: var(--panel-bg);
-      height: 56px;
-      padding: 0 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-dark);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      background: var(--card-bg); height: 56px; padding: 0 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border-dark); position: sticky; top: 0; z-index: 1000;
     }
-    .header-left { display: flex; align-items: center; gap: 12px; }
-    .brand-logo { font-weight: 900; font-size: 18px; color: var(--accent-neon); letter-spacing: 1px; }
-    .search-bar-wrap { position: relative; width: 240px; }
-    .search-bar-wrap input {
+    .brand { font-weight: 900; font-size: 18px; color: var(--accent-neon); letter-spacing: 0.5px; }
+    .search-box { position: relative; width: 260px; }
+    .search-box input {
       width: 100%; background: var(--input-bg); border: 1px solid var(--border-dark);
       padding: 7px 12px 7px 32px; border-radius: 20px; color: #fff; font-size: 12px; outline: none;
     }
-    .search-bar-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 11px; }
+    .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 11px; }
 
-    .header-center { display: flex; gap: 8px; }
-    .nav-tab {
-      padding: 10px 20px; color: var(--text-muted); font-size: 16px; text-decoration: none; border-radius: 8px; transition: 0.2s;
-    }
-    .nav-tab:hover, .nav-tab.active { color: var(--accent-neon); background: rgba(0,255,136,0.08); }
-
-    .header-right { display: flex; align-items: center; gap: 10px; }
-    .icon-btn {
-      width: 36px; height: 36px; border-radius: 50%; background: var(--input-bg);
-      display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; border: none;
-    }
-
-    /* 3-Column Facebook Layout */
+    /* 3-Column Layout */
     .app-layout {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 280px 1fr 320px;
-      gap: 20px;
-      padding: 20px 16px;
+      max-width: 1350px; margin: 0 auto; display: grid;
+      grid-template-columns: 260px 1fr 320px; gap: 20px; padding: 20px 16px;
     }
 
     /* Left Sidebar */
-    .left-sidebar { display: flex; flex-direction: column; gap: 8px; position: sticky; top: 76px; height: calc(100vh - 96px); }
+    .sidebar { display: flex; flex-direction: column; gap: 8px; position: sticky; top: 76px; height: calc(100vh - 96px); }
     .menu-item {
       display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-      border-radius: 8px; color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 600; transition: 0.2s;
+      border-radius: 8px; color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 600;
     }
-    .menu-item:hover { background: var(--panel-bg); }
-    .menu-item i { font-size: 16px; width: 20px; text-align: center; color: var(--accent-neon); }
+    .menu-item:hover { background: var(--card-bg); color: var(--accent-neon); }
 
-    /* Center Feed Area */
-    .center-feed { display: flex; flex-direction: column; gap: 16px; max-width: 680px; margin: 0 auto; width: 100%; }
+    /* Center Feed */
+    .feed-section { display: flex; flex-direction: column; gap: 16px; max-width: 680px; margin: 0 auto; width: 100%; }
 
-    /* Reels Bar */
-    .reels-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
-    .reel-card {
-      min-width: 100px; height: 150px; background: var(--panel-bg); border-radius: 10px;
-      border: 1px solid var(--border-dark); position: relative; padding: 8px; display: flex;
-      align-items: flex-end; font-size: 10px; font-weight: bold; cursor: pointer; background-size: cover;
+    /* Filter Chips */
+    .filter-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .chip {
+      background: var(--card-bg); border: 1px solid var(--border-dark); padding: 6px 14px;
+      border-radius: 20px; font-size: 12px; cursor: pointer; white-space: nowrap; color: var(--text-muted);
+    }
+    .chip.active { border-color: var(--accent-neon); color: var(--accent-neon); background: rgba(0,255,136,0.05); }
+
+    /* Post Creator */
+    .create-card { background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 12px; padding: 14px; }
+    .create-card textarea {
+      width: 100%; background: var(--input-bg); border: 1px solid var(--border-dark);
+      padding: 10px; border-radius: 8px; color: #fff; outline: none; resize: none; height: 60px; font-size: 13px; margin-bottom: 10px;
+    }
+    .create-controls { display: flex; justify-content: space-between; align-items: center; }
+    .create-controls select {
+      background: var(--input-bg); color: var(--accent-neon); border: 1px solid var(--border-dark);
+      padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none;
+    }
+    .btn-publish {
+      background: var(--accent-neon); color: #000; border: none; padding: 8px 20px;
+      font-weight: bold; border-radius: 20px; cursor: pointer; font-size: 12px;
     }
 
-    /* Post Creator Card */
-    .create-post-card {
-      background: var(--panel-bg); border: 1px solid var(--border-dark); border-radius: 12px; padding: 14px;
-    }
-    .post-top { display: flex; gap: 10px; align-items: center; }
-    .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
-    .post-top textarea {
+    /* Post Cards */
+    .post-card { background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 12px; padding: 14px; }
+    .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .post-badge { font-size: 9px; padding: 3px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+    .post-actions { display: flex; gap: 15px; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); padding: 8px 0; margin-top: 10px; }
+    .action-btn { background: none; border: none; color: var(--text-muted); font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .action-btn.liked { color: var(--accent-neon); }
+
+    /* Comment Section */
+    .comments-box { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .comment-item { background: var(--input-bg); padding: 6px 10px; border-radius: 8px; font-size: 11px; }
+    .comment-input-wrap { display: flex; gap: 6px; margin-top: 8px; }
+    .comment-input-wrap input {
       flex: 1; background: var(--input-bg); border: 1px solid var(--border-dark);
-      padding: 10px; border-radius: 20px; color: #fff; outline: none; resize: none; height: 42px; font-size: 13px;
+      border-radius: 15px; padding: 6px 12px; color: #fff; font-size: 11px; outline: none;
     }
-    .post-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid var(--border-dark); padding-top: 10px; }
 
-    /* Feed Card */
-    .feed-card { background: var(--panel-bg); border: 1px solid var(--border-dark); border-radius: 12px; padding: 14px; }
-    .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .badge { font-size: 9px; padding: 2px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
-
-    /* Right Sidebar (Contacts & Direct Messenger Drawer) */
-    .right-sidebar { position: sticky; top: 76px; height: calc(100vh - 96px); display: flex; flex-direction: column; gap: 15px; }
-    .messenger-drawer {
-      background: var(--panel-bg); border: 1px solid var(--border-dark); border-radius: 12px;
-      display: flex; flex-direction: column; height: 420px; overflow: hidden;
+    /* Right Messenger Drawer */
+    .messenger-box {
+      background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: 12px;
+      height: 480px; display: flex; flex-direction: column; position: sticky; top: 76px;
     }
-    .drawer-header { padding: 12px; background: #161a29; border-bottom: 1px solid var(--border-dark); display: flex; justify-content: space-between; align-items: center; }
-    .drawer-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
-    .drawer-footer { padding: 8px; border-top: 1px solid var(--border-dark); display: flex; gap: 6px; }
-
-    .msg-bubble { max-width: 80%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.3; }
-    .msg-bubble.me { align-self: flex-end; background: var(--accent-neon); color: #000; font-weight: 500; }
+    .messenger-header { padding: 12px; border-bottom: 1px solid var(--border-dark); font-size: 13px; font-weight: bold; color: var(--accent-neon); }
+    .messenger-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .msg-bubble { max-width: 85%; padding: 8px 12px; border-radius: 10px; font-size: 12px; }
+    .msg-bubble.me { align-self: flex-end; background: var(--accent-neon); color: #000; font-weight: 600; }
     .msg-bubble.other { align-self: flex-start; background: var(--input-bg); color: #fff; border: 1px solid var(--border-dark); }
+    .messenger-footer { padding: 8px; border-top: 1px solid var(--border-dark); display: flex; gap: 6px; }
+    .messenger-footer input { flex: 1; background: var(--input-bg); border: 1px solid var(--border-dark); border-radius: 15px; padding: 6px 12px; color: #fff; font-size: 12px; outline: none; }
 
-    /* Mobile Responsive */
-    @media (max-width: 1024px) {
+    @media (max-width: 900px) {
       .app-layout { grid-template-columns: 1fr; }
-      .left-sidebar, .right-sidebar { display: none; }
-      .search-bar-wrap { width: 140px; }
+      .sidebar, .messenger-box { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top FB Navigation Bar -->
   <header class="fb-header">
-    <div class="header-left">
-      <span class="brand-logo"><i class="fa-solid fa-gamepad"></i> E-SPORTS HUB</span>
-      <div class="search-bar-wrap">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="search-input" placeholder="Search gamers, coaches...">
-      </div>
+    <div class="brand"><i class="fa-solid fa-gamepad"></i> E-SPORTS HUB</div>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="Search gamers or keyword...">
     </div>
-
-    <div class="header-center">
-      <a href="#" class="nav-tab active"><i class="fa-solid fa-house"></i></a>
-      <a href="#" class="nav-tab"><i class="fa-solid fa-trophy"></i></a>
-      <a href="#" class="nav-tab"><i class="fa-solid fa-users"></i></a>
-      <a href="#" class="nav-tab"><i class="fa-solid fa-video"></i></a>
-    </div>
-
-    <div class="header-right">
-      <button class="icon-btn"><i class="fa-solid fa-bell"></i></button>
-      <button class="icon-btn" onclick="toggleMessenger()"><i class="fa-brands fa-facebook-messenger"></i></button>
-      <div class="avatar" id="user-avatar" style="width:32px; height:32px; font-size:12px;">U</div>
-    </div>
+    <div id="user-display" style="font-size: 12px; color: var(--accent-neon); font-weight: bold;">Connecting...</div>
   </header>
 
-  <!-- Main 3-Column Body -->
   <div class="app-layout">
     
-    <!-- Left Menu Sidebar -->
-    <aside class="left-sidebar">
-      <a href="#" class="menu-item"><i class="fa-solid fa-user-ninja"></i> My Gaming Profile</a>
-      <a href="#" class="menu-item"><i class="fa-solid fa-people-group"></i> My Squad / Teams</a>
-      <a href="#" class="menu-item"><i class="fa-solid fa-chart-line"></i> Coach Strategy Hub</a>
-      <a href="#" class="menu-item"><i class="fa-solid fa-briefcase"></i> Host Opportunities</a>
-      <a href="#" class="menu-item"><i class="fa-solid fa-bookmark"></i> Saved Gameplay Clips</a>
+    <aside class="sidebar">
+      <a href="#" class="menu-item"><i class="fa-solid fa-house"></i> News Feed</a>
+      <a href="#" class="menu-item"><i class="fa-solid fa-trophy"></i> Tournaments</a>
+      <a href="#" class="menu-item"><i class="fa-solid fa-users"></i> Squads & Clans</a>
+      <a href="#" class="menu-item"><i class="fa-solid fa-briefcase"></i> Host Jobs</a>
     </aside>
 
-    <!-- Center Feed Area -->
-    <main class="center-feed">
+    <main class="feed-section">
       
-      <!-- Gameplay Reels Row -->
-      <div class="reels-bar">
-        <div class="reel-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://picsum.photos/200/300?random=1');">Create Reel</div>
-        <div class="reel-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://picsum.photos/200/300?random=2');">Clutch 1v4</div>
-        <div class="reel-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://picsum.photos/200/300?random=3');">Sniper Shot</div>
+      <!-- Filters -->
+      <div class="filter-bar">
+        <button class="chip active" data-category="all">All Feed</button>
+        <button class="chip" data-category="clip">🎮 Clips</button>
+        <button class="chip" data-category="hire">🎯 Player Hiring</button>
+        <button class="chip" data-category="analysis">📊 Coach Strategy</button>
+        <button class="chip" data-category="host">🎙️ Host Positions</button>
       </div>
 
-      <!-- Post Input Box -->
-      <div class="create-post-card">
-        <div class="post-top">
-          <div class="avatar">YOU</div>
-          <textarea id="post-input" placeholder="What's happening in your squad? Share clip, hire or breakdown..."></textarea>
-        </div>
-        <div class="post-bottom">
-          <select id="post-type-select" style="background:var(--input-bg); color:var(--accent-neon); border:1px solid var(--border-dark); padding:6px; border-radius:6px; font-size:12px; outline:none;">
+      <!-- Post Creator -->
+      <div class="create-card">
+        <textarea id="post-input" placeholder="Share clips, recruit players, or post tournament updates..."></textarea>
+        <div class="create-controls">
+          <select id="post-type">
             <option value="clip">🎮 Gameplay Clip</option>
             <option value="hire">🎯 Squad Hiring</option>
-            <option value="analysis">📊 Coach Breakdown</option>
-            <option value="host">🎙️ Host Position</option>
+            <option value="analysis">📊 Strategy / Analysis</option>
+            <option value="host">🎙️ Host Application</option>
           </select>
-          <button id="publish-btn" style="background:var(--accent-neon); color:#000; border:none; padding:8px 18px; font-weight:bold; border-radius:20px; cursor:pointer;">Post</button>
+          <button id="publish-btn" class="btn-publish">Publish Post</button>
         </div>
       </div>
 
-      <!-- Main Feed Posts -->
-      <div id="feed-container" style="display: flex; flex-direction: column; gap: 14px;"></div>
+      <!-- Live Dynamic Feed -->
+      <div id="feed-container" style="display:flex; flex-direction:column; gap:14px;"></div>
     </main>
 
-    <!-- Right Side Direct Messenger Drawer -->
-    <aside class="right-sidebar">
-      <div class="messenger-drawer">
-        <div class="drawer-header">
-          <span style="font-size: 13px; font-weight: bold; color: var(--accent-neon);"><i class="fa-solid fa-lock"></i> Encrypted Messenger</span>
-          <span style="font-size: 10px; background: rgba(0,255,136,0.1); color: var(--accent-neon); padding: 2px 6px; border-radius: 4px;">E2EE</span>
-        </div>
-        <div id="chat-messages" class="drawer-body">
-          <div style="text-align: center; color: var(--text-muted); font-size: 11px;">Syncing messages...</div>
-        </div>
-        <div class="drawer-footer">
-          <input type="text" id="chat-input" placeholder="Type encrypted message..." style="flex:1; background:var(--input-bg); border:1px solid var(--border-dark); border-radius:20px; padding:6px 12px; color:#fff; font-size:12px; outline:none;">
-          <button id="chat-send-btn" style="background:var(--accent-neon); border:none; width:32px; height:32px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+    <!-- Right Live Messenger -->
+    <aside>
+      <div class="messenger-box">
+        <div class="messenger-header"><i class="fa-solid fa-comments"></i> Squad Live Chat</div>
+        <div id="chat-messages" class="messenger-body"></div>
+        <div class="messenger-footer">
+          <input type="text" id="chat-input" placeholder="Type message...">
+          <button id="chat-send-btn" style="background:var(--accent-neon); border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
     </aside>
@@ -215,4 +176,4 @@
 
   <script src="app.js" type="module"></script>
 </body>
-  </html>
+        </html>
