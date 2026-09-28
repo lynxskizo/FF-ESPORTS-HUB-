@@ -1,1 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Circuit - AI Code Assistant</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; height: 100vh; background-color: #1e1e1e; color: #fff; }
+
+        /* Sidebar Styling */
+        .sidebar { width: 280px; background-color: #252526; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #333; }
+        .sidebar h2 { font-size: 1.1rem; margin-bottom: 15px; text-align: center; color: #007acc; letter-spacing: 0.5px; }
+        .new-chat-btn, .login-btn { padding: 10px; background-color: #007acc; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 15px; width: 100%; transition: background 0.2s; }
+        .new-chat-btn:hover, .login-btn:hover { background-color: #005999; }
+        .chat-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .chat-item { padding: 10px; background-color: #2d2d2d; border-radius: 5px; cursor: pointer; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #ccc; }
+        .chat-item:hover, .chat-item.active { background-color: #3e3e42; color: #fff; }
+
+        /* Main Chat Area */
+        .main-chat { flex: 1; display: flex; flex-direction: column; background-color: #1e1e1e; }
+        .chat-header { padding: 15px; background-color: #2d2d2d; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .user-info { font-size: 0.9rem; color: #aaa; }
+        .chat-box { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+
+        /* Message Styling */
+        .message { padding: 12px 16px; border-radius: 8px; max-width: 85%; font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+        .user-message { background-color: #0e639c; color: white; align-self: flex-end; }
+        .ai-message { background-color: #2d2d2d; color: #d4d4d4; align-self: flex-start; border: 1px solid #3c3c3c; font-family: 'Courier New', Courier, monospace; }
+
+        /* Input Panel */
+        .input-container { padding: 15px; background-color: #252526; display: flex; gap: 10px; border-top: 1px solid #333; }
+        textarea { flex: 1; padding: 10px; background-color: #1e1e1e; color: #fff; border: 1px solid #3c3c3c; border-radius: 5px; outline: none; resize: none; height: 55px; font-size: 0.95rem; }
+        button.send-btn { padding: 0 20px; background-color: #007acc; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button.send-btn:hover { background-color: #005999; }
+    </style>
+
+    <!-- Firebase SDK & Logic Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Your exact Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZMtYGAJskaa6c8PbiFhxfQWC4kRT-Z_0",
+            authDomain: "clash-circuit.firebaseapp.com",
+            projectId: "clash-circuit",
+            storageBucket: "clash-circuit.firebasestorage.app",
+            messagingSenderId: "960973277906",
+            appId: "1:960973277906:web:daa641f14a32d6a260fb0b",
+            measurementId: "G-0WD45V63C3"
+        };
+
+        // Replace with your Google AI Studio API Key
+        const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+
+        // Initialize Firebase services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        let activeChatId = null;
+
+        // Document Elements
+        const authBtn = document.getElementById('auth-btn');
+        const userInfoDisplay = document.getElementById('user-info');
+        const newChatButton = document.getElementById('new-chat-btn');
+        const chatListContainer = document.getElementById('chat-list');
+        const chatBoxContainer = document.getElementById('chat-box');
+        const userInputArea = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-btn');
+
+        // Authentication State Listener
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                authBtn.textContent = "Sign Out";
+                userInfoDisplay.textContent = `User: ${user.displayName}`;
+                fetchUserChats();
+            } else {
+                authBtn.textContent = "Login with Google";
+                userInfoDisplay.textContent = "Not logged in";
+                chatListContainer.innerHTML = "";
+                chatBoxContainer.innerHTML = '<div class="message ai-message">Please log in with Google to sync and track your chat history automatically.</div>';
+            }
+        });
+
+        // Handle Auth Button Click
+        authBtn.addEventListener('click', () => {
+            if (currentUser) {
+                signOut(auth).catch((error) => console.error("Sign out error:", error));
+            } else {
+                signInWithPopup(auth, googleProvider).catch((error) => console.error("Authentication popup error:", error));
+            }
+        });
+
+        // Initialize New Chat Session
+        newChatButton.addEventListener('click', () => {
+            activeChatId = null;
+            chatBoxContainer.innerHTML = '<div class="message ai-message">New session ready. Paste code, provide error logs, or request complex logic development in any language!</div>';
+        });
+
+        // Send triggers
+        sendButton.addEventListener('click', processUserSubmission);
+        userInputArea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                processUserSubmission();
+            }
+        });
+
+        async function processUserSubmission() {
+            const promptText = userInputArea.value.trim();
+            if (!promptText) return;
+
+            appendUiMessage(promptText, 'user-message');
+            userInputArea.value = '';
+
+            const loadingIndicator = appendUiMessage("Analyzing syntax, tracing errors, and engineering optimization...", 'ai-message');
+
+            try {
+                // Strict Expert Developer Prompt Matrix
+                const systemBehavior = `You are a world-class, omni-lingual programming and debugging AI expert. You master every coding language, framework, database system, script structure, and markup language ever created. Your core objective is to deliver robust, secure, performance-optimized, and thoroughly error-free production code. When the user passes scripts with errors, console warnings, or structural breakages, comprehensively fix all edge cases, eliminate console logs/bugs, and return clean code complete with clear optimization notes.`;
+
+                const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: `${systemBehavior}\n\nUser Code/Query Request:\n${promptText}` }]
+                        }]
+                    })
+                });
+
+                const responseJson = await apiResponse.json();
+                const aiOutputText = responseJson.candidates?.[0]?.content?.parts?.[0]?.text || "Execution error: Unable to compute response.";
+                
+                loadingIndicator.textContent = aiOutputText;
+
+                // Sync with Firebase Firestore if user is logged in
+                if (currentUser) {
+                    saveConversationToFirestore(promptText, aiOutputText);
+                }
+
+            } catch (networkError) {
+                loadingIndicator.textContent = "Fatal Network Exception or Invalid API Key configuration detected.";
+                console.error(networkError);
+            }
+        }
+
+        function appendUiMessage(content, styleClass) {
+            const containerDiv = document.createElement('div');
+            containerDiv.classList.add('message', styleClass);
+            containerDiv.textContent = content;
+            chatBoxContainer.appendChild(containerDiv);
+            chatBoxContainer.scrollTop = chatBoxContainer.scrollHeight;
+            return containerDiv;
+        }
+
+        async function saveConversationToFirestore(userMsg, aiMsg) {
+            if (!activeChatId) {
+                const newChatRef = await addDoc(collection(db, "chats"), {
+                    userId: currentUser.uid,
+                    title: userMsg.substring(0, 32) + "...",
+                    createdAt: serverTimestamp()
+                });
+                activeChatId = newChatRef.id;
+            }
+
+            await addDoc(collection(db, "chats", activeChatId, "messages"), {
+                userText: userMsg,
+                aiText: aiMsg,
+                timestamp: serverTimestamp()
+            });
+        }
+
+        function fetchUserChats() {
+            const historyQuery = query(
+                collection(db, "chats"),
+                where("userId", "==", currentUser.uid),
+                orderBy("createdAt", "desc")
+            );
+
+            onSnapshot(historyQuery, (querySnapshot) => {
+                chatListContainer.innerHTML = "";
+                querySnapshot.forEach((docSnapshot) => {
+                    const chatRecord = docSnapshot.data();
+                    const listItem = document.createElement('div');
+                    listItem.classList.add('chat-item');
+                    listItem.textContent = chatRecord.title || "Untitled Chat Thread";
+                    listItem.onclick = () => loadExistingChatThread(docSnapshot.id);
+                    chatListContainer.appendChild(listItem);
+                });
+            });
+        }
+
+        function loadExistingChatThread(targetChatId) {
+            activeChatId = targetChatId;
+            chatBoxContainer.innerHTML = "";
+            
+            const messageQuery = query(
+                collection(db, "chats", targetChatId, "messages"),
+                orderBy("timestamp", "asc")
+            );
+
+            onSnapshot(messageQuery, (messageSnapshot) => {
+                chatBoxContainer.innerHTML = "";
+                messageSnapshot.forEach((msgDoc) => {
+                    const msgData = msgDoc.data();
+                    appendUiMessage(msgData.userText, 'user-message');
+                    appendUiMessage(msgData.aiText, 'ai-message');
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Sidebar View -->
+    <div class="sidebar">
+        <h2>Clash Circuit AI</h2>
+        <button class="new-chat-btn" id="new-chat-btn">+ New Chat Session</button>
+        <div class="chat-list" id="chat-list"></div>
+    </div>
+
+    <!-- Main Chat Workspace -->
+    <div class="main-chat">
+        <div class="chat-header">
+            <span id="user-info" class="user-info">Not logged in</span>
+            <button class="login-btn" id="auth-btn" style="width: auto; margin-bottom: 0;">Login with Google</button>
+        </div>
+
+        <div id="chat-box" class="chat-box">
+            <div class="message ai-message">Welcome to Clash Circuit. Log in with Google to retain chat threads, or jump straight into debugging and coding assistance.</div>
+        </div>
+
+        <div class="input-container">
+            <textarea id="user-input" placeholder="Paste script code, describe database schemas, or pass error logs here..."></textarea>
+            <button id="send-btn" class="send-btn">Send</button>
+        </div>
+    </div>
+
+</body>
+</html>
 
